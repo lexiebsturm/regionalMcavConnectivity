@@ -1,0 +1,753 @@
+﻿sample,site,pop,region,depthM,depthZone,dateCollected,lat,lon,regionDepth
+blz_001,RW,Belize Barrier Reef,BLZ,10.7,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_003,RW,Belize Barrier Reef,BLZ,10.1,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_004,RW,Belize Barrier Reef,BLZ,10.4,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_005,RW,Belize Barrier Reef,BLZ,10.7,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_006,SR,Belize Barrier Reef,BLZ,8.5,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_007,SR,Belize Barrier Reef,BLZ,9.1,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_008,SR,Belize Barrier Reef,BLZ,10.4,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_009,SR,Belize Barrier Reef,BLZ,10.1,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_010,SR,Belize Barrier Reef,BLZ,10.7,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_011,TR,Belize Barrier Reef,BLZ,10.1,Shallow,3/25/17,16.832433,-88.074017,BLZShallow
+blz_012,TR,Belize Barrier Reef,BLZ,10.4,Shallow,3/25/17,16.832433,-88.074017,BLZShallow
+blz_013,TR,Belize Barrier Reef,BLZ,10.4,Shallow,3/25/17,16.832433,-88.074017,BLZShallow
+blz_014,TR,Belize Barrier Reef,BLZ,9.8,Shallow,3/25/17,16.832433,-88.074017,BLZShallow
+blz_015,TR,Belize Barrier Reef,BLZ,9.4,Shallow,3/25/17,16.832433,-88.074017,BLZShallow
+blz_016,RW,Belize Barrier Reef,BLZ,16.5,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_017,RW,Belize Barrier Reef,BLZ,15.2,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_018,RW,Belize Barrier Reef,BLZ,15.8,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_019,RW,Belize Barrier Reef,BLZ,18.3,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_020,RW,Belize Barrier Reef,BLZ,15.8,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_021,SR,Belize Barrier Reef,BLZ,15.2,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_022,SR,Belize Barrier Reef,BLZ,15.2,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_023,SR,Belize Barrier Reef,BLZ,15.8,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_024,SR,Belize Barrier Reef,BLZ,15.5,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_025,SR,Belize Barrier Reef,BLZ,15.2,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_026,TR,Belize Barrier Reef,BLZ,17.1,Shallow,3/24/17,16.832433,-88.074017,BLZShallow
+blz_027,TR,Belize Barrier Reef,BLZ,17.1,Shallow,3/24/17,16.832433,-88.074017,BLZShallow
+blz_028,TR,Belize Barrier Reef,BLZ,17.1,Shallow,3/24/17,16.832433,-88.074017,BLZShallow
+blz_029,TR,Belize Barrier Reef,BLZ,17.1,Shallow,3/24/17,16.832433,-88.074017,BLZShallow
+blz_030,TR,Belize Barrier Reef,BLZ,16.5,Shallow,3/24/17,16.832433,-88.074017,BLZShallow
+blz_031,RW,Belize Barrier Reef,BLZ,28.3,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_032,RW,Belize Barrier Reef,BLZ,26.2,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_033,RW,Belize Barrier Reef,BLZ,24.4,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_034,RW,Belize Barrier Reef,BLZ,22.6,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_035,RW,Belize Barrier Reef,BLZ,22.3,Shallow,3/23/17,16.776067,-88.07465,BLZShallow
+blz_037,SR,Belize Barrier Reef,BLZ,28,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_038,SR,Belize Barrier Reef,BLZ,24.4,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_039,SR,Belize Barrier Reef,BLZ,25,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_040,SR,Belize Barrier Reef,BLZ,25,Shallow,3/24/17,16.76895,-88.073883,BLZShallow
+blz_041,TR,Belize Barrier Reef,BLZ,27.4,Shallow,3/25/17,16.832433,-88.074017,BLZShallow
+blz_042,TR,Belize Barrier Reef,BLZ,27.1,Shallow,3/25/17,16.832433,-88.074017,BLZShallow
+blz_043,TR,Belize Barrier Reef,BLZ,25.6,Shallow,3/25/17,16.832433,-88.074017,BLZShallow
+blz_044,TR,Belize Barrier Reef,BLZ,26.2,Shallow,3/25/17,16.832433,-88.074017,BLZShallow
+blz_045,TR,Belize Barrier Reef,BLZ,23.8,Shallow,3/25/17,16.832433,-88.074017,BLZShallow
+blz_046,SR,Belize Barrier Reef,BLZ,36,Mesophotic,3/5/16,16.76895,-88.073883,BLZMesophotic
+blz_047,SR,Belize Barrier Reef,BLZ,33.2,Mesophotic,3/5/16,16.76895,-88.073883,BLZMesophotic
+blz_048,SR,Belize Barrier Reef,BLZ,33.8,Mesophotic,3/5/16,16.76895,-88.073883,BLZMesophotic
+blz_049,SR,Belize Barrier Reef,BLZ,31.7,Mesophotic,3/5/16,16.76895,-88.073883,BLZMesophotic
+blz_050,RW,Belize Barrier Reef,BLZ,34.4,Mesophotic,3/6/16,16.776067,-88.07465,BLZMesophotic
+blz_051,RW,Belize Barrier Reef,BLZ,32.3,Mesophotic,3/6/16,16.776067,-88.07465,BLZMesophotic
+blz_052,RW,Belize Barrier Reef,BLZ,34.7,Mesophotic,3/6/16,16.776067,-88.07465,BLZMesophotic
+blz_053,RW,Belize Barrier Reef,BLZ,35.1,Mesophotic,3/6/16,16.776067,-88.07465,BLZMesophotic
+blz_054,RW,Belize Barrier Reef,BLZ,31.4,Mesophotic,3/6/16,16.776067,-88.07465,BLZMesophotic
+blz_055,TR,Belize Barrier Reef,BLZ,31.4,Mesophotic,3/7/16,16.832433,-88.074017,BLZMesophotic
+blz_056,TR,Belize Barrier Reef,BLZ,32.9,Mesophotic,3/7/16,16.832433,-88.074017,BLZMesophotic
+blz_057,TR,Belize Barrier Reef,BLZ,37.5,Mesophotic,3/8/16,16.832433,-88.074017,BLZMesophotic
+blz_058,TR,Belize Barrier Reef,BLZ,37.5,Mesophotic,3/8/16,16.832433,-88.074017,BLZMesophotic
+blz_059,TR,Belize Barrier Reef,BLZ,29.3,Shallow,3/8/16,16.832433,-88.074017,BLZShallow
+blz_060,SR,Belize Barrier Reef,BLZ,37.2,Mesophotic,3/8/16,16.76895,-88.073883,BLZMesophotic
+blz_061,GR,Glover's Reef Atoll,BLZ,11,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_062,GR,Glover's Reef Atoll,BLZ,10.1,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_063,GR,Glover's Reef Atoll,BLZ,9.8,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_064,GR,Glover's Reef Atoll,BLZ,10.1,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_065,GR,Glover's Reef Atoll,BLZ,9.8,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_066,GR,Glover's Reef Atoll,BLZ,9.1,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_067,GR,Glover's Reef Atoll,BLZ,10.7,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_068,GR,Glover's Reef Atoll,BLZ,10.7,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_069,GR,Glover's Reef Atoll,BLZ,11.3,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_070,GR,Glover's Reef Atoll,BLZ,8.8,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_071,GR,Glover's Reef Atoll,BLZ,8.5,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_072,GR,Glover's Reef Atoll,BLZ,9.1,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_073,GR,Glover's Reef Atoll,BLZ,10.1,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_074,GR,Glover's Reef Atoll,BLZ,9.8,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_075,GR,Glover's Reef Atoll,BLZ,8.8,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_076,GR,Glover's Reef Atoll,BLZ,18.3,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_077,GR,Glover's Reef Atoll,BLZ,18.3,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_078,GR,Glover's Reef Atoll,BLZ,16.8,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_079,GR,Glover's Reef Atoll,BLZ,15.8,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_081,GR,Glover's Reef Atoll,BLZ,15.2,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_082,GR,Glover's Reef Atoll,BLZ,14.9,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_083,GR,Glover's Reef Atoll,BLZ,15.8,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_084,GR,Glover's Reef Atoll,BLZ,17.1,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_085,GR,Glover's Reef Atoll,BLZ,16.8,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_086,GR,Glover's Reef Atoll,BLZ,17.1,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_087,GR,Glover's Reef Atoll,BLZ,16.2,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_088,GR,Glover's Reef Atoll,BLZ,14,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_089,GR,Glover's Reef Atoll,BLZ,14.3,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_090,GR,Glover's Reef Atoll,BLZ,16.5,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_091,GR,Glover's Reef Atoll,BLZ,25.9,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_092,GR,Glover's Reef Atoll,BLZ,23.8,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_093,GR,Glover's Reef Atoll,BLZ,23.8,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_094,GR,Glover's Reef Atoll,BLZ,27.4,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_095,GR,Glover's Reef Atoll,BLZ,28.3,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_096,GR,Glover's Reef Atoll,BLZ,27.1,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_097,GR,Glover's Reef Atoll,BLZ,28.7,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_098,GR,Glover's Reef Atoll,BLZ,25.6,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_099,GR,Glover's Reef Atoll,BLZ,24.4,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_100,GR,Glover's Reef Atoll,BLZ,25,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_101,GR,Glover's Reef Atoll,BLZ,26.8,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_102,GR,Glover's Reef Atoll,BLZ,24.1,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_103,GR,Glover's Reef Atoll,BLZ,22.9,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_104,GR,Glover's Reef Atoll,BLZ,24.7,Shallow,3/27/17,16.755383,-87.78125,BLZShallow
+blz_105,GR,Glover's Reef Atoll,BLZ,37.8,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_106,GR,Glover's Reef Atoll,BLZ,35.7,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_107,GR,Glover's Reef Atoll,BLZ,35.4,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_108,GR,Glover's Reef Atoll,BLZ,32.6,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_109,GR,Glover's Reef Atoll,BLZ,35.1,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_110,GR,Glover's Reef Atoll,BLZ,34.1,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_111,GR,Glover's Reef Atoll,BLZ,34.1,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_112,GR,Glover's Reef Atoll,BLZ,34.1,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_113,GR,Glover's Reef Atoll,BLZ,34.1,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_114,GR,Glover's Reef Atoll,BLZ,33.5,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_115,GR,Glover's Reef Atoll,BLZ,35.7,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_116,GR,Glover's Reef Atoll,BLZ,32.9,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_117,GR,Glover's Reef Atoll,BLZ,37.8,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_118,GR,Glover's Reef Atoll,BLZ,35.4,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+blz_119,GR,Glover's Reef Atoll,BLZ,32.3,Mesophotic,3/27/17,16.755383,-87.78125,BLZMesophotic
+cuba_001,BSA,Western Cuba,CUBA,74.8,Mesophotic,5/21/17,22.01502,-84.99913,CUBAMesophotic
+cuba_002,BSA,Western Cuba,CUBA,40.5,Mesophotic,5/21/17,22.01502,-84.99913,CUBAMesophotic
+cuba_003,GU,Western Cuba,CUBA,4,Shallow,5/23/17,21.79668,-84.51667,CUBAShallow
+cuba_006,GU,Western Cuba,CUBA,4,Shallow,5/23/17,21.79668,-84.51667,CUBAShallow
+cuba_009,GU,Western Cuba,CUBA,4,Shallow,5/23/17,21.79668,-84.51667,CUBAShallow
+cuba_010,GU,Western Cuba,CUBA,4,Shallow,5/23/17,21.79668,-84.51667,CUBAShallow
+cuba_011,GU,Western Cuba,CUBA,4,Shallow,5/23/17,21.79668,-84.51667,CUBAShallow
+cuba_012,GU,Western Cuba,CUBA,4,Shallow,5/23/17,21.79668,-84.51667,CUBAShallow
+cuba_013,GU,Western Cuba,CUBA,4,Shallow,5/23/17,21.79668,-84.51667,CUBAShallow
+cuba_014,GU,Western Cuba,CUBA,4,Shallow,5/23/17,21.79668,-84.51667,CUBAShallow
+cuba_015,GU,Western Cuba,CUBA,4,Shallow,5/23/17,21.79668,-84.51667,CUBAShallow
+cuba_016,GU,Western Cuba,CUBA,4,Shallow,5/23/17,21.79668,-84.51667,CUBAShallow
+cuba_017,GU,Western Cuba,CUBA,4,Shallow,5/23/17,21.79668,-84.51667,CUBAShallow
+cuba_018,GU,Western Cuba,CUBA,4,Shallow,5/23/17,21.79668,-84.51667,CUBAShallow
+cuba_019,IJ,Western Cuba,CUBA,4,Shallow,5/25/17,21.63063,-83.2142,CUBAShallow
+cuba_020,IJ,Western Cuba,CUBA,4,Shallow,5/25/17,21.63063,-83.2142,CUBAShallow
+cuba_021,IJ,Western Cuba,CUBA,4,Shallow,5/25/17,21.63063,-83.2142,CUBAShallow
+cuba_022,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_023,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_024,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_025,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_026,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_027,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_028,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_029,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_030,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_031,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_032,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_033,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_034,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_035,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_036,CA,Eastern Cuba,CUBA,4,Shallow,6/1/17,20.80792,-78.9555,CUBAShallow
+cuba_037,CO,Eastern Cuba,CUBA,4,Shallow,6/3/17,19.9255,-76.40367,CUBAShallow
+cuba_038,CO,Eastern Cuba,CUBA,4,Shallow,6/3/17,19.9255,-76.40367,CUBAShallow
+cuba_043,CO,Eastern Cuba,CUBA,4,Shallow,6/3/17,19.9255,-76.40367,CUBAShallow
+cuba_044,CO,Eastern Cuba,CUBA,4,Shallow,6/3/17,19.9255,-76.40367,CUBAShallow
+cuba_045,CO,Eastern Cuba,CUBA,4,Shallow,6/3/17,19.9255,-76.40367,CUBAShallow
+cuba_046,CO,Eastern Cuba,CUBA,4,Shallow,6/3/17,19.9255,-76.40367,CUBAShallow
+cuba_047,CO,Eastern Cuba,CUBA,4,Shallow,6/3/17,19.9255,-76.40367,CUBAShallow
+cuba_048,CO,Eastern Cuba,CUBA,4,Shallow,6/3/17,19.9255,-76.40367,CUBAShallow
+cuba_049,CO,Eastern Cuba,CUBA,4,Shallow,6/3/17,19.9255,-76.40367,CUBAShallow
+cuba_050,CO,Eastern Cuba,CUBA,4,Shallow,6/3/17,19.9255,-76.40367,CUBAShallow
+cuba_051,CO,Eastern Cuba,CUBA,4,Shallow,6/3/17,19.9255,-76.40367,CUBAShallow
+cuba_052,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_053,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_054,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_055,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_056,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_057,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_058,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_059,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_060,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_061,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_062,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_063,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_065,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_066,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_067,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_068,CL,Eastern Cuba,CUBA,4,Shallow,6/6/17,21.075,-75.63833,CUBAShallow
+cuba_069,CS,Eastern Cuba,CUBA,3.5,Shallow,6/7/17,21.67833,-77.16667,CUBAShallow
+cuba_070,CS,Eastern Cuba,CUBA,3.5,Shallow,6/7/17,21.67833,-77.16667,CUBAShallow
+cuba_071,CS,Eastern Cuba,CUBA,3.5,Shallow,6/7/17,21.67833,-77.16667,CUBAShallow
+cuba_073,CS,Eastern Cuba,CUBA,3.5,Shallow,6/7/17,21.67833,-77.16667,CUBAShallow
+cuba_074,CS,Eastern Cuba,CUBA,3.5,Shallow,6/7/17,21.67833,-77.16667,CUBAShallow
+cuba_075,CS,Eastern Cuba,CUBA,3.5,Shallow,6/7/17,21.67833,-77.16667,CUBAShallow
+cuba_076,CS,Eastern Cuba,CUBA,3.5,Shallow,6/7/17,21.67833,-77.16667,CUBAShallow
+cuba_077,CS,Eastern Cuba,CUBA,3.5,Shallow,6/7/17,21.67833,-77.16667,CUBAShallow
+cuba_078,CS,Eastern Cuba,CUBA,3.5,Shallow,6/7/17,21.67833,-77.16667,CUBAShallow
+cuba_081,CS,Eastern Cuba,CUBA,3.5,Shallow,6/7/17,21.67833,-77.16667,CUBAShallow
+cuba_082,CS,Eastern Cuba,CUBA,3.5,Shallow,6/7/17,21.67833,-77.16667,CUBAShallow
+cuba_083,CS,Eastern Cuba,CUBA,3.5,Shallow,6/7/17,21.67833,-77.16667,CUBAShallow
+cuba_086,CJ,Western Cuba,CUBA,1.5,Shallow,6/9/17,22.98263,-79.8066,CUBAShallow
+cuba_088,CJ,Western Cuba,CUBA,1.5,Shallow,6/9/17,22.98263,-79.8066,CUBAShallow
+cuba_089,CJ,Western Cuba,CUBA,1.5,Shallow,6/9/17,22.98263,-79.8066,CUBAShallow
+cuba_090,CJ,Western Cuba,CUBA,1.5,Shallow,6/9/17,22.98263,-79.8066,CUBAShallow
+cuba_091,CJ,Western Cuba,CUBA,1.5,Shallow,6/9/17,22.98263,-79.8066,CUBAShallow
+cuba_093,CJ,Western Cuba,CUBA,1.5,Shallow,6/9/17,22.98263,-79.8066,CUBAShallow
+cuba_094,CJ,Western Cuba,CUBA,1.5,Shallow,6/9/17,22.98263,-79.8066,CUBAShallow
+cuba_096,CJ,Western Cuba,CUBA,1.5,Shallow,6/9/17,22.98263,-79.8066,CUBAShallow
+fk_002,DRTN,Northern Dry Tortugas,DRT,32.94,Mesophotic,8/22/19,24.65211,-83.103095,DRTMesophotic
+fk_004,DRTN,Northern Dry Tortugas,DRT,33.855,Mesophotic,8/22/19,24.65211,-83.103095,DRTMesophotic
+fk_005,DRTN,Northern Dry Tortugas,DRT,35.38,Mesophotic,8/22/19,24.65211,-83.103095,DRTMesophotic
+fk_006,DRTN,Northern Dry Tortugas,DRT,35.38,Mesophotic,8/22/19,24.65211,-83.103095,DRTMesophotic
+fk_007,DRTN,Northern Dry Tortugas,DRT,35.38,Mesophotic,8/22/19,24.65211,-83.103095,DRTMesophotic
+fk_008,DRTN,Northern Dry Tortugas,DRT,34.77,Mesophotic,8/22/19,24.65211,-83.103095,DRTMesophotic
+fk_009,DRTN,Northern Dry Tortugas,DRT,33.855,Mesophotic,8/22/19,24.65211,-83.103095,DRTMesophotic
+fk_010,DRTN,Northern Dry Tortugas,DRT,32.94,Mesophotic,8/22/19,24.65211,-83.103095,DRTMesophotic
+fk_012,DRTN,Northern Dry Tortugas,DRT,34.465,Mesophotic,8/22/19,24.65211,-83.103095,DRTMesophotic
+fk_013,DRTN,Northern Dry Tortugas,DRT,36.905,Mesophotic,8/22/19,24.65211,-83.103095,DRTMesophotic
+fk_014,DRTN,Northern Dry Tortugas,DRT,16.47,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_015,DRTN,Northern Dry Tortugas,DRT,16.165,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_016,DRTN,Northern Dry Tortugas,DRT,15.86,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_017,DRTN,Northern Dry Tortugas,DRT,14.64,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_018,DRTN,Northern Dry Tortugas,DRT,14.64,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_019,DRTN,Northern Dry Tortugas,DRT,15.555,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_020,DRTN,Northern Dry Tortugas,DRT,12.505,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_021,DRTN,Northern Dry Tortugas,DRT,15.25,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_022,DRTN,Northern Dry Tortugas,DRT,14.945,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_023,DRTN,Northern Dry Tortugas,DRT,15.86,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_024,DRTN,Northern Dry Tortugas,DRT,16.165,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_026,DRTN,Northern Dry Tortugas,DRT,17.08,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_027,DRTN,Northern Dry Tortugas,DRT,14.64,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_028,DRTN,Northern Dry Tortugas,DRT,13.725,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_029,DRTN,Northern Dry Tortugas,DRT,15.555,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_030,DRTN,Northern Dry Tortugas,DRT,15.555,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_031,DRTN,Northern Dry Tortugas,DRT,15.86,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_032,DRTN,Northern Dry Tortugas,DRT,15.86,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_033,DRTN,Northern Dry Tortugas,DRT,16.775,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_034,DRTN,Northern Dry Tortugas,DRT,17.08,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_036,DRTN,Northern Dry Tortugas,DRT,17.08,Shallow,8/22/19,24.66019667,-83.07890333,DRTShallow
+fk_037,DRTN,Northern Dry Tortugas,DRT,31.415,Mesophotic,8/23/19,24.64042,-83.10294333,DRTMesophotic
+fk_038,DRTN,Northern Dry Tortugas,DRT,30.5,Mesophotic,8/23/19,24.64042,-83.10294333,DRTMesophotic
+fk_039,DRTN,Northern Dry Tortugas,DRT,30.805,Mesophotic,8/23/19,24.64042,-83.10294333,DRTMesophotic
+fk_040,DRTN,Northern Dry Tortugas,DRT,30.5,Mesophotic,8/23/19,24.64042,-83.10294333,DRTMesophotic
+fk_041,DRTN,Northern Dry Tortugas,DRT,31.11,Mesophotic,8/23/19,24.64042,-83.10294333,DRTMesophotic
+fk_042,DRTN,Northern Dry Tortugas,DRT,31.11,Mesophotic,8/23/19,24.64042,-83.10294333,DRTMesophotic
+fk_044,DRTN,Northern Dry Tortugas,DRT,29.585,Mesophotic,8/23/19,24.64042,-83.10294333,DRTMesophotic
+fk_045,DRTN,Northern Dry Tortugas,DRT,30.805,Mesophotic,8/23/19,24.64042,-83.10294333,DRTMesophotic
+fk_046,DRTN,Northern Dry Tortugas,DRT,29.89,Mesophotic,8/23/19,24.64042,-83.10294333,DRTMesophotic
+fk_047,DRTN,Northern Dry Tortugas,DRT,29.585,Mesophotic,8/23/19,24.64042,-83.10294333,DRTMesophotic
+fk_048,DRTN,Northern Dry Tortugas,DRT,19.825,Shallow,8/23/19,24.67518667,-83.068585,DRTShallow
+fk_049,DRTN,Northern Dry Tortugas,DRT,20.13,Shallow,8/23/19,24.67518667,-83.068585,DRTShallow
+fk_050,DRTN,Northern Dry Tortugas,DRT,20.435,Shallow,8/23/19,24.67518667,-83.068585,DRTShallow
+fk_052,DRTN,Northern Dry Tortugas,DRT,20.435,Shallow,8/23/19,24.67518667,-83.068585,DRTShallow
+fk_053,DRTN,Northern Dry Tortugas,DRT,20.13,Shallow,8/23/19,24.67518667,-83.068585,DRTShallow
+fk_054,DRTN,Northern Dry Tortugas,DRT,29.585,Mesophotic,8/23/19,24.640415,-83.10294667,DRTMesophotic
+fk_055,DRTN,Northern Dry Tortugas,DRT,29.585,Mesophotic,8/23/19,24.640415,-83.10294667,DRTMesophotic
+fk_056,DRTN,Northern Dry Tortugas,DRT,30.5,Mesophotic,8/23/19,24.640415,-83.10294667,DRTMesophotic
+fk_060,DRTN,Northern Dry Tortugas,DRT,20.74,Shallow,8/23/19,24.67518667,-83.068585,DRTShallow
+fk_061,DRTS,Southern Dry Tortugas,DRT,33.245,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_062,DRTS,Southern Dry Tortugas,DRT,32.94,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_063,DRTS,Southern Dry Tortugas,DRT,32.94,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_064,DRTS,Southern Dry Tortugas,DRT,33.55,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_065,DRTS,Southern Dry Tortugas,DRT,34.16,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_066,DRTS,Southern Dry Tortugas,DRT,33.855,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_067,DRTS,Southern Dry Tortugas,DRT,34.16,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_068,DRTS,Southern Dry Tortugas,DRT,33.855,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_069,DRTS,Southern Dry Tortugas,DRT,33.855,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_070,DRTS,Southern Dry Tortugas,DRT,34.16,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_071,DRTS,Southern Dry Tortugas,DRT,33.55,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_072,DRTS,Southern Dry Tortugas,DRT,33.245,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_073,DRTS,Southern Dry Tortugas,DRT,32.94,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_074,DRTS,Southern Dry Tortugas,DRT,32.635,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_075,DRTS,Southern Dry Tortugas,DRT,32.635,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_076,DRTS,Southern Dry Tortugas,DRT,32.33,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_077,DRTS,Southern Dry Tortugas,DRT,32.33,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_078,DRTS,Southern Dry Tortugas,DRT,31.415,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_079,DRTS,Southern Dry Tortugas,DRT,32.025,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_080,DRTS,Southern Dry Tortugas,DRT,32.025,Mesophotic,8/24/19,24.49396,-83.09607833,DRTMesophotic
+fk_082,DRTS,Southern Dry Tortugas,DRT,25.62,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_084,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_085,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_086,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_087,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_088,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_089,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_090,DRTS,Southern Dry Tortugas,DRT,25.01,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_091,DRTS,Southern Dry Tortugas,DRT,25.01,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_092,DRTS,Southern Dry Tortugas,DRT,25.62,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_093,DRTS,Southern Dry Tortugas,DRT,25.62,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_094,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_095,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_096,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_097,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_098,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_099,DRTS,Southern Dry Tortugas,DRT,25.62,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_100,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_101,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_102,DRTS,Southern Dry Tortugas,DRT,25.62,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_103,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_104,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_105,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_106,DRTS,Southern Dry Tortugas,DRT,25.315,Shallow,8/24/19,24.51780833,-83.09790167,DRTShallow
+fk_107,DRTS,Southern Dry Tortugas,DRT,37.21,Mesophotic,8/24/19,24.48925667,-83.122695,DRTMesophotic
+fk_108,DRTS,Southern Dry Tortugas,DRT,37.21,Mesophotic,8/24/19,24.48925667,-83.122695,DRTMesophotic
+fk_109,DRTS,Southern Dry Tortugas,DRT,37.21,Mesophotic,8/24/19,24.48925667,-83.122695,DRTMesophotic
+fk_110,DRTS,Southern Dry Tortugas,DRT,37.21,Mesophotic,8/24/19,24.48925667,-83.122695,DRTMesophotic
+fk_111,DRTS,Southern Dry Tortugas,DRT,37.21,Mesophotic,8/24/19,24.48925667,-83.122695,DRTMesophotic
+fk_112,DRTS,Southern Dry Tortugas,DRT,37.21,Mesophotic,8/24/19,24.48925667,-83.122695,DRTMesophotic
+fk_113,DRTS,Southern Dry Tortugas,DRT,37.21,Mesophotic,8/24/19,24.48925667,-83.122695,DRTMesophotic
+fk_114,DRTS,Southern Dry Tortugas,DRT,37.515,Mesophotic,8/24/19,24.48925667,-83.122695,DRTMesophotic
+fk_115,DRTS,Southern Dry Tortugas,DRT,37.515,Mesophotic,8/24/19,24.48925667,-83.122695,DRTMesophotic
+fk_116,DRTS,Southern Dry Tortugas,DRT,37.21,Mesophotic,8/24/19,24.48925667,-83.122695,DRTMesophotic
+fk_117,DRTS,Southern Dry Tortugas,DRT,36.905,Mesophotic,8/24/19,24.48925667,-83.122695,DRTMesophotic
+fk_118,DRTS,Southern Dry Tortugas,DRT,27.755,Shallow,8/24/19,24.51135833,-83.09516,DRTShallow
+fk_119,DRTS,Southern Dry Tortugas,DRT,27.755,Shallow,8/24/19,24.51135833,-83.09516,DRTShallow
+fk_120,DRTS,Southern Dry Tortugas,DRT,27.45,Shallow,8/24/19,24.51135833,-83.09516,DRTShallow
+fk_121,DRTS,Southern Dry Tortugas,DRT,27.145,Shallow,8/24/19,24.51135833,-83.09516,DRTShallow
+fk_122,DRTS,Southern Dry Tortugas,DRT,44.835,Mesophotic,8/25/19,24.48466,-83.110725,DRTMesophotic
+fk_123,DRTS,Southern Dry Tortugas,DRT,44.225,Mesophotic,8/25/19,24.48466,-83.110725,DRTMesophotic
+fk_124,DRTS,Southern Dry Tortugas,DRT,44.835,Mesophotic,8/25/19,24.48466,-83.110725,DRTMesophotic
+fk_125,DRTS,Southern Dry Tortugas,DRT,44.835,Mesophotic,8/25/19,24.48466,-83.110725,DRTMesophotic
+fk_126,DRTS,Southern Dry Tortugas,DRT,44.225,Mesophotic,8/25/19,24.48466,-83.110725,DRTMesophotic
+fk_127,DRTS,Southern Dry Tortugas,DRT,43.31,Mesophotic,8/25/19,24.48466,-83.110725,DRTMesophotic
+fk_128,LK,Lower Keys,FK,18.3,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_129,LK,Lower Keys,FK,18.3,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_130,LK,Lower Keys,FK,17.995,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_131,LK,Lower Keys,FK,16.775,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_132,LK,Lower Keys,FK,17.995,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_133,LK,Lower Keys,FK,17.385,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_134,LK,Lower Keys,FK,17.995,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_135,LK,Lower Keys,FK,17.69,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_136,LK,Lower Keys,FK,17.69,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_137,LK,Lower Keys,FK,17.69,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_138,LK,Lower Keys,FK,17.69,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_139,LK,Lower Keys,FK,17.995,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_140,LK,Lower Keys,FK,17.69,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_141,LK,Lower Keys,FK,17.995,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_142,LK,Lower Keys,FK,17.385,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_143,LK,Lower Keys,FK,17.69,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_144,LK,Lower Keys,FK,18.3,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_145,LK,Lower Keys,FK,18.605,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_146,LK,Lower Keys,FK,17.385,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_147,LK,Lower Keys,FK,17.995,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_148,LK,Lower Keys,FK,17.385,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_149,LK,Lower Keys,FK,17.385,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_150,LK,Lower Keys,FK,17.385,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_151,LK,Lower Keys,FK,17.385,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_152,LK,Lower Keys,FK,17.69,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_153,LK,Lower Keys,FK,17.385,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_154,LK,Lower Keys,FK,17.995,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_155,LK,Lower Keys,FK,17.995,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_156,LK,Lower Keys,FK,18.605,Shallow,8/26/19,24.49297,-81.59892667,FKShallow
+fk_157,LK,Lower Keys,FK,32.635,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_158,LK,Lower Keys,FK,32.635,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_159,LK,Lower Keys,FK,32.025,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_160,LK,Lower Keys,FK,32.33,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_161,LK,Lower Keys,FK,31.11,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_162,LK,Lower Keys,FK,31.11,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_163,LK,Lower Keys,FK,30.805,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_164,LK,Lower Keys,FK,30.195,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_165,LK,Lower Keys,FK,31.11,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_166,LK,Lower Keys,FK,30.5,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_167,LK,Lower Keys,FK,31.11,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_168,LK,Lower Keys,FK,31.11,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_169,LK,Lower Keys,FK,31.11,Mesophotic,8/26/19,24.494035,-81.58790833,FKMesophotic
+fk_170,LK,Lower Keys,FK,17.995,Shallow,8/26/19,24.49105167,-81.60602833,FKShallow
+fk_171,UK,Upper Keys,FK,35.685,Mesophotic,8/27/19,25.152185,-80.23162,FKMesophotic
+fk_172,UK,Upper Keys,FK,35.38,Mesophotic,8/27/19,25.152185,-80.23162,FKMesophotic
+fk_173,UK,Upper Keys,FK,35.38,Mesophotic,8/27/19,25.152185,-80.23162,FKMesophotic
+fk_174,UK,Upper Keys,FK,35.685,Mesophotic,8/27/19,25.152185,-80.23162,FKMesophotic
+fk_175,UK,Upper Keys,FK,35.38,Mesophotic,8/27/19,25.152185,-80.23162,FKMesophotic
+fk_176,UK,Upper Keys,FK,35.38,Mesophotic,8/27/19,25.152185,-80.23162,FKMesophotic
+fk_177,UK,Upper Keys,FK,34.465,Mesophotic,8/27/19,25.152185,-80.23162,FKMesophotic
+fk_178,UK,Upper Keys,FK,35.075,Mesophotic,8/27/19,25.152185,-80.23162,FKMesophotic
+fk_179,UK,Upper Keys,FK,22.875,Shallow,8/27/19,25.14415667,-80.252055,FKShallow
+fk_180,UK,Upper Keys,FK,20.74,Shallow,8/27/19,25.14415667,-80.252055,FKShallow
+fk_181,UK,Upper Keys,FK,20.13,Shallow,8/27/19,25.14415667,-80.252055,FKShallow
+fk_182,UK,Upper Keys,FK,20.435,Shallow,8/27/19,25.14415667,-80.252055,FKShallow
+fk_183,UK,Upper Keys,FK,20.74,Shallow,8/27/19,25.14415667,-80.252055,FKShallow
+fk_184,UK,Upper Keys,FK,21.045,Shallow,8/27/19,25.14415667,-80.252055,FKShallow
+fk_185,UK,Upper Keys,FK,20.74,Shallow,8/27/19,25.14415667,-80.252055,FKShallow
+fk_186,UK,Upper Keys,FK,21.045,Shallow,8/27/19,25.14415667,-80.252055,FKShallow
+fk_187,UK,Upper Keys,FK,43.31,Mesophotic,8/27/19,25.15823333,-80.22064,FKMesophotic
+fk_188,UK,Upper Keys,FK,43.31,Mesophotic,8/27/19,25.15823333,-80.22064,FKMesophotic
+fk_189,UK,Upper Keys,FK,43.31,Mesophotic,8/27/19,25.15823333,-80.22064,FKMesophotic
+fk_190,UK,Upper Keys,FK,43.31,Mesophotic,8/27/19,25.15823333,-80.22064,FKMesophotic
+fk_191,UK,Upper Keys,FK,43.005,Mesophotic,8/27/19,25.15823333,-80.22064,FKMesophotic
+fk_192,UK,Upper Keys,FK,43.005,Mesophotic,8/27/19,25.15823333,-80.22064,FKMesophotic
+fk_193,UK,Upper Keys,FK,43.31,Mesophotic,8/27/19,25.15823333,-80.22064,FKMesophotic
+fk_194,UK,Upper Keys,FK,18.91,Shallow,8/27/19,25.14404833,-80.25258833,FKShallow
+fk_195,UK,Upper Keys,FK,19.215,Shallow,8/27/19,25.14404833,-80.25258833,FKShallow
+fk_196,UK,Upper Keys,FK,18.605,Shallow,8/27/19,25.14404833,-80.25258833,FKShallow
+fk_198,UK,Upper Keys,FK,18.3,Shallow,8/27/19,25.14404833,-80.25258833,FKShallow
+fk_199,UK,Upper Keys,FK,18.605,Shallow,8/27/19,25.14404833,-80.25258833,FKShallow
+fk_200,UK,Upper Keys,FK,17.995,Shallow,8/27/19,25.14404833,-80.25258833,FKShallow
+fk_201,UK,Upper Keys,FK,42.7,Mesophotic,8/28/19,25.217545,-80.19341333,FKMesophotic
+fk_202,UK,Upper Keys,FK,43.005,Mesophotic,8/28/19,25.217545,-80.19341333,FKMesophotic
+fk_205,UK,Upper Keys,FK,40.87,Mesophotic,8/28/19,25.217545,-80.19341333,FKMesophotic
+fk_208,UK,Upper Keys,FK,40.87,Mesophotic,8/28/19,25.217545,-80.19341333,FKMesophotic
+fk_209,UK,Upper Keys,FK,41.785,Mesophotic,8/28/19,25.217545,-80.19341333,FKMesophotic
+fk_211,UK,Upper Keys,FK,43.615,Mesophotic,8/28/19,25.217545,-80.19341333,FKMesophotic
+fk_212,UK,Upper Keys,FK,43.31,Mesophotic,8/28/19,25.217545,-80.19341333,FKMesophotic
+fk_214,UK,Upper Keys,FK,43.615,Mesophotic,8/28/19,25.217545,-80.19341333,FKMesophotic
+fk_216,UK,Upper Keys,FK,44.225,Mesophotic,8/28/19,25.217545,-80.19341333,FKMesophotic
+fk_217,UK,Upper Keys,FK,45.14,Mesophotic,8/28/19,25.217545,-80.19341333,FKMesophotic
+fk_218,UK,Upper Keys,FK,27.45,Shallow,8/28/19,25.22056667,-80.200865,FKShallow
+fk_219,UK,Upper Keys,FK,27.45,Shallow,8/28/19,25.22056667,-80.200865,FKShallow
+fk_220,UK,Upper Keys,FK,25.01,Shallow,8/28/19,25.22056667,-80.200865,FKShallow
+fk_222,UK,Upper Keys,FK,27.755,Shallow,8/28/19,25.22056667,-80.200865,FKShallow
+fk_224,UK,Upper Keys,FK,25.925,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_225,UK,Upper Keys,FK,26.23,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_226,UK,Upper Keys,FK,24.4,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_227,UK,Upper Keys,FK,25.925,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_228,UK,Upper Keys,FK,26.535,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_229,UK,Upper Keys,FK,25.925,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_230,UK,Upper Keys,FK,26.23,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_231,UK,Upper Keys,FK,26.23,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_232,UK,Upper Keys,FK,28.365,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_233,UK,Upper Keys,FK,27.45,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_234,UK,Upper Keys,FK,27.145,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_235,UK,Upper Keys,FK,26.84,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_236,UK,Upper Keys,FK,26.535,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+fk_237,UK,Upper Keys,FK,26.49,Shallow,8/28/19,25.22036,-80.20094333,FKShallow
+mx_001,ALA,Alacranes,SGOM,24.9,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_002,ALA,Alacranes,SGOM,24,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_003,ALA,Alacranes,SGOM,25.5,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_004,ALA,Alacranes,SGOM,25.8,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_005,ALA,Alacranes,SGOM,24.9,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_007,ALA,Alacranes,SGOM,24.6,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_008,ALA,Alacranes,SGOM,17.4,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_009,ALA,Alacranes,SGOM,15.9,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_010,ALA,Alacranes,SGOM,14.1,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_011,ALA,Alacranes,SGOM,10.8,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_012,ALA,Alacranes,SGOM,9.9,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_014,ALA,Alacranes,SGOM,9,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_015,ALA,Alacranes,SGOM,9.3,Shallow,7/18/19,22.39622,-89.70578,SGOMShallow
+mx_017,ALA,Alacranes,SGOM,36.9,Mesophotic,7/18/19,22.39592,-89.70556,SGOMMesophotic
+mx_018,ALA,Alacranes,SGOM,37.8,Mesophotic,7/18/19,22.39592,-89.70556,SGOMMesophotic
+mx_019,ALA,Alacranes,SGOM,37.2,Mesophotic,7/18/19,22.39592,-89.70556,SGOMMesophotic
+mx_020,ALA,Alacranes,SGOM,36.6,Mesophotic,7/18/19,22.39592,-89.70556,SGOMMesophotic
+mx_021,ALA,Alacranes,SGOM,39,Mesophotic,7/18/19,22.39592,-89.70556,SGOMMesophotic
+mx_022,ALA,Alacranes,SGOM,37.8,Mesophotic,7/18/19,22.39592,-89.70556,SGOMMesophotic
+mx_023,ALA,Alacranes,SGOM,37.5,Mesophotic,7/18/19,22.39592,-89.70556,SGOMMesophotic
+mx_024,ALA,Alacranes,SGOM,36.6,Mesophotic,7/18/19,22.39592,-89.70556,SGOMMesophotic
+mx_025,ALA,Alacranes,SGOM,15.9,Shallow,7/18/19,22.54583,-89.66012,SGOMShallow
+mx_026,ALA,Alacranes,SGOM,15.6,Shallow,7/18/19,22.54583,-89.66012,SGOMShallow
+mx_028,ALA,Alacranes,SGOM,15.6,Shallow,7/18/19,22.54583,-89.66012,SGOMShallow
+mx_030,ALA,Alacranes,SGOM,15.9,Shallow,7/18/19,22.54583,-89.66012,SGOMShallow
+mx_033,ALA,Alacranes,SGOM,11.1,Shallow,7/18/19,22.54583,-89.66012,SGOMShallow
+mx_034,ALA,Alacranes,SGOM,9.9,Shallow,7/18/19,22.54583,-89.66012,SGOMShallow
+mx_035,ALA,Alacranes,SGOM,10.2,Shallow,7/18/19,22.54583,-89.66012,SGOMShallow
+mx_036,ALA,Alacranes,SGOM,10.2,Shallow,7/18/19,22.54583,-89.66012,SGOMShallow
+mx_037,ALA,Alacranes,SGOM,10.2,Shallow,7/18/19,22.54583,-89.66012,SGOMShallow
+mx_038,ALA,Alacranes,SGOM,9.6,Shallow,7/18/19,22.54583,-89.66012,SGOMShallow
+mx_040,ALA,Alacranes,SGOM,10.5,Shallow,7/18/19,22.54583,-89.66012,SGOMShallow
+mx_041,ALA,Alacranes,SGOM,11.1,Shallow,7/18/19,22.51127,-89.79737,SGOMShallow
+mx_042,ALA,Alacranes,SGOM,10.8,Shallow,7/18/19,22.51127,-89.79737,SGOMShallow
+mx_043,ALA,Alacranes,SGOM,11.4,Shallow,7/18/19,22.51127,-89.79737,SGOMShallow
+mx_044,ALA,Alacranes,SGOM,10.5,Shallow,7/18/19,22.51127,-89.79737,SGOMShallow
+mx_045,ALA,Alacranes,SGOM,9.9,Shallow,7/18/19,22.51127,-89.79737,SGOMShallow
+mx_046,ALA,Alacranes,SGOM,16.5,Shallow,7/18/19,22.51127,-89.79737,SGOMShallow
+mx_047,ALA,Alacranes,SGOM,16.8,Shallow,7/18/19,22.51127,-89.79737,SGOMShallow
+mx_049,ALA,Alacranes,SGOM,15.3,Shallow,7/18/19,22.51127,-89.79737,SGOMShallow
+mx_050,ALA,Alacranes,SGOM,15.6,Shallow,7/18/19,22.51127,-89.79737,SGOMShallow
+mx_051,ALA,Alacranes,SGOM,33.9,Mesophotic,7/19/19,22.58667,-89.75208,SGOMMesophotic
+mx_052,ALA,Alacranes,SGOM,35.7,Mesophotic,7/19/19,22.58667,-89.75208,SGOMMesophotic
+mx_053,ALA,Alacranes,SGOM,36.3,Mesophotic,7/19/19,22.58667,-89.75208,SGOMMesophotic
+mx_054,ALA,Alacranes,SGOM,36.9,Mesophotic,7/19/19,22.58667,-89.75208,SGOMMesophotic
+mx_055,ALA,Alacranes,SGOM,35.1,Mesophotic,7/19/19,22.58667,-89.75208,SGOMMesophotic
+mx_056,ALA,Alacranes,SGOM,34.5,Mesophotic,7/19/19,22.58667,-89.75208,SGOMMesophotic
+mx_057,ALA,Alacranes,SGOM,33.9,Mesophotic,7/19/19,22.58667,-89.75208,SGOMMesophotic
+mx_058,ALA,Alacranes,SGOM,25.2,Shallow,7/19/19,22.58667,-89.75208,SGOMShallow
+mx_059,ALA,Alacranes,SGOM,24.9,Shallow,7/19/19,22.58667,-89.75208,SGOMShallow
+mx_060,ALA,Alacranes,SGOM,23.7,Shallow,7/19/19,22.58667,-89.75208,SGOMShallow
+mx_061,ALA,Alacranes,SGOM,23.7,Shallow,7/19/19,22.58667,-89.75208,SGOMShallow
+mx_062,ALA,Alacranes,SGOM,24,Shallow,7/19/19,22.58667,-89.75208,SGOMShallow
+mx_063,ALA,Alacranes,SGOM,23.7,Shallow,7/19/19,22.58667,-89.75208,SGOMShallow
+mx_064,ALA,Alacranes,SGOM,25.8,Shallow,7/19/19,22.50925,-89.6278,SGOMShallow
+mx_065,ALA,Alacranes,SGOM,26.7,Shallow,7/19/19,22.50925,-89.6278,SGOMShallow
+mx_066,ALA,Alacranes,SGOM,25.8,Shallow,7/19/19,22.50925,-89.6278,SGOMShallow
+mx_067,BDN,Bajos del Norte,SGOM,36,Mesophotic,7/20/19,23.30706,-88.71617,SGOMMesophotic
+mx_068,BDN,Bajos del Norte,SGOM,35.7,Mesophotic,7/20/19,23.30706,-88.71617,SGOMMesophotic
+mx_069,BDN,Bajos del Norte,SGOM,37.5,Mesophotic,7/20/19,23.30706,-88.71617,SGOMMesophotic
+mx_070,BDN,Bajos del Norte,SGOM,39,Mesophotic,7/20/19,23.30706,-88.71617,SGOMMesophotic
+mx_071,BDN,Bajos del Norte,SGOM,39.3,Mesophotic,7/20/19,23.30706,-88.71617,SGOMMesophotic
+mx_072,BDN,Bajos del Norte,SGOM,37.8,Mesophotic,7/20/19,23.30706,-88.71617,SGOMMesophotic
+mx_073,BDN,Bajos del Norte,SGOM,37.5,Mesophotic,7/20/19,23.30706,-88.71617,SGOMMesophotic
+mx_074,BDN,Bajos del Norte,SGOM,38.1,Mesophotic,7/20/19,23.30706,-88.71617,SGOMMesophotic
+mx_075,BDN,Bajos del Norte,SGOM,34.8,Mesophotic,7/20/19,23.30706,-88.71617,SGOMMesophotic
+mx_076,BDN,Bajos del Norte,SGOM,33.9,Mesophotic,7/20/19,23.30706,-88.71617,SGOMMesophotic
+mx_077,BDN,Bajos del Norte,SGOM,34.5,Mesophotic,7/20/19,23.30706,-88.71617,SGOMMesophotic
+mx_078,BDN,Bajos del Norte,SGOM,15.9,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_079,BDN,Bajos del Norte,SGOM,15,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_080,BDN,Bajos del Norte,SGOM,15.6,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_081,BDN,Bajos del Norte,SGOM,15,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_082,BDN,Bajos del Norte,SGOM,15,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_083,BDN,Bajos del Norte,SGOM,14.7,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_084,BDN,Bajos del Norte,SGOM,15.9,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_085,BDN,Bajos del Norte,SGOM,15,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_087,BDN,Bajos del Norte,SGOM,10.5,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_089,BDN,Bajos del Norte,SGOM,10.2,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_090,BDN,Bajos del Norte,SGOM,10.5,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_091,BDN,Bajos del Norte,SGOM,10.2,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_092,BDN,Bajos del Norte,SGOM,10.8,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_093,BDN,Bajos del Norte,SGOM,10.8,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_095,BDN,Bajos del Norte,SGOM,15.9,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_096,BDN,Bajos del Norte,SGOM,15.3,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_097,BDN,Bajos del Norte,SGOM,14.7,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_100,BDN,Bajos del Norte,SGOM,15.3,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_101,BDN,Bajos del Norte,SGOM,10.8,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_103,BDN,Bajos del Norte,SGOM,10.2,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_106,BDN,Bajos del Norte,SGOM,10.8,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_107,BDN,Bajos del Norte,SGOM,10.5,Shallow,7/20/19,23.24744,-88.70778,SGOMShallow
+mx_109,BDN,Bajos del Norte,SGOM,29.4,Shallow,7/21/19,23.28367,-88.71162,SGOMShallow
+mx_112,BDN,Bajos del Norte,SGOM,28.2,Shallow,7/21/19,23.28367,-88.71162,SGOMShallow
+mx_114,BDN,Bajos del Norte,SGOM,28.2,Shallow,7/21/19,23.28367,-88.71162,SGOMShallow
+mx_115,BDN,Bajos del Norte,SGOM,27.9,Shallow,7/21/19,23.28367,-88.71162,SGOMShallow
+mx_119,BDN,Bajos del Norte,SGOM,27.9,Shallow,7/21/19,23.28367,-88.71162,SGOMShallow
+mx_121,BDN,Bajos del Norte,SGOM,27.9,Shallow,7/21/19,23.28367,-88.71162,SGOMShallow
+mx_123,BDN,Bajos del Norte,SGOM,27.3,Shallow,7/21/19,23.28367,-88.71162,SGOMShallow
+nwgom_001,EFGB,East Flower Garden Bank,NWGOM,46.6,Mesophotic,5/3/16,27.91102,-93.59668,NWGOMMesophotic
+nwgom_003,EFGB,East Flower Garden Bank,NWGOM,47.2,Mesophotic,10/29/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_004,EFGB,East Flower Garden Bank,NWGOM,46,Mesophotic,10/29/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_006,EFGB,East Flower Garden Bank,NWGOM,46.6,Mesophotic,10/29/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_007,EFGB,East Flower Garden Bank,NWGOM,47.2,Mesophotic,9/27/16,27.91102,-93.59668,NWGOMMesophotic
+nwgom_008,EFGB,East Flower Garden Bank,NWGOM,46.6,Mesophotic,10/29/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_010,EFGB,East Flower Garden Bank,NWGOM,45.1,Mesophotic,10/30/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_011,EFGB,East Flower Garden Bank,NWGOM,46,Mesophotic,10/30/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_012,EFGB,East Flower Garden Bank,NWGOM,46,Mesophotic,10/30/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_013,EFGB,East Flower Garden Bank,NWGOM,46.9,Mesophotic,10/30/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_015,EFGB,East Flower Garden Bank,NWGOM,46.9,Mesophotic,10/30/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_016,EFGB,East Flower Garden Bank,NWGOM,46.6,Mesophotic,10/30/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_017,EFGB,East Flower Garden Bank,NWGOM,45.7,Mesophotic,10/30/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_019,EFGB,East Flower Garden Bank,NWGOM,46.6,Mesophotic,10/30/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_020,EFGB,East Flower Garden Bank,NWGOM,45.7,Mesophotic,10/30/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_021,EFGB,East Flower Garden Bank,NWGOM,45.1,Mesophotic,10/30/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_023,EFGB,East Flower Garden Bank,NWGOM,36.6,Mesophotic,8/30/11,27.9241,-93.6016,NWGOMMesophotic
+nwgom_024,EFGB,East Flower Garden Bank,NWGOM,47.2,Mesophotic,10/29/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_026,EFGB,East Flower Garden Bank,NWGOM,36.6,Mesophotic,8/26/11,27.9241,-93.6016,NWGOMMesophotic
+nwgom_028,EFGB,East Flower Garden Bank,NWGOM,46.6,Mesophotic,10/29/15,27.91102,-93.59668,NWGOMMesophotic
+nwgom_030,EFGB,East Flower Garden Bank,NWGOM,42.1,Mesophotic,8/30/11,27.9241,-93.6016,NWGOMMesophotic
+nwgom_031,EFGB,East Flower Garden Bank,NWGOM,19.5,Shallow,5/4/16,27.9114,-93.59821,NWGOMShallow
+nwgom_032,EFGB,East Flower Garden Bank,NWGOM,20.1,Shallow,5/4/16,27.9114,-93.59821,NWGOMShallow
+nwgom_033,EFGB,East Flower Garden Bank,NWGOM,20.4,Shallow,5/4/16,27.9114,-93.59821,NWGOMShallow
+nwgom_035,EFGB,East Flower Garden Bank,NWGOM,21.9,Shallow,5/4/16,27.9114,-93.59821,NWGOMShallow
+nwgom_036,EFGB,East Flower Garden Bank,NWGOM,22.6,Shallow,5/4/16,27.9114,-93.59821,NWGOMShallow
+nwgom_037,EFGB,East Flower Garden Bank,NWGOM,20.1,Shallow,10/29/15,27.9114,-93.59821,NWGOMShallow
+nwgom_038,EFGB,East Flower Garden Bank,NWGOM,20.1,Shallow,10/29/15,27.9114,-93.59821,NWGOMShallow
+nwgom_041,EFGB,East Flower Garden Bank,NWGOM,21.3,Shallow,10/29/15,27.9114,-93.59821,NWGOMShallow
+nwgom_042,EFGB,East Flower Garden Bank,NWGOM,21.9,Shallow,10/26/14,27.91085,-93.60018,NWGOMShallow
+nwgom_043,EFGB,East Flower Garden Bank,NWGOM,21.9,Shallow,10/26/14,27.91085,-93.60018,NWGOMShallow
+nwgom_044,EFGB,East Flower Garden Bank,NWGOM,21.3,Shallow,10/26/14,27.91085,-93.60018,NWGOMShallow
+nwgom_045,EFGB,East Flower Garden Bank,NWGOM,21.9,Shallow,10/26/14,27.91085,-93.60018,NWGOMShallow
+nwgom_046,EFGB,East Flower Garden Bank,NWGOM,22.9,Shallow,10/26/14,27.91085,-93.60018,NWGOMShallow
+nwgom_047,EFGB,East Flower Garden Bank,NWGOM,22.6,Shallow,10/26/14,27.90987,-93.60021,NWGOMShallow
+nwgom_048,EFGB,East Flower Garden Bank,NWGOM,22.3,Shallow,10/26/14,27.90987,-93.60021,NWGOMShallow
+nwgom_049,EFGB,East Flower Garden Bank,NWGOM,21.3,Shallow,10/26/14,27.90987,-93.60021,NWGOMShallow
+nwgom_050,EFGB,East Flower Garden Bank,NWGOM,21.6,Shallow,10/26/14,27.90987,-93.60021,NWGOMShallow
+nwgom_051,EFGB,East Flower Garden Bank,NWGOM,21.6,Shallow,10/26/14,27.90987,-93.60021,NWGOMShallow
+nwgom_052,EFGB,East Flower Garden Bank,NWGOM,20.7,Shallow,10/26/14,27.90987,-93.60021,NWGOMShallow
+nwgom_053,EFGB,East Flower Garden Bank,NWGOM,19.8,Shallow,10/26/14,27.90987,-93.59804,NWGOMShallow
+nwgom_054,EFGB,East Flower Garden Bank,NWGOM,20.1,Shallow,10/26/14,27.90987,-93.59804,NWGOMShallow
+nwgom_055,EFGB,East Flower Garden Bank,NWGOM,20.7,Shallow,10/26/14,27.90987,-93.59804,NWGOMShallow
+nwgom_056,EFGB,East Flower Garden Bank,NWGOM,20.1,Shallow,10/26/14,27.90987,-93.59804,NWGOMShallow
+nwgom_058,EFGB,East Flower Garden Bank,NWGOM,20.4,Shallow,10/26/14,27.90987,-93.59804,NWGOMShallow
+nwgom_059,EFGB,East Flower Garden Bank,NWGOM,21.9,Shallow,9/10/10,27.90956,-93.60139,NWGOMShallow
+nwgom_060,EFGB,East Flower Garden Bank,NWGOM,22.6,Shallow,10/26/14,27.91085,-93.60018,NWGOMShallow
+nwgom_062,WFGB,West Flower Garden Bank,NWGOM,43.3,Mesophotic,5/4/16,27.8751,-93.82035,NWGOMMesophotic
+nwgom_063,WFGB,West Flower Garden Bank,NWGOM,42.7,Mesophotic,5/5/16,27.8751,-93.82035,NWGOMMesophotic
+nwgom_064,WFGB,West Flower Garden Bank,NWGOM,41.8,Mesophotic,5/5/16,27.8751,-93.82035,NWGOMMesophotic
+nwgom_065,WFGB,West Flower Garden Bank,NWGOM,43,Mesophotic,5/5/16,27.8751,-93.82035,NWGOMMesophotic
+nwgom_066,WFGB,West Flower Garden Bank,NWGOM,42.7,Mesophotic,5/5/16,27.8751,-93.82035,NWGOMMesophotic
+nwgom_067,WFGB,West Flower Garden Bank,NWGOM,43,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_068,WFGB,West Flower Garden Bank,NWGOM,42.7,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_069,WFGB,West Flower Garden Bank,NWGOM,43.3,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_070,WFGB,West Flower Garden Bank,NWGOM,42.4,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_071,WFGB,West Flower Garden Bank,NWGOM,45.1,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_072,WFGB,West Flower Garden Bank,NWGOM,43.9,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_073,WFGB,West Flower Garden Bank,NWGOM,43.6,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_074,WFGB,West Flower Garden Bank,NWGOM,43.9,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_075,WFGB,West Flower Garden Bank,NWGOM,43.3,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_076,WFGB,West Flower Garden Bank,NWGOM,44.2,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_077,WFGB,West Flower Garden Bank,NWGOM,44.2,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_078,WFGB,West Flower Garden Bank,NWGOM,42.1,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_079,WFGB,West Flower Garden Bank,NWGOM,44.8,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_080,WFGB,West Flower Garden Bank,NWGOM,42.7,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_081,WFGB,West Flower Garden Bank,NWGOM,44.2,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_082,WFGB,West Flower Garden Bank,NWGOM,45.1,Mesophotic,10/29/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_083,WFGB,West Flower Garden Bank,NWGOM,42.7,Mesophotic,10/28/15,27.8751,-93.82035,NWGOMMesophotic
+nwgom_084,WFGB,West Flower Garden Bank,NWGOM,36.6,Mesophotic,8/29/11,27.87371,-93.81655,NWGOMMesophotic
+nwgom_085,WFGB,West Flower Garden Bank,NWGOM,39.6,Mesophotic,8/28/11,27.87371,-93.81655,NWGOMMesophotic
+nwgom_086,WFGB,West Flower Garden Bank,NWGOM,39.6,Mesophotic,8/28/11,27.87371,-93.81655,NWGOMMesophotic
+nwgom_087,WFGB,West Flower Garden Bank,NWGOM,39.6,Mesophotic,8/27/11,27.87371,-93.81655,NWGOMMesophotic
+nwgom_091,WFGB,West Flower Garden Bank,NWGOM,25.9,Shallow,10/28/15,27.87429,-93.82033,NWGOMShallow
+nwgom_092,WFGB,West Flower Garden Bank,NWGOM,23.8,Shallow,5/5/16,27.87429,-93.82033,NWGOMShallow
+nwgom_093,WFGB,West Flower Garden Bank,NWGOM,22.9,Shallow,10/28/15,27.87429,-93.82033,NWGOMShallow
+nwgom_094,WFGB,West Flower Garden Bank,NWGOM,22.9,Shallow,10/28/15,27.87429,-93.82033,NWGOMShallow
+nwgom_095,WFGB,West Flower Garden Bank,NWGOM,23.5,Shallow,10/28/15,27.87429,-93.82033,NWGOMShallow
+nwgom_096,WFGB,West Flower Garden Bank,NWGOM,23.2,Shallow,10/28/15,27.87429,-93.82033,NWGOMShallow
+nwgom_097,WFGB,West Flower Garden Bank,NWGOM,22.9,Shallow,10/28/15,27.87429,-93.82033,NWGOMShallow
+nwgom_098,WFGB,West Flower Garden Bank,NWGOM,23.2,Shallow,10/28/15,27.87429,-93.82033,NWGOMShallow
+nwgom_099,WFGB,West Flower Garden Bank,NWGOM,25.9,Shallow,10/28/15,27.87429,-93.82033,NWGOMShallow
+nwgom_100,WFGB,West Flower Garden Bank,NWGOM,25.3,Shallow,10/28/15,27.87429,-93.82033,NWGOMShallow
+nwgom_101,WFGB,West Flower Garden Bank,NWGOM,23.2,Shallow,10/28/15,27.87429,-93.82033,NWGOMShallow
+nwgom_103,WFGB,West Flower Garden Bank,NWGOM,21.3,Shallow,10/25/14,27.87523,-93.81737,NWGOMShallow
+nwgom_104,WFGB,West Flower Garden Bank,NWGOM,21.9,Shallow,10/25/14,27.87523,-93.81737,NWGOMShallow
+nwgom_105,WFGB,West Flower Garden Bank,NWGOM,21.9,Shallow,10/25/14,27.87523,-93.81737,NWGOMShallow
+nwgom_106,WFGB,West Flower Garden Bank,NWGOM,21,Shallow,10/25/14,27.87523,-93.81737,NWGOMShallow
+nwgom_107,WFGB,West Flower Garden Bank,NWGOM,20.7,Shallow,10/25/14,27.87495,-93.81637,NWGOMShallow
+nwgom_108,WFGB,West Flower Garden Bank,NWGOM,21,Shallow,10/25/14,27.87495,-93.81637,NWGOMShallow
+nwgom_109,WFGB,West Flower Garden Bank,NWGOM,21.3,Shallow,10/25/14,27.87495,-93.81637,NWGOMShallow
+nwgom_110,WFGB,West Flower Garden Bank,NWGOM,21.3,Shallow,10/25/14,27.87495,-93.81637,NWGOMShallow
+nwgom_111,WFGB,West Flower Garden Bank,NWGOM,22.3,Shallow,10/25/14,27.87582,-93.8164,NWGOMShallow
+nwgom_112,WFGB,West Flower Garden Bank,NWGOM,22.6,Shallow,10/25/14,27.87582,-93.8164,NWGOMShallow
+nwgom_113,WFGB,West Flower Garden Bank,NWGOM,21.9,Shallow,10/25/14,27.87582,-93.8164,NWGOMShallow
+nwgom_114,WFGB,West Flower Garden Bank,NWGOM,22.6,Shallow,10/28/15,27.87429,-93.82033,NWGOMShallow
+nwgom_115,WFGB,West Flower Garden Bank,NWGOM,21.6,Shallow,10/25/14,27.87523,-93.81737,NWGOMShallow
+nwgom_116,WFGB,West Flower Garden Bank,NWGOM,23.5,Shallow,9/13/10,27.87337,-93.82154,NWGOMShallow
+nwgom_117,WFGB,West Flower Garden Bank,NWGOM,21.9,Shallow,9/13/10,27.87337,-93.82154,NWGOMShallow
+nwgom_119,WFGB,West Flower Garden Bank,NWGOM,21.3,Shallow,10/25/14,27.87523,-93.81737,NWGOMShallow
+nwgom_120,WFGB,West Flower Garden Bank,NWGOM,30.2,Mesophotic,9/13/10,27.87337,-93.82154,NWGOMMesophotic
+nwgom_121,Bright,Bright Bank,NWGOM,48.2,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_122,Bright,Bright Bank,NWGOM,48.2,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_123,Bright,Bright Bank,NWGOM,48.5,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_124,Bright,Bright Bank,NWGOM,48.5,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_125,Bright,Bright Bank,NWGOM,47.9,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_126,Bright,Bright Bank,NWGOM,48.2,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_127,Bright,Bright Bank,NWGOM,48.2,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_129,Bright,Bright Bank,NWGOM,34.4,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_130,Bright,Bright Bank,NWGOM,35.1,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_131,Bright,Bright Bank,NWGOM,36,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_132,Bright,Bright Bank,NWGOM,48.5,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_133,Bright,Bright Bank,NWGOM,47.2,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_134,Bright,Bright Bank,NWGOM,48.2,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_135,Bright,Bright Bank,NWGOM,48.2,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_136,Bright,Bright Bank,NWGOM,48.8,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_137,Bright,Bright Bank,NWGOM,47.9,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_139,Bright,Bright Bank,NWGOM,48.2,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_140,Bright,Bright Bank,NWGOM,48.2,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_141,Bright,Bright Bank,NWGOM,48.2,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_142,Bright,Bright Bank,NWGOM,48.8,Mesophotic,5/7/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_143,Bright,Bright Bank,NWGOM,55.3,Mesophotic,7/10/15,27.8862,-93.30174,NWGOMMesophotic
+nwgom_144,Bright,Bright Bank,NWGOM,47.5,Mesophotic,9/30/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_145,Bright,Bright Bank,NWGOM,47.5,Mesophotic,9/30/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_146,Bright,Bright Bank,NWGOM,47.5,Mesophotic,9/30/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_147,Bright,Bright Bank,NWGOM,47.5,Mesophotic,9/30/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_148,Bright,Bright Bank,NWGOM,47.5,Mesophotic,9/30/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_149,Bright,Bright Bank,NWGOM,47.5,Mesophotic,9/30/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_150,Bright,Bright Bank,NWGOM,47.5,Mesophotic,9/30/16,27.8862,-93.30174,NWGOMMesophotic
+nwgom_152,McGrail,McGrail Bank,NWGOM,48.5,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_153,McGrail,McGrail Bank,NWGOM,48.5,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_154,McGrail,McGrail Bank,NWGOM,48.8,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_155,McGrail,McGrail Bank,NWGOM,48.5,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_156,McGrail,McGrail Bank,NWGOM,48.8,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_157,McGrail,McGrail Bank,NWGOM,48.8,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_158,McGrail,McGrail Bank,NWGOM,48.8,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_159,McGrail,McGrail Bank,NWGOM,48.8,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_160,McGrail,McGrail Bank,NWGOM,48.2,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_161,McGrail,McGrail Bank,NWGOM,46.3,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_162,McGrail,McGrail Bank,NWGOM,45.7,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_163,McGrail,McGrail Bank,NWGOM,46,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_164,McGrail,McGrail Bank,NWGOM,46.3,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_165,McGrail,McGrail Bank,NWGOM,46,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_166,McGrail,McGrail Bank,NWGOM,46,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_167,McGrail,McGrail Bank,NWGOM,46.3,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_168,McGrail,McGrail Bank,NWGOM,46.3,Mesophotic,5/6/16,27.96299,-92.59262,NWGOMMesophotic
+nwgom_169,McGrail,McGrail Bank,NWGOM,53.5,Mesophotic,7/7/15,27.96364,-92.59216,NWGOMMesophotic
+nwgom_170,McGrail,McGrail Bank,NWGOM,50,Mesophotic,7/8/15,27.96235,-92.59369,NWGOMMesophotic
+nwgom_171,McGrail,McGrail Bank,NWGOM,50,Mesophotic,7/8/15,27.96235,-92.59369,NWGOMMesophotic
+nwgom_172,McGrail,McGrail Bank,NWGOM,51,Mesophotic,7/8/15,27.96235,-92.59369,NWGOMMesophotic
+nwgom_173,McGrail,McGrail Bank,NWGOM,50,Mesophotic,7/8/15,27.96288,-92.59266,NWGOMMesophotic
+nwgom_174,McGrail,McGrail Bank,NWGOM,48.5,Mesophotic,7/8/15,27.96288,-92.59266,NWGOMMesophotic
+nwgom_175,McGrail,McGrail Bank,NWGOM,51,Mesophotic,7/8/15,27.96288,-92.59266,NWGOMMesophotic
+nwgom_176,McGrail,McGrail Bank,NWGOM,53,Mesophotic,7/8/15,27.96288,-92.59266,NWGOMMesophotic
+nwgom_178,McGrail,McGrail Bank,NWGOM,49,Mesophotic,7/8/15,27.96321,-92.59295,NWGOMMesophotic
+nwgom_179,McGrail,McGrail Bank,NWGOM,48,Mesophotic,7/8/15,27.96321,-92.59295,NWGOMMesophotic
+nwgom_180,McGrail,McGrail Bank,NWGOM,48,Mesophotic,7/8/15,27.96321,-92.59295,NWGOMMesophotic
+sf_001,Central,St Lucie,SEFL,5.5,Shallow,10/15/15,27.13167,-80.13403,SEFLShallow
+sf_002,Central,St Lucie,SEFL,4.3,Shallow,10/15/15,27.13167,-80.13403,SEFLShallow
+sf_003,Central,St Lucie,SEFL,5.5,Shallow,3/15/16,27.13167,-80.13403,SEFLShallow
+sf_004,Central,St Lucie,SEFL,5.5,Shallow,11/4/16,27.13167,-80.13403,SEFLShallow
+sf_005,Central,St Lucie,SEFL,6.1,Shallow,11/4/16,27.13167,-80.13403,SEFLShallow
+sf_006,Central,St Lucie,SEFL,6.1,Shallow,11/4/16,27.13167,-80.13403,SEFLShallow
+sf_007,Central,St Lucie,SEFL,5.2,Shallow,11/4/16,27.13167,-80.13403,SEFLShallow
+sf_008,Ledge,St Lucie,SEFL,6.4,Shallow,2/14/17,27.12114,-80.12743,SEFLShallow
+sf_009,Ledge,St Lucie,SEFL,7,Shallow,2/14/17,27.12114,-80.12743,SEFLShallow
+sf_011,Ledge,St Lucie,SEFL,7.9,Shallow,2/14/17,27.12114,-80.12743,SEFLShallow
+sf_012,Ledge,St Lucie,SEFL,7.1,Shallow,10/15/15,27.12114,-80.12743,SEFLShallow
+sf_013,Ledge,St Lucie,SEFL,7.1,Shallow,10/15/15,27.12114,-80.12743,SEFLShallow
+sf_014,Ledge,St Lucie,SEFL,7.1,Shallow,10/15/15,27.12114,-80.12743,SEFLShallow
+sf_015,South,St Lucie,SEFL,5.2,Shallow,10/15/15,27.12854,-80.12552,SEFLShallow
+sf_016,JUP,Jupiter,SEFL,21.3,Shallow,12/1/16,26.94405,-80.02215,SEFLShallow
+sf_017,JUP,Jupiter,SEFL,21.6,Shallow,12/1/16,26.94405,-80.02215,SEFLShallow
+sf_018,JUP,Jupiter,SEFL,21,Shallow,12/1/16,26.94405,-80.02215,SEFLShallow
+sf_019,JUP,Jupiter,SEFL,20.4,Shallow,12/1/16,26.94405,-80.02215,SEFLShallow
+sf_020,JUP,Jupiter,SEFL,21.9,Shallow,12/1/16,26.94405,-80.02215,SEFLShallow
+sf_021,JUP,Jupiter,SEFL,22.6,Shallow,12/1/16,26.94405,-80.02215,SEFLShallow
+sf_022,JUP,Jupiter,SEFL,21.3,Shallow,12/1/16,26.94405,-80.02215,SEFLShallow
+sf_023,JUP,Jupiter,SEFL,21.3,Shallow,12/1/16,26.94405,-80.02215,SEFLShallow
+sf_026,JUP,Jupiter,SEFL,21,Shallow,12/1/16,26.94405,-80.02215,SEFLShallow
+sf_027,JUP,Jupiter,SEFL,19.8,Shallow,12/1/16,26.94405,-80.02215,SEFLShallow
+sf_028,JUP,Jupiter,SEFL,19.8,Shallow,12/1/16,26.94405,-80.02215,SEFLShallow
+sf_030,JUP,Jupiter,SEFL,19.5,Shallow,12/1/16,26.94405,-80.02215,SEFLShallow
+sf_031,FRRP #36,West Palm,SEFL,14.3,Shallow,6/17/15,26.691,-80.0182,SEFLShallow
+sf_032,FRRP #36,West Palm,SEFL,14.9,Shallow,7/17/15,26.691,-80.0182,SEFLShallow
+sf_034,FRRP #36,West Palm,SEFL,14.6,Shallow,6/17/15,26.691,-80.0182,SEFLShallow
+sf_035,FRRP #36,West Palm,SEFL,13.4,Shallow,6/17/15,26.691,-80.0182,SEFLShallow
+sf_036,FRRP #36,West Palm,SEFL,16.8,Shallow,10/1/15,26.691,-80.0182,SEFLShallow
+sf_037,FRRP #36,West Palm,SEFL,17.1,Shallow,10/1/15,26.691,-80.0182,SEFLShallow
+sf_038,FRRP #36,West Palm,SEFL,16.8,Shallow,10/1/15,26.691,-80.0182,SEFLShallow
+sf_039,FRRP #36,West Palm,SEFL,16.8,Shallow,10/1/15,26.691,-80.0182,SEFLShallow
+sf_040,FRRP #36,West Palm,SEFL,14.9,Shallow,3/29/16,26.691,-80.0182,SEFLShallow
+sf_041,FRRP #36,West Palm,SEFL,14.6,Shallow,3/29/16,26.691,-80.0182,SEFLShallow
+sf_042,FRRP #36,West Palm,SEFL,15.8,Shallow,3/29/16,26.691,-80.0182,SEFLShallow
+sf_043,FRRP #36,West Palm,SEFL,15.8,Shallow,3/29/16,26.691,-80.0182,SEFLShallow
+sf_044,FRRP #36,West Palm,SEFL,15.8,Shallow,3/29/16,26.691,-80.0182,SEFLShallow
+sf_045,FRRP #36,West Palm,SEFL,14.9,Shallow,3/29/16,26.691,-80.0182,SEFLShallow
+sf_046,SEFL-16,Boynton,SEFL,15.8,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_047,SEFL-16,Boynton,SEFL,15.8,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_048,SEFL-16,Boynton,SEFL,15.2,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_049,SEFL-16,Boynton,SEFL,14.9,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_050,SEFL-16,Boynton,SEFL,14.3,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_051,SEFL-16,Boynton,SEFL,14.6,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_052,SEFL-16,Boynton,SEFL,15.5,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_053,SEFL-16,Boynton,SEFL,14.6,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_054,SEFL-16,Boynton,SEFL,14.6,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_055,SEFL-16,Boynton,SEFL,16.2,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_056,SEFL-16,Boynton,SEFL,16.5,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_057,SEFL-16,Boynton,SEFL,16.5,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_058,SEFL-16,Boynton,SEFL,17.4,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_059,SEFL-16,Boynton,SEFL,17.4,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_060,SEFL-16,Boynton,SEFL,18,Shallow,8/6/20,26.52355087,-80.03169121,SEFLShallow
+sf_061,BC1,Pompano,SEFL,6.4,Shallow,8/6/20,26.14758333,-80.0961,SEFLShallow
+sf_062,BC1,Pompano,SEFL,6.7,Shallow,8/6/20,26.14758333,-80.0961,SEFLShallow
+sf_063,BC1,Pompano,SEFL,6.7,Shallow,8/6/20,26.14758333,-80.0961,SEFLShallow
+sf_064,BC1,Pompano,SEFL,6.4,Shallow,8/6/20,26.14758333,-80.0961,SEFLShallow
+sf_065,BC1,Pompano,SEFL,7,Shallow,8/6/20,26.14758333,-80.0961,SEFLShallow
+sf_067,BC1,Pompano,SEFL,6.4,Shallow,8/6/20,26.14758333,-80.0961,SEFLShallow
+sf_070,BC1,Pompano,SEFL,6.4,Shallow,8/6/20,26.14758333,-80.0961,SEFLShallow
+sf_071,BC1,Pompano,SEFL,6.7,Shallow,8/6/20,26.14758333,-80.0961,SEFLShallow
+sf_073,BC1,Pompano,SEFL,6.4,Shallow,8/6/20,26.14758333,-80.0961,SEFLShallow
+sf_074,BC1,Pompano,SEFL,6.1,Shallow,8/6/20,26.14758333,-80.0961,SEFLShallow
+sf_075,BC1,Pompano,SEFL,6.7,Shallow,8/6/20,26.14758333,-80.0961,SEFLShallow
+prg_001,PRG,PRG,PRG,62.2,Mesophotic,8/4/10,24.78024089,-83.68119995,PRGMesophotic
+prg_002,PRG,PRG,PRG,66.8,Mesophotic,9/15/11,24.80160667,-83.66920167,PRGMesophotic
+prg_003,PRG,PRG,PRG,64.7,Mesophotic,9/15/11,24.80160667,-83.66920167,PRGMesophotic
+prg_005,PRG,PRG,PRG,66.5,Mesophotic,9/16/11,24.70835,-83.696555,PRGMesophotic
+prg_006,PRG,PRG,PRG,66.5,Mesophotic,8/19/12,24.72568333,-83.7003,PRGMesophotic
+prg_007,PRG,PRG,PRG,66.8,Mesophotic,8/22/12,24.79393333,-83.67496667,PRGMesophotic
+prg_008,PRG,PRG,PRG,66.8,Mesophotic,8/22/12,24.79393333,-83.67496667,PRGMesophotic
+prg_009,PRG,PRG,PRG,66.8,Mesophotic,8/22/12,24.79393333,-83.67496667,PRGMesophotic
+prg_010,PRG,PRG,PRG,66.8,Mesophotic,8/22/12,24.79393333,-83.67496667,PRGMesophotic
+prg_011,PRG,PRG,PRG,66.1,Mesophotic,8/23/12,24.82265833,-83.67298333,PRGMesophotic
+prg_012,PRG,PRG,PRG,70.4,Mesophotic,8/23/12,24.811,-83.68283333,PRGMesophotic
+prg_013,PRG,PRG,PRG,69,Mesophotic,8/24/13,24.70933333,-83.68633333,PRGMesophotic
+prg_015,PRG,PRG,PRG,66,Mesophotic,8/27/13,24.793815,-83.67401167,PRGMesophotic
+prg_018,PRG,PRG,PRG,66,Mesophotic,8/27/13,24.793815,-83.67401167,PRGMesophotic
+prg_020,PRG,PRG,PRG,66,Mesophotic,8/27/13,24.81798167,-83.67190167,PRGMesophotic
+prg_022,PRG,PRG,PRG,66,Mesophotic,8/27/13,24.81798167,-83.67190167,PRGMesophotic
+prg_023,PRG,PRG,PRG,65.8,Mesophotic,6/20/14,24.74766667,-83.70258333,PRGMesophotic
+prg_024,PRG,PRG,PRG,65.8,Mesophotic,6/20/14,24.74766667,-83.70258333,PRGMesophotic
+prg_025,PRG,PRG,PRG,66.1,Mesophotic,6/20/14,24.72903333,-83.69743333,PRGMesophotic
+prg_036,PRG,PRG,PRG,66.4,Mesophotic,6/24/14,24.793709,-83.673833,PRGMesophotic
+prg_037,PRG,PRG,PRG,66.4,Mesophotic,6/24/14,24.793709,-83.673833,PRGMesophotic
+prg_039,PRG,PRG,PRG,67.1,Mesophotic,6/25/14,24.793709,-83.673833,PRGMesophotic
