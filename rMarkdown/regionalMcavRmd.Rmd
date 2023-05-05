@@ -1,7 +1,7 @@
 ---
 title: "Does depth divide? Variable genetic connectivity patterns among shallow and mesophotic Montastraea cavernosa coral populations across the Gulf of Mexico and western Caribbean: Analyses and Figures in R"
 author: "Alexis Sturm -- lexie.sturm@gmail.com and Ryan Eckert-- ryan.j.eckert@gmail.com"
-date: "11/30/2022"
+date: "04/28/2023"
 output:
   html_document:
     theme: flatly
@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, fig.align = 'left')
 options(width = 88, scipen = 4)
 #setting working directory to the directory containing this .Rmd file
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+getwd()
 ```
 ***
 
@@ -100,286 +101,14 @@ The following chunk uses any 2bRAD sequences that align exclusively to the algal
   zooxMapsSums$totalAlignments=rowSums(zooxMapsSums[2:5])
   mean(zooxMapsSums$Cladocopium)/mean(zooxMapsSums$totalAlignments) #Cladocopium dominant
   
-  zooxProp = zooxMaps
   
-  zooxProp$sum = apply(zooxProp[, c(2:length(zooxProp[1,]))], 1, function(x) {
-    sum(x, na.rm = T)
-  })
-  
-  zooxProp = cbind(zooxProp[, c(1)], (zooxProp[, c(2:(ncol(zooxProp)-1))]
-                                      / zooxProp$sum))
-  head(zooxProp)
-  
-  apply(zooxProp[, c(2:(ncol(zooxProp)))], 1, function(x) {
-    sum(x, na.rm = T)
-  })
-  
-  head(meta)
-  
-  dfZoox = cbind("sample" = zooxProp[,1], "region" = meta[,4], "depthZone" = meta[,6], "regionDepth" = meta[,10], zooxProp[,c(2:5)])
-  #dfZoox$regionDepth=as.factor(dfZoox$regionDepth)
-  #dfZoox$regionDepth = factor(dfZoox$regionDepth, levels = levels(dfZoox$regionDepth)[c(6,5,4,3,2,1,8,7)])
-  dfZoox = dfZoox[order(dfZoox$regionDepth),]
-  dfZoox$Order = c(1:nrow(dfZoox))
-  
-  zDat = melt(dfZoox, id.vars = c("sample", "region", "depthZone", "regionDepth", "Order"), variable.name = "Symbiont", value.name = "Fraction")
 ```
 
-##Plotting algal symbiont community structure at the genus level
-```{r, zooxPlot}  
-colPalZoox = brewer.pal(4, "BrBG")
-names(colPalZoox) = levels(zDat$Symbiont)
-  
-  zooxPlotA = ggplot(data = zDat, aes(x = Order, y = Fraction, fill = Symbiont, order = Order)) +
-    geom_bar(stat="identity", position="fill", width=1) +
-    #geom_bar(stat = "identity", position = "stack", colour = "grey25", width = 1) +
-    xlab("Population") +
-    scale_x_discrete(expand = c(0, 0)) +
-    scale_y_continuous(expand = c(0, 0), labels = function(x) paste0(x*100, "%")) +
-    scale_fill_manual(values = colPalZoox, name = "Symbiodiniaceae genus") +
-    coord_cartesian(ylim = c(-.01,1.01)) +
-    facet_grid(.~fct_inorder(regionDepth), drop=TRUE, scales = "free", switch = "x", space = "free") +
-    theme_bw()
-  
-  zooxPlot = zooxPlotA + theme(plot.title = element_text(hjust = 0.5),
-                               panel.grid=element_blank(),
-                               panel.background=element_rect(fill=NA, colour="grey25"),
-                               panel.spacing.x=grid:::unit(0, "lines"),
-                               panel.border = element_rect(color="black", size=2, linetype="solid"),
-                               axis.text.y=element_text(size=14),
-                               axis.text.x = element_blank(),
-                               axis.title.y = element_blank(),
-                               axis.ticks.x=element_blank(),
-                               strip.background=element_blank(),
-                               strip.text=element_text(size=12, angle=90),
-                               legend.key=element_blank(),
-                               legend.position = "right",
-                               #legend.title = element_blank(),
-                               legend.text = element_text(face = "italic"))
-  
-  zooxPlot
-  ggsave("../figures/zooxPlot.tiff", plot = zooxPlot, width = 34.35, height = 12.5, units = "cm", dpi = 300)
-```
-
-As we can see *Cladocopium* communities are dominant across almost all samples, but is there significant variation in the background genera of algal symbionts?
-
-##Plotting algal symbiont NMDS
-```{r, zooxNMDS}
-#make community matrix - extract columns with abundance information
-com = (zooxMaps[,2:ncol(zooxMaps)]) #extracting community matrix
-m_com = as.matrix(com) #making it a matric
-set.seed(123)
-nmds = metaMDS(m_com, distance = "bray", try = 100) #Running the NMDS
-nmds
-data.scores = as.data.frame(scores(nmds)) #extracting these values
-data.scores = cbind("sample" = zooxMaps[,1], "region" = meta[,4], "depthZone" = meta[,6], "regionDepth" = meta[,10], data.scores) #binding metadata together
-set.seed(694) #setting seed allows repetition of randomized processes
-head(data.scores)
-  
-zooxGenFit <- envfit(nmds, m_com, permutations = 999) #Adding indicator species vectors
-head(zooxGenFit)
-zooxSppScores <- as.data.frame(scores(zooxGenFit, display = "vectors")) #extracts relevant scores from envifit
-A <- as.list(zooxGenFit$vectors)
-pvals<-as.data.frame(A$pvals)
-arrows<-as.data.frame(A$arrows*sqrt(A$r))
-C<-cbind(arrows, pvals)
-Cred<-subset(C,pvals<0.01)
-Cred <- cbind(Cred, Species = rownames(Cred))
-  
-data.scores = merge(data.scores, aggregate(cbind(mean.x = NMDS1, mean.y = NMDS2)~regionDepth, data.scores, mean), by="regionDepth") 
-  
-  #%>% merge(., aggregate(cbind(mean.x.K = dbRDA1, mean.y.K = dbRDA2)~K, regionalDbrdaData1, mean), by="K")
-  
-data.scores$depthZone = factor(data.scores$depthZone)
-data.scores$depthZone = factor(data.scores$depthZone, levels(data.scores$depthZone)[c(2,1)])
-data.scores$region = factor(data.scores$region)
-data.scores$region = factor(data.scores$region, levels = levels(data.scores$region)[c(7, 4, 3, 6, 2, 5, 8, 1)])
-
-head(data.scores)
-
-colPal = c(paletteer_d("vapeplot::vaporwave")[c(7,10,11,14,1,5,3)], "slateblue4")
-zooxNMDSA = ggplot() +
-  geom_hline(yintercept = 0, color = "gray90", size = 0.5) +
-  geom_vline(xintercept = 0, color = "gray90", size = 0.5) +
-  geom_point(data = data.scores, aes(x = NMDS1, y = NMDS2, fill = region, shape = depthZone), size = 2, stroke = NA, 
- alpha = 0.5, show.legend = FALSE) +
-  geom_segment(data = Cred,aes(x = 0, xend = NMDS1, y = 0, yend = NMDS2), arrow = arrow(length = unit(0.25, "cm")), colour = "black") +
-  scale_shape_manual(values = c(24,25), name = "Depth Zone") +
-  # geom_segment(data = regionalDbrdaData, aes(x = mean.x, y = mean.y, xend = dbRDA1, yend = dbRDA2, color = pop), size = 0.5, alpha = 0.5) +
-  #geom_segment(data = envLoad, aes(x = 0, y = 0, xend = dbRDA1, yend = dbRDA2), 
-               #color = "black", arrow = arrow(length = unit(0.25, "cm"), type = "open"), size = 0.65) +
-  #geom_text(data = envLoad, aes(x = dbRDA1, y = dbRDA2+0.1, label = var), color = "black", size = 3) +
-  #geom_point(data = subset(data.scores, region !=("NWGOM")), aes(x = mean.x, y = mean.y, fill = region, shape = depthZone), size = 2, stroke = NA, alpha = 0.5) +
-  geom_point(data = data.scores, aes(x = mean.x, y = mean.y, fill = region, shape = depthZone), size = 5, color = "black") + #population centroids indicated by triangles
-  geom_text(data = Cred, aes(x = NMDS1, y = NMDS2, label = Species), size = 3)+
-  scale_fill_manual(values = colPal, name = "Site") +
-  scale_color_manual(values = colPal, name = "Site") +
-  guides(shape = guide_legend(override.aes = list(size = 3.5, stroke = 0.5, alpha = 0.7), order = 2), fill = guide_legend(override.aes = list(shape = 22, size = 5, color = NA, alpha = NA), order = 1))+
-  theme_bw()
-
-zooxNMDS = zooxNMDSA +
-  theme(axis.title.x = element_text(color = "black", size = 10),
-        axis.text.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.line.x = element_blank(),
-        axis.title.y = element_text(color = "black", size = 10),
-        axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        axis.line.y = element_blank(),
-        legend.position = "right",
-        panel.border = element_rect(color = "black", size = 1),
-        panel.background = element_rect(fill = "white"),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
-
-
-zooxNMDS
-ggsave("../figures/algalNmds.tiff", plot = zooxNMDS, height = 5, width = 7, units = "in", dpi = 300)
-```
-
-Again we can visualize tight overlap in algal symbiont communities amond different samples, but there appears to be some slight variation in algal symbiont communities across site, potentially driven by variation in background algal symbiont communities (non-*Cladocopium*)
-
-Let's test it:
-##Running PERMANOVAs on algal symbiont 2bRAD sequences
-```{r, zooxPermanova}
-zooxGen = cbind("sample" = zooxMaps[,1], "region" = meta[,4], "depthZone" = meta[,6], "regionDepth" = meta[,10], sqrt(zooxMaps[,c(2:5)])) #Square-root transforming the data
-  
-set.seed(694) #setting seed allows repetition of randomized processes
-zooxGenS = betadisper(vegdist(zooxGen[, c(5:ncol(zooxGen))]), zooxGen$region)
-anova(zooxGenS)
-#There was a significant effect of site on beta diversity
-
-set.seed(694)
-zooxGenD = betadisper(vegdist(zooxGen[, c(5:ncol(zooxGen))]), zooxGen$depthZone)
-anova(zooxGenD)
-#However, there was no significant effect of depth on beta diversity
-
-#PERMANOVA
-set.seed(344)
-its2Adonis = adonis(zooxGen[, c(5:ncol(zooxGen))] ~ region * depthZone, 
-data = zooxGen, permutations = 99, method = "bray")
-its2Adonis
-  
-#Pairwise PERMANOVA
-set.seed(694)
-its2PWAdonis = pairwise.adonis(zooxGen[, c(5:ncol(zooxGen))],
-factors = zooxGen$region, sim.method = "bray", p.adjust.m = "BH", perm = 99)
-its2PWAdonis
-```
+As we can see *Cladocopium* communities are dominant across almost all samples.
 
 #Coral host analyses
 
-The following sections analyze the population genetics od the *M. cavernosa* coral host.
-
-##Heterozygosity, inbreeding, and relatedness
-```{r, popStats}
-meta=read.csv("../data/regionalInds2PopsNoClones.csv")
-hetSnps=read.table("../data/hetSnps") #Reading in heterozygosity values
-hetSnps=dplyr::select(hetSnps, -V1) 
-colnames(hetSnps)[1] <- "hetSnps"
-popStats=bind_cols(meta, hetSnps)
-
-mcavBreed0 = read.delim("../data/newres") #Reading in inbreeding data
-mcavBreed2 = mcavBreed0 %>% group_by(a) %>% dplyr::select("inbreed" = Fa)
-mcavBreed3 = mcavBreed0 %>% group_by(b) %>% dplyr::select("inbreed" = Fb)
-mcavBreed = bind_rows(mcavBreed2, mcavBreed3) %>% group_by(a) %>% dplyr::summarize("inbreed" = mean(inbreed))%>% dplyr::select(-a)
-#popStats=popStats%>% left_join(mcavBreed, by = "a")
-popStats=bind_cols(popStats, mcavBreed)
-popStats$depthZone = factor(popStats$depthZone, levels(popStats$depthZone)[c(2,1)])
-popStats$region = factor(popStats$region, levels = levels(popStats$region)[c(7, 4, 3, 6, 2, 5, 8, 1)])
-
-#Does heterozygosity vary significantly across region or depth zone?
-hetSnpAnova <- aov(hetSnps ~ region * depthZone, data = popStats)
-summary(hetSnpAnova)
-hetTukey=TukeyHSD(hetSnpAnova, which = "region")
-
-#Does inbreeding vary significantly across region or depth zone?
-inbreedAnova <- aov(inbreed ~ region * depthZone, data = popStats)
-summary(inbreedAnova)
-inbreedTukey=TukeyHSD(inbreedAnova, which = "region")
-
-meta$a=c(0:751)
-mcavRelate = read.delim("../data/newres")
-mcavRelate2 = mcavRelate %>% group_by(a, b) %>% dplyr::select("relate" = rab)
-mcavRelate2 = mcavRelate2 %>% left_join(meta, by = "a") %>% left_join(meta, by = c("b" = "a"), suffix = c(".a", ".b")) 
-#mcavRelate2$popDepth.a = paste(mcavRelate2$Region.a, mcavRelate2$Depth.a, sep = " ")
-#mcavRelate2$popDepth.b = paste(mcavRelate2$Region.b, mcavRelate2$Depth.b, sep = " ")
-mcavRelate = mcavRelate2 %>% filter(regionDepth.a == regionDepth.b) %>% rename(depthZone = depthZone.a, region = region.a)
-mcavRelate$depthZone = factor(mcavRelate$depthZone, levels(mcavRelate$depthZone)[c(2,1)])
-mcavRelate$region = factor(mcavRelate$region, levels = levels(mcavRelate$region)[c(7, 4, 3, 6, 2, 5, 8, 1)])
-mcavRelate = filter(mcavRelate, regionDepth.a != "CUBAMesophotic")
-
-#Does within population pairwise relatedness vary significantly across region or depth zone?
-mcavRelateAnova <- aov(relate ~ region * depthZone, data = mcavRelate)
-summary(mcavRelateAnova)
-relateTukey=TukeyHSD(mcavRelateAnova, which = "region")
-```
-
-##Heterozygosity, inbreeding, and pairwise relatedness populations
-```{r, Fig2}
-colPal = c(paletteer_d("vapeplot::vaporwave")[c(7,10,11,14,1,5,3)], "slateblue4")
-hetTheme = theme(axis.title.x = element_blank(),
-                 axis.text.x = element_text(color = "black", size = 12),
-                 axis.ticks.x = element_line(color = "black"),
-                 axis.title.y = element_text(color = "black", size = 12),
-                 axis.text.y = element_text(color = "black", size = 10),
-                 axis.ticks.y = element_line(color = "black"),
-                 legend.position = "right",
-                 legend.key.size = unit(0.3, 'cm'),
-                 panel.border = element_rect(color = "black"),
-                 panel.background = element_rect(fill = "white"),
-                 plot.background = element_rect(fill = "white"),
-                 panel.grid.major = element_blank(),
-                 panel.grid.minor = element_blank())
-dodge <- position_dodge(width = 1)
-
-hetPlotSnps = ggplot(data = popStats, aes(x = depthZone, y = hetSnps, fill = region)) +
-  geom_point(aes(color = region),shape = 21, position = position_jitterdodge(seed = 1, dodge.width = 1), size = 0.5, alpha = 0.7) +
-  geom_violin(size = 0.25, alpha = 0.7, position = dodge, color = "gray35") +
-  xlab("Depth") +
-  ylab("Heterozygosity") +
-  ggtitle("SNPs") +
-  scale_fill_manual(values = colPal,name = "Site") +
-  scale_color_manual(values = colPal, name="Site") +
-  scale_y_continuous(breaks=seq(0, 1, by = .05)) +
-  theme_bw() +
-  guides(fill = guide_legend(override.aes = list(shape = 22, size = 5, color = NA, alpha = NA)))+
-  hetTheme
-
-inbreedingPlot = ggplot(data = popStats, aes(x = depthZone, y = inbreed, fill = region)) +
-  geom_point(aes(color = region),shape = 21, position = position_jitterdodge(seed = 1, dodge.width = 1), size = 0.5, alpha = 0.7) +
-  geom_violin(size = 0.25, alpha = 0.7, position = dodge, color = "gray35") +
-  xlab("Depth") +
-  ylab("Inbreeding coefficient") +
-  ggtitle("Inbreeding") +
-  scale_fill_manual(values = colPal, name = "Site") +  
-  scale_color_manual(values = colPal, name = "Site") +
-  scale_y_continuous(breaks=seq(0, 1, by = .05)) +
-  guides(fill = guide_legend(override.aes = list(shape = 22, size = 5, color = NA, alpha = NA)))+
-  theme_bw() +
-  hetTheme
-
-relatePlot = ggplot(data = mcavRelate, aes(x = depthZone, y = relate, fill = region)) +
-  geom_point(aes(color = region),shape = 21, position = position_jitterdodge(seed = 1, dodge.width = 1), size = 0.5, alpha = 0.7) +
-  geom_violin(size = 0.25, alpha = 0.7, position = dodge, color = "gray35") +
-  xlab("Depth") +
-  ylab("Relatedness") +
-  ggtitle("Relatedness") +
-  scale_fill_manual(values = colPal, name = "Site") +  
-  scale_color_manual(values = colPal, name="Site") +
-  scale_y_continuous(breaks=seq(0, 1, by = .1)) +
-  guides(fill = guide_legend(override.aes = list(shape = 22, size = 5, color = NA, alpha = NA)))+
-  theme_bw() +
-  hetTheme
-
-hetPlots = ( hetPlotSnps | inbreedingPlot | relatePlot) +
-  plot_annotation(tag_levels = 'A') +
-  plot_layout(guides = "collect")& 
-  theme(plot.tag = element_text(size = 16),
-        legend.position = "right")
-hetPlots
-ggsave("../figures/popStatPlots.tiff", plot = hetPlots, height = 5, width = 15, units = "in", dpi = 300)
-```
+The following sections analyze the population genetics of the *M. cavernosa* coral host.
 
 ##Analysis of Molecular Variance (AMOVA)
 ```{r, amova}
@@ -447,8 +176,8 @@ snpHeatmapA = ggplot(data = snpFst, aes(Pop, Pop2, fill = Fst))+
   scale_fill_gradient2(low = "white", high = "red", midpoint = 0, limit = c(0, 0.155),
                        space = "Lab", name = expression(paste(italic("F")[ST])))+
   geom_text(data = snpFst, aes(Pop, Pop2, label = Fst), color = ifelse(snpQ$Qval <= 0.05,"black", "darkgrey"), size = ifelse(snpQ$Qval < 0.05, 6, 5), fontface = ifelse(snpQ$Qval <= 0.05, "bold", "plain")) +
-  guides(fill=guide_colorbar(barwidth = 1, barheight = 12, title.position = "top", title.hjust = 0.5))+                     
-  scale_y_discrete(position = "right", labels=str_wrap(c("SEFL Shallow", "FK Shallow", "FK Mesophotic", "DRT Shallow", "DRT Mesophotic", "PRG Mesophotic", "CUBA Shallow", "CUBA Mesophotic", "NWGOM Shallow", "NWGOM Mesophotic", "SGOM Shallow", "SGOM Mesophotic", "BLZ Shallow")))+
+  guides(fill=guide_colorbar(barwidth = 1, barheight = 12, title.position = "top", title.hjust = 0.5))+
+  scale_y_discrete(position="right", labels=str_wrap(c("SEFL\nShallow", "FK\nShallow", "FK\nMesophotic", "DRT\nShallow", "DRT\nMesophotic", "PRG\nMesophotic", "CUBA\nShallow", "CUBA\nMesophotic", "NWGOM\nShallow", "NWGOM\nMesophotic", "SGOM\nShallow", "SGOM\nMesophotic", "BLZ\nShallow")))+
   scale_x_discrete(labels = (c("FK\nShallow", "FK\nMesophotic", "DRT\nShallow", "DRT\nMesophotic", "PRG\nMesophotic", "CUBA\nShallow", "CUBA\nMesophotic", "NWGOM\nShallow", "NWGOM\nMesophotic", "SGOM\nShallow", "SGOM\nMesophotic", "BLZ\nShallow", "BLZ\nMesophotic"))) +
   #ggtitle("   SNP") +
   geom_rect(xmin=1.5, xmax=2.5, ymin=1.5, ymax=2.5, color="#FFA58BFF", fill=NA, size=2.5)+
@@ -457,11 +186,48 @@ snpHeatmapA = ggplot(data = snpFst, aes(Pop, Pop2, fill = Fst))+
   geom_rect(xmin=8.5, xmax=9.5, ymin=8.5, ymax=9.5, color="#C774E8FF" , fill=NA,size=2.5)+
   geom_rect(xmin=10.5, xmax=11.5, ymin=10.5, ymax=11.5, color="#966BFFFF" , fill=NA,size=2.5)+
   geom_rect(xmin=12.5, xmax=13.5, ymin=12.5, ymax=13.5, color="slateblue4" , fill=NA,size=2.5)+
-  #geom_rect(xmin=3.5, xmax=4.5, ymin=2.5, ymax=3.5, color="red" , fill=NA, size=2)+
+  #geom_rect(xmin=0, xmax=2, ymin=0, ymax=2, color="#FFA58BFF", fill="#FFA58BFF", size=2.5)+
+  #X axis colors
+  # geom_rect(xmin = 0.5, xmax = 2.5, fill = "#FFA58BFF", ymin = -3.5, ymax = 0.5) +
+  # geom_rect(xmin = 2.5, xmax = 4.5, fill = "#FFDE8BFF", ymin = -3.5, ymax = 0.5) +
+  # geom_rect(xmin = 4.5, xmax = 5.5, fill = "#20DE8BFF", ymin = -3.5, ymax = 0.5) +
+  # geom_rect(xmin = 5.5, xmax = 7.5, fill = "#94D0FFFF", ymin = -3.5, ymax = 0.5) +
+  # geom_rect(xmin = 7.5, xmax = 9.5, fill = "#C774E8FF", ymin = -3.5, ymax = 0.5) +
+  # geom_rect(xmin = 9.5, xmax = 11.5, fill = "#966BFFFF", ymin = -3.5, ymax = 0.5) +
+  # geom_rect(xmin = 11.5, xmax = 13.5, fill = "slateblue4", ymin = -3.5, ymax = 0.5) +
+  # #Y axis colors
+  # geom_rect(xmin = 13.5, xmax = 16.5, fill = "slateblue4", ymin = 12.4, ymax = 13.61) +
+  # geom_rect(xmin = 13.5, xmax = 16.5, fill = "#966BFFFF", ymin = 10.5, ymax = 12.39) +
+  # geom_rect(xmin = 13.5, xmax = 16.5, fill = "#C774E8FF", ymin = 8.5, ymax = 10.5) +
+  # geom_rect(xmin = 13.5, xmax = 16.5, fill = "#94D0FFFF", ymin = 6.5, ymax = 8.5) +
+  # geom_rect(xmin = 13.5, xmax = 16.5, fill = "#20DE8BFF", ymin = 5.5, ymax = 6.5) +
+  # geom_rect(xmin = 13.5, xmax = 16.5, fill = "#FFDE8BFF", ymin = 3.5, ymax = 5.5) +
+  # geom_rect(xmin = 13.5, xmax = 16.5, fill = "#FFA58BFF", ymin = 1.5, ymax = 3.5) +
+  # geom_rect(xmin = 13.5, xmax = 16.5, fill = "#FF6AD5FF", ymin = 0.5, ymax = 1.5) +
+#X-axis colors
+geom_rect(xmin = 0.5, xmax = 2.5, fill = "#FFA58BFF", ymin = 0.25, ymax = 0.5) +
+  geom_rect(xmin = 2.5, xmax = 4.5, fill = "#FFDE8BFF", ymin = 0.25, ymax = 0.5) +
+  geom_rect(xmin = 4.5, xmax = 5.5, fill = "#20DE8BFF", ymin = 0.25, ymax = 0.5) +
+  geom_rect(xmin = 5.5, xmax = 7.5, fill = "#94D0FFFF", ymin = 0.25, ymax = 0.5) +
+  geom_rect(xmin = 7.5, xmax = 9.5, fill = "#C774E8FF", ymin = 0.25, ymax = 0.5) +
+  geom_rect(xmin = 9.5, xmax = 11.5, fill = "#966BFFFF", ymin = 0.25, ymax = 0.5) +
+  geom_rect(xmin = 11.5, xmax = 13.5, fill = "slateblue4", ymin = 0.25, ymax = 0.5) +
+  #Y axis colors
+  geom_rect(xmin = 13.5, xmax = 13.6, fill = "slateblue4", ymin = 12.4, ymax = 13.61) +
+  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#966BFFFF", ymin = 10.5, ymax = 12.39) +
+  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#C774E8FF", ymin = 8.5, ymax = 10.5) +
+  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#94D0FFFF", ymin = 6.5, ymax = 8.5) +
+  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#20DE8BFF", ymin = 5.5, ymax = 6.5) +
+  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#FFDE8BFF", ymin = 3.5, ymax = 5.5) +
+  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#FFA58BFF", ymin = 1.5, ymax = 3.5) +
+  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#FF6AD5FF", ymin = 0.5, ymax = 1.5) +
+
+  
+  coord_cartesian(xlim = c(1, 13), ylim = c(1, 13), clip = "off")+
   theme_minimal()
 
 snpHeatmap = snpHeatmapA + theme(
-  axis.text.x = element_text(vjust = 1, size = 16, hjust = 0.5, color = "black", angle=90),
+  axis.text.x = element_text(vjust = 0.5, size = 16, hjust = 0.5, color = "black", angle=90),
   axis.text.y = element_text(size = 16, color = "black"),
   axis.title.x = element_blank(),
   axis.title.y = element_blank(),
@@ -478,7 +244,7 @@ snpHeatmap = snpHeatmapA + theme(
 
 snpHeatmap
   
-ggsave("../figures/fig1.eps", plot = snpHeatmap, width = 34, height = 15, units = "cm", dpi = 300)
+ggsave("../figures/fig1.tiff", plot = snpHeatmap, width = 34, height = 15, units = "cm", dpi = 300)
 ```
 
 ##Table 2; Figure 2 Distance-based redundancy analysis (dbRDA)
@@ -628,7 +394,7 @@ regionalDbrdaPlotA = ggplot() +
   # geom_segment(data = regionalDbrdaData, aes(x = mean.x, y = mean.y, xend = dbRDA1, yend = dbRDA2, color = pop), size = 0.5, alpha = 0.5) +
   geom_segment(data = envLoad, aes(x = 0, y = 0, xend = dbRDA1, yend = dbRDA2), color = "black", arrow = arrow(length = unit(0.25, "cm"), type = "open"), size = 0.65) +
   #geom_segment(data = subset(envLoad, subset=envLoad$var %in% c("light_attenuation", "phosphate", "calcite", "current_velocity" )), aes(x = 0, y = 0, xend = dbRDA1, yend = dbRDA2), color = "black", arrow = arrow(length = unit(0.25, "cm"), type = "open"), size = 0.65) +
-  geom_text_repel(data = envLoad, aes(x = dbRDA1, y = dbRDA2, label = var), color = "black", size = 3) +
+  #geom_text_repel(data = envLoad, aes(x = dbRDA1, y = dbRDA2, label = var), color = "black", size = 3) +
   geom_point(data = regionalDbrdaData, aes(x = mean.x, y = mean.y, fill = region, shape = depthZone),
              size = 5, color = "black") + #population centroids indicated by triangles
   scale_fill_manual(values = colPal, name = "Site") +
@@ -639,23 +405,28 @@ regionalDbrdaPlotA = ggplot() +
   theme_bw()
 
 regionalDbrdaPlot = regionalDbrdaPlotA +
-  theme(axis.title.x = element_text(color = "black", size = 10),
+  theme(axis.title.x = element_text(color = "white", size = 10),
         axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
         axis.line.x = element_blank(),
-        axis.title.y = element_text(color = "black", size = 10),
+        axis.title.y = element_text(color = "white", size = 10),
         axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
         axis.line.y = element_blank(),
         legend.position = "right",
+        legend.title=element_text(color="white"),
+        legend.text=element_text(color="white"),
+        legend.background=element_blank(),
+        legend.key=element_blank(),
         panel.border = element_rect(color = "black", size = 1),
         panel.background = element_rect(fill = "white"),
+        plot.background =element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 
 
 regionalDbrdaPlot
-ggsave("../figures/fig2.pdf", plot = regionalDbrdaPlot, height = 5, width = 7, units = "in", dpi = 300)
+ggsave("../figures/dbRDANoBg.png", plot = regionalDbrdaPlot, height = 5, width = 7, units = "in", dpi = 300)
 ```
 
 ##Figure 3: NGSAdmix plots on a map
@@ -665,6 +436,21 @@ k4=read.csv("../data/k4ngsAdmix.csv")
 meta=read.csv("../data/regionalInds2PopsNoClones.csv")
 k4Admix=bind_cols(meta, k4)
 shapeLabs=(c("Shallow"=expression("\U25B2"), "Mesophotic"=expression("\U25BC")))
+
+# dominantClusterScatter=ggplot(k4Admix, aes(x = lon, y = lat, shape = depthZone, fill = dominantCluster)) +
+#   geom_point(size = 4) +
+#   scale_fill_manual(values = colPalAdmix1)+
+#   scale_shape_manual(values = c(24,25), name = "Depth Zone") +
+#   #labs(title = "Scatterplot of Latitude and Longitude", x = "Longitude", y = "Latitude") +
+#   theme_minimal()  
+
+# meltK4 = melt(k4Admix, id.vars=c("sample", "site", "pop", "region", "depthM", "depthZone", "dateCollected", "lat", "lon", "regionDepth"), variable.name="ancestry", value.name="fraction")
+# meltK4$depthZone = factor(meltK4$depthZone, levels = levels(meltK4$depthZone)[c(2,1)])
+#   
+# lonScatter=ggplot(meltK4, aes(x=lon, y=fraction, fill=ancestry, shape=depthZone)) +
+# geom_point() + 
+# scale_shape_manual(values = c(24,25))+
+# scale_fill_manual(values = c("cluster1"="#440154FF", "cluster2"="#31688EFF", "cluster3"="#35B779FF", "cluster4"="#FDE725FF"), name = "Cluster")
  
 blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3, cluster2)
   sum(blzShallowK4$cluster1)
@@ -1086,6 +872,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
   sites$region = factor(sites$region, levels = levels(sites$region)[c(7, 4, 3, 6, 2, 5, 8, 1)])
   reefs = sites %>% group_by(region) %>% dplyr::summarize(lat = mean(lat), lon = mean(lon))
   gomCountries = st_as_sf(ne_countries(country = c("United States of America", "Cuba", "Mexico", "The Bahamas", "Belize", "Guatemala", "Cayman Islands"), scale = "Large"))
+  
   admixMapA = ggplot() +
     geom_sf(data = gomCountries, fill = "white", size = 0.25) +
     geom_point(data = reefs, aes(x = lon, y = lat, fill = region), size = 3, shape=21) +
@@ -1105,7 +892,10 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
     theme(plot.title = element_text(size = 9) ,
           panel.background = element_rect(fill = "aliceblue"),
           plot.background = element_rect(fill="white"),
+          #plot.background = element_blank(),
           axis.title = element_blank(),
+          #axis.text = element_text(color="white", face="bold", size=18),
+          #axis.ticks = element_line(color = "white"),
           legend.position = "bottom")
   
   #admixMapA
@@ -1124,8 +914,74 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
     draw_plot(nwgomK4Plot, x = 0.19, y = .82, width=0.314, height=0.15)+
     draw_plot(prgK4Plot, x = 0.60, y = .71, width=0.044, height=0.15)+
     draw_plot(seflK4Plot, x = 0.74, y = .70, width=0.132, height=0.15)
+
+  ggsave("../figures/fig3.png", plot = admixMap, width = 30, height = 20, units = "cm", dpi = 300)  
   
-  ggsave("../figures/fig3.png", plot = admixMap, width = 30, height = 20, units = "cm", dpi = 300)
+  k4Admix$dominantCluster <- "admixed"
+# identify rows where any of the values in cluster1, cluster2, cluster3, or cluster4 are greater than 0.5
+cluster_rows <- apply(k4Admix[, c("cluster1", "cluster2", "cluster3", "cluster4")], 1, function(x) any(x > 0.5))
+# set the "cluster" column to the name of the cluster if any value is greater than 0.5
+k4Admix$dominantCluster[cluster_rows] <- apply(k4Admix[cluster_rows, c("cluster1", "cluster2", "cluster3", "cluster4")], 1, function(x) names(x)[which.max(x)])
+
+clusterCount <- table(k4Admix$dominantCluster)
+clusterCount
+colPalAdmix1 = c("gray", paletteer_c("viridis::viridis", n=4))
+
+clusterByDepth=ggplot(k4Admix, aes(x = dominantCluster, y = depthM, fill = dominantCluster)) + 
+  geom_violin() +
+  scale_fill_manual(values = colPalAdmix1)+
+  scale_x_discrete(labels=c("Admixed", "Purple", "Blue", "Green", "Yellow"))+
+  geom_point(position = position_jitter(height = 0.1), alpha = 0.5) +
+   scale_y_reverse()+
+  annotate("rect", xmin = -Inf, xmax = Inf, ymin = 30, ymax = Inf, fill = "gray80", alpha = 0.3)+
+  labs(x = "", y = "Depth (m)") +
+  theme_minimal()+
+  theme(legend.position = "none",
+        axis.text.x = element_blank(),
+        axis.title.y=element_text(size=16),
+        axis.text.y=element_text(size=16))
+
+clusterByDepth
+
+clusterByLat=ggplot(k4Admix, aes(x = dominantCluster, y = lat, fill = dominantCluster)) + 
+  geom_violin() +
+  scale_fill_manual(values = colPalAdmix1)+
+  geom_point(position = position_jitter(height = 0.1), alpha = 0.5) +
+  #scale_x_discrete(labels=c("Admixed", "Purple", "Blue", "Green", "Yellow"))+
+  scale_y_continuous(labels = ~ paste0(.x, "\u00B0"))+
+  #annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 23.5, fill = "gray80", alpha = 0.3)+
+  labs(x = "", y = "Latitude") +
+  theme_minimal()+
+  theme(legend.position = "none",
+        axis.text.x = element_blank(),
+        axis.title.y=element_text(size=16),
+        axis.text.y=element_text(size=16))
+
+clusterByLat
+
+clusterByLon=ggplot(k4Admix, aes(x = lon, y = dominantCluster, fill = dominantCluster)) + 
+  geom_violin() +
+  scale_fill_manual(values = colPalAdmix1, labels = c("Admixed", "Purple", "Blue", "Green", "Yellow"))+
+  geom_point(position = position_jitter(height = 0.1), alpha = 0.5, show.legend = FALSE) +
+  scale_y_discrete(labels=c("Admixed", "Purple", "Blue", "Green", "Yellow"))+
+  scale_x_continuous(labels = ~ paste0(.x, "\u00B0"))+
+  #annotate("rect", xmin = -85, xmax = Inf, ymin = -Inf, ymax = Inf, fill = "gray80", alpha = 0.3)+
+   #scale_y_reverse()+
+   labs(x = "Longitude", y = "", fill = "Dominant Cluster") +
+  theme_minimal()+
+  theme(axis.text.y = element_blank(),
+        axis.title.x=element_text(size=16),
+        axis.text.x=element_text(size=16),
+        legend.title=element_text(size=20),
+        legend.text=element_text(size=16))
+
+clusterByLon
+
+combinedViolinPlots=clusterByDepth + clusterByLat + clusterByLon
+combinedViolinPlots= combinedViolinPlots + plot_annotation(tag_levels = 'A')
+
+ggsave("../figures/fig4.tiff", plot = combinedViolinPlots, width = 60, height = 20, units = "cm", dpi = 300)
+
 ```
 
 ##Figure 6: Recent migration rate with BayessAss
@@ -1152,7 +1008,7 @@ fileList = substr(list.files("../data/ba3TraceFiles/", "BA3trace.*.txt$"),1,20)
   
   
   #All traces have similar deviance (this is good!).
-  #Using the trace with the lowest deviance (BA3trace08.txt, in this case)
+  #Using the trace with the lowest deviance (BA3trace12.txt, in this case)
   
   bayesAss = read.delim("../data/ba3TraceFiles/BA3trace12.txt") %>% filter(State > 9000000) %>% dplyr::select(-State, -LogProb, -X)
   
@@ -1274,6 +1130,7 @@ fileList = substr(list.files("../data/ba3TraceFiles/", "BA3trace.*.txt$"),1,20)
   baSumm$hpdHigh = sprintf('%.3f', baSumm$hpdHigh)
   
   colPal = c(paletteer_d("vapeplot::vaporwave")[c(7,10,11,14,1,5,3)], "slateblue4")
+  
   migrateA = ggplot(data = baSumm, aes(pop.i, pop.j))+
     geom_tile(data = subset(baSumm, subset = baSumm$mean2>0.67), aes(fill = as.numeric(as.character(mean2))), color = "white") +
     #geom_segment(data = baSumm, aes(x = 0.4755, xend = -0.625, y = pop.j, yend = pop.j, color = pop.j), size = 14) +
@@ -1294,24 +1151,350 @@ fileList = substr(list.files("../data/ba3TraceFiles/", "BA3trace.*.txt$"),1,20)
     scale_y_discrete(limits = rev(levels(baSumm$pop.i))[c(1:14)], position = "left") +
     # scale_x_discrete() +
     coord_cartesian(xlim = c(1, 14), ylim = c(1, 14), clip = "off") +
+    
+  geom_rect(xmin=1.5, xmax=2.5, ymin=6.5, ymax=7.5, color="#FFA58BFF", fill=NA, size=2.5)+
+  geom_rect(xmin=2.5, xmax=3.5, ymin=5.5, ymax=6.5, color="#FFDE8BFF" , fill=NA, size=2.5)+
+  geom_rect(xmin=3.5, xmax=4.5, ymin=3.5, ymax=4.5, color="#94D0FFFF" , fill=NA,size=2.5)+
+  geom_rect(xmin=4.5, xmax=5.5, ymin=2.5, ymax=3.5, color="#C774E8FF" , fill=NA,size=2.5)+
+  geom_rect(xmin=5.5, xmax=6.5, ymin=1.5, ymax=2.5, color="#966BFFFF" , fill=NA,size=2.5)+
+  geom_rect(xmin=6.5, xmax=7.5, ymin=0.5, ymax=1.5, color="slateblue4" , fill=NA,size=2.5)+
+    
+  geom_rect(xmin=7.5, xmax=8.5, ymin=12.5, ymax=13.5, color="#FFA58BFF", fill=NA, size=2.5, linetype = "dotted")+
+  geom_rect(xmin=8.5, xmax=9.5, ymin=12.5, ymax=11.5, color="#FFDE8BFF" , fill=NA, size=2.5, linetype = "dotted")+
+  geom_rect(xmin=10.5, xmax=11.5, ymin=10.5, ymax=11.5, color="#94D0FFFF" , fill=NA,size=2.5, linetype = "dotted")+
+  geom_rect(xmin=11.5, xmax=12.5, ymin=10.5, ymax=9.5, color="#C774E8FF" , fill=NA,size=2.5, linetype = "dotted")+
+  geom_rect(xmin=12.5, xmax=13.5, ymin=8.5, ymax=9.5, color="#966BFFFF" , fill=NA,size=2.5, linetype = "dotted")+
+  geom_rect(xmin=13.5, xmax=14.5, ymin=7.5, ymax=8.5, color="slateblue4" , fill=NA,size=2.5, linetype = "dotted")+  
+    
     theme_minimal()
   
   migrate = migrateA + theme(
     axis.text.x = element_text(vjust = 1, size = 10, hjust = 0.5, color = "white", face= "bold"),
     axis.text.y = element_text(size = 10, color = "white",hjust = 0.5, face= "bold"),
-    axis.title.x = element_text(size = 16, vjust=0.1),
-    axis.title.y = element_text(size = 16, margin = margin(r = 10)),
+    axis.title.x = element_text(size = 16, vjust=0.1, color="black"),
+    axis.title.y = element_text(size = 16, margin = margin(r = 10), color="black"),
     panel.grid.major = element_blank(),
     axis.ticks = element_blank(),
     legend.position = "right",
     legend.direction = "vertical",
-    legend.title = element_text(size = 14, face = "bold"),
-    legend.text = element_text(size = 10)
+    legend.title = element_text(size = 14, face = "bold", color="black"),
+    legend.text = element_text(size = 10, color="black")
   )
   
    migrate
   
-ggsave("../figures/fig4.eps", plot = migrate, width = 45, height = 20, units = "cm", dpi = 300)
+ggsave("../figures/fig5.tiff", plot = migrate, width = 45, height = 20, units = "cm", dpi = 300)
 
 ```
 
+#Additional Analyses and Figures
+
+##Plotting algal symbiont community structure at the genus level
+```{r, zooxPlot}  
+meta=read.csv("../data/regionalInds2PopsNoClones.csv") # Reads in population data for each sample
+  #Reading in algal symbiont aligned 2bRAD sequences
+  zoox = read.delim("../data/zooxGenomeAlignmentRate", header = FALSE, check.names = FALSE)
+  head(zoox)
+  zoox$V2[is.na(zoox$V2)] <- as.character(zoox$V1[is.na(zoox$V2)])
+  zoox$V1 = gsub(pattern = "*.trim.zoox.zooxOnly.bt2.bam", "chr", zoox$V1)
+  zoox$V2 = gsub(".trim.*", "", zoox$V2)
+  
+  zoox = zoox %>% filter(zoox$V1 != "*")
+  
+  zooxLst = split(zoox$V2, as.integer(gl(length(zoox$V2), 20, length(zoox$V2))))
+  
+  zooxMaps = NULL
+  for(i in zooxLst){
+    zooxMaps = rbind(zooxMaps, data.frame(t(i)))
+  }
+  colnames(zooxMaps) = c("sample",zoox$V1[c(2:20)])
+  
+  for(i in c(2:20)){
+    zooxMaps[,i] = as.numeric(levels(zooxMaps[,i]))[zooxMaps[,i]]
+  }
+  
+  str(zooxMaps)
+  
+  zooxMaps$Symbiodinium = rowSums(zooxMaps[2:6])
+  zooxMaps$Breviolum = rowSums(zooxMaps[7:10])
+  zooxMaps$Cladocopium = rowSums(zooxMaps[11:16])
+  zooxMaps$Durusdinium = rowSums(zooxMaps[17:20])
+  
+  zooxMaps = zooxMaps[,c(1, 21:24)]
+  
+  zooxMapsSums=zooxMaps
+  zooxMapsSums$totalAlignments=rowSums(zooxMapsSums[2:5])
+  mean(zooxMapsSums$Cladocopium)/mean(zooxMapsSums$totalAlignments) #Cladocopium dominant
+  
+  zooxProp = zooxMaps
+  
+  zooxProp$sum = apply(zooxProp[, c(2:length(zooxProp[1,]))], 1, function(x) {
+    sum(x, na.rm = T)
+  })
+  
+  zooxProp = cbind(zooxProp[, c(1)], (zooxProp[, c(2:(ncol(zooxProp)-1))]
+                                      / zooxProp$sum))
+  head(zooxProp)
+  
+  apply(zooxProp[, c(2:(ncol(zooxProp)))], 1, function(x) {
+    sum(x, na.rm = T)
+  })
+  
+  head(meta)
+  
+  dfZoox = cbind("sample" = zooxProp[,1], "region" = meta[,4], "depthZone" = meta[,6], "regionDepth" = meta[,10], zooxProp[,c(2:5)])
+  #dfZoox$regionDepth=as.factor(dfZoox$regionDepth)
+  #dfZoox$regionDepth = factor(dfZoox$regionDepth, levels = levels(dfZoox$regionDepth)[c(6,5,4,3,2,1,8,7)])
+  dfZoox = dfZoox[order(dfZoox$regionDepth),]
+  dfZoox$Order = c(1:nrow(dfZoox))
+
+zDat = melt(dfZoox, id.vars = c("sample", "region", "depthZone", "regionDepth", "Order"), variable.name = "Symbiont", value.name = "Fraction")
+
+colPalZoox = brewer.pal(4, "BrBG")
+names(colPalZoox) = levels(zDat$Symbiont)
+  
+  zooxPlotA = ggplot(data = zDat, aes(x = Order, y = Fraction, fill = Symbiont, order = Order)) +
+    geom_bar(stat="identity", position="fill", width=1) +
+    #geom_bar(stat = "identity", position = "stack", colour = "grey25", width = 1) +
+    xlab("Population") +
+    scale_x_discrete(expand = c(0, 0)) +
+    scale_y_continuous(expand = c(0, 0), labels = function(x) paste0(x*100, "%")) +
+    scale_fill_manual(values = colPalZoox, name = "Symbiodiniaceae genus") +
+    coord_cartesian(ylim = c(-.01,1.01)) +
+    facet_grid(.~fct_inorder(regionDepth), drop=TRUE, scales = "free", switch = "x", space = "free") +
+    theme_bw()
+  
+  zooxPlot = zooxPlotA + theme(plot.title = element_text(hjust = 0.5),
+                               panel.grid=element_blank(),
+                               panel.background=element_rect(fill=NA, colour="grey25"),
+                               panel.spacing.x=grid:::unit(0, "lines"),
+                               panel.border = element_rect(color="black", size=2, linetype="solid"),
+                               axis.text.y=element_text(size=14),
+                               axis.text.x = element_blank(),
+                               axis.title.y = element_blank(),
+                               axis.ticks.x=element_blank(),
+                               strip.background=element_blank(),
+                               strip.text=element_text(size=12, angle=90),
+                               legend.key=element_blank(),
+                               legend.position = "right",
+                               #legend.title = element_blank(),
+                               legend.text = element_text(face = "italic"))
+  
+  zooxPlot
+  ggsave("../figures/zooxPlot.tiff", plot = zooxPlot, width = 34.35, height = 12.5, units = "cm", dpi = 300)
+```
+
+##Plotting algal symbiont NMDS
+```{r, zooxNMDS}
+#make community matrix - extract columns with abundance information
+com = (zooxMaps[,2:ncol(zooxMaps)]) #extracting community matrix
+m_com = as.matrix(com) #making it a matric
+set.seed(123)
+nmds = metaMDS(m_com, distance = "bray", try = 100) #Running the NMDS
+nmds
+data.scores = as.data.frame(scores(nmds)) #extracting these values
+data.scores = cbind("sample" = zooxMaps[,1], "region" = meta[,4], "depthZone" = meta[,6], "regionDepth" = meta[,10], data.scores) #binding metadata together
+set.seed(694) #setting seed allows repetition of randomized processes
+head(data.scores)
+  
+zooxGenFit <- envfit(nmds, m_com, permutations = 999) #Adding indicator species vectors
+head(zooxGenFit)
+zooxSppScores <- as.data.frame(scores(zooxGenFit, display = "vectors")) #extracts relevant scores from envifit
+A <- as.list(zooxGenFit$vectors)
+pvals<-as.data.frame(A$pvals)
+arrows<-as.data.frame(A$arrows*sqrt(A$r))
+C<-cbind(arrows, pvals)
+Cred<-subset(C,pvals<0.01)
+Cred <- cbind(Cred, Species = rownames(Cred))
+  
+data.scores = merge(data.scores, aggregate(cbind(mean.x = NMDS1, mean.y = NMDS2)~regionDepth, data.scores, mean), by="regionDepth") 
+  
+  #%>% merge(., aggregate(cbind(mean.x.K = dbRDA1, mean.y.K = dbRDA2)~K, regionalDbrdaData1, mean), by="K")
+  
+data.scores$depthZone = factor(data.scores$depthZone)
+data.scores$depthZone = factor(data.scores$depthZone, levels(data.scores$depthZone)[c(2,1)])
+data.scores$region = factor(data.scores$region)
+data.scores$region = factor(data.scores$region, levels = levels(data.scores$region)[c(7, 4, 3, 6, 2, 5, 8, 1)])
+
+head(data.scores)
+
+colPal = c(paletteer_d("vapeplot::vaporwave")[c(7,10,11,14,1,5,3)], "slateblue4")
+zooxNMDSA = ggplot() +
+  geom_hline(yintercept = 0, color = "gray90", size = 0.5) +
+  geom_vline(xintercept = 0, color = "gray90", size = 0.5) +
+  geom_point(data = data.scores, aes(x = NMDS1, y = NMDS2, fill = region, shape = depthZone), size = 2, stroke = NA, 
+ alpha = 0.5, show.legend = FALSE) +
+  geom_segment(data = Cred,aes(x = 0, xend = NMDS1, y = 0, yend = NMDS2), arrow = arrow(length = unit(0.25, "cm")), colour = "black") +
+  scale_shape_manual(values = c(24,25), name = "Depth Zone") +
+  # geom_segment(data = regionalDbrdaData, aes(x = mean.x, y = mean.y, xend = dbRDA1, yend = dbRDA2, color = pop), size = 0.5, alpha = 0.5) +
+  #geom_segment(data = envLoad, aes(x = 0, y = 0, xend = dbRDA1, yend = dbRDA2), 
+               #color = "black", arrow = arrow(length = unit(0.25, "cm"), type = "open"), size = 0.65) +
+  #geom_text(data = envLoad, aes(x = dbRDA1, y = dbRDA2+0.1, label = var), color = "black", size = 3) +
+  #geom_point(data = subset(data.scores, region !=("NWGOM")), aes(x = mean.x, y = mean.y, fill = region, shape = depthZone), size = 2, stroke = NA, alpha = 0.5) +
+  geom_point(data = data.scores, aes(x = mean.x, y = mean.y, fill = region, shape = depthZone), size = 5, color = "black") + #population centroids indicated by triangles
+  geom_text(data = Cred, aes(x = NMDS1, y = NMDS2, label = Species), size = 3)+
+  scale_fill_manual(values = colPal, name = "Site") +
+  scale_color_manual(values = colPal, name = "Site") +
+  guides(shape = guide_legend(override.aes = list(size = 3.5, stroke = 0.5, alpha = 0.7), order = 2), fill = guide_legend(override.aes = list(shape = 22, size = 5, color = NA, alpha = NA), order = 1))+
+  theme_bw()
+
+zooxNMDS = zooxNMDSA +
+  theme(axis.title.x = element_text(color = "black", size = 10),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.line.x = element_blank(),
+        axis.title.y = element_text(color = "black", size = 10),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        legend.position = "right",
+        panel.border = element_rect(color = "black", size = 1),
+        panel.background = element_rect(fill = "white"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+
+
+zooxNMDS
+ggsave("../figures/algalNmds.tiff", plot = zooxNMDS, height = 5, width = 7, units = "in", dpi = 300)
+```
+
+Again we can visualize tight overlap in algal symbiont communities amond different samples, but there appears to be some slight variation in algal symbiont communities across site, potentially driven by variation in background algal symbiont communities (non-*Cladocopium*)
+
+Let's test it:
+##Running PERMANOVAs on algal symbiont 2bRAD sequences
+```{r, zooxPermanova}
+zooxGen = cbind("sample" = zooxMaps[,1], "region" = meta[,4], "depthZone" = meta[,6], "regionDepth" = meta[,10], sqrt(zooxMaps[,c(2:5)])) #Square-root transforming the data
+  
+set.seed(694) #setting seed allows repetition of randomized processes
+zooxGenS = betadisper(vegdist(zooxGen[, c(5:ncol(zooxGen))]), zooxGen$region)
+anova(zooxGenS)
+#There was a significant effect of site on beta diversity
+
+set.seed(694)
+zooxGenD = betadisper(vegdist(zooxGen[, c(5:ncol(zooxGen))]), zooxGen$depthZone)
+anova(zooxGenD)
+#However, there was no significant effect of depth on beta diversity
+
+#PERMANOVA
+set.seed(344)
+its2Adonis = adonis(zooxGen[, c(5:ncol(zooxGen))] ~ region * depthZone, 
+data = zooxGen, permutations = 99, method = "bray")
+its2Adonis
+  
+#Pairwise PERMANOVA
+set.seed(694)
+its2PWAdonis = pairwise.adonis(zooxGen[, c(5:ncol(zooxGen))],
+factors = zooxGen$region, sim.method = "bray", p.adjust.m = "BH", perm = 99)
+its2PWAdonis
+```
+
+
+##Heterozygosity, inbreeding, and relatedness
+```{r, popStats}
+meta=read.csv("../data/regionalInds2PopsNoClones.csv")
+hetSnps=read.table("../data/hetSnps") #Reading in heterozygosity values
+hetSnps=dplyr::select(hetSnps, -V1) 
+colnames(hetSnps)[1] <- "hetSnps"
+popStats=bind_cols(meta, hetSnps)
+
+mcavBreed0 = read.delim("../data/newres") #Reading in inbreeding data
+mcavBreed2 = mcavBreed0 %>% group_by(a) %>% dplyr::select("inbreed" = Fa)
+mcavBreed3 = mcavBreed0 %>% group_by(b) %>% dplyr::select("inbreed" = Fb)
+mcavBreed = bind_rows(mcavBreed2, mcavBreed3) %>% group_by(a) %>% dplyr::summarize("inbreed" = mean(inbreed))%>% dplyr::select(-a)
+#popStats=popStats%>% left_join(mcavBreed, by = "a")
+popStats=bind_cols(popStats, mcavBreed)
+popStats$depthZone = factor(popStats$depthZone, levels(popStats$depthZone)[c(2,1)])
+popStats$region = factor(popStats$region, levels = levels(popStats$region)[c(7, 4, 3, 6, 2, 5, 8, 1)])
+
+#Does heterozygosity vary significantly across region or depth zone?
+hetSnpAnova <- aov(hetSnps ~ region * depthZone, data = popStats)
+summary(hetSnpAnova)
+hetTukey=TukeyHSD(hetSnpAnova, which = "region")
+
+#Does inbreeding vary significantly across region or depth zone?
+inbreedAnova <- aov(inbreed ~ region * depthZone, data = popStats)
+summary(inbreedAnova)
+inbreedTukey=TukeyHSD(inbreedAnova, which = "region")
+
+meta$a=c(0:751)
+mcavRelate = read.delim("../data/newres")
+mcavRelate2 = mcavRelate %>% group_by(a, b) %>% dplyr::select("relate" = rab)
+mcavRelate2 = mcavRelate2 %>% left_join(meta, by = "a") %>% left_join(meta, by = c("b" = "a"), suffix = c(".a", ".b")) 
+#mcavRelate2$popDepth.a = paste(mcavRelate2$Region.a, mcavRelate2$Depth.a, sep = " ")
+#mcavRelate2$popDepth.b = paste(mcavRelate2$Region.b, mcavRelate2$Depth.b, sep = " ")
+mcavRelate = mcavRelate2 %>% filter(regionDepth.a == regionDepth.b) %>% rename(depthZone = depthZone.a, region = region.a)
+mcavRelate$depthZone = factor(mcavRelate$depthZone, levels(mcavRelate$depthZone)[c(2,1)])
+mcavRelate$region = factor(mcavRelate$region, levels = levels(mcavRelate$region)[c(7, 4, 3, 6, 2, 5, 8, 1)])
+mcavRelate = filter(mcavRelate, regionDepth.a != "CUBAMesophotic")
+
+#Does within population pairwise relatedness vary significantly across region or depth zone?
+mcavRelateAnova <- aov(relate ~ region * depthZone, data = mcavRelate)
+summary(mcavRelateAnova)
+relateTukey=TukeyHSD(mcavRelateAnova, which = "region")
+```
+
+##Heterozygosity, inbreeding, and pairwise relatedness populations
+```{r, Fig2}
+colPal = c(paletteer_d("vapeplot::vaporwave")[c(7,10,11,14,1,5,3)], "slateblue4")
+hetTheme = theme(axis.title.x = element_blank(),
+                 axis.text.x = element_text(color = "black", size = 12),
+                 axis.ticks.x = element_line(color = "black"),
+                 axis.title.y = element_text(color = "black", size = 12),
+                 axis.text.y = element_text(color = "black", size = 10),
+                 axis.ticks.y = element_line(color = "black"),
+                 legend.position = "right",
+                 legend.key.size = unit(0.3, 'cm'),
+                 panel.border = element_rect(color = "black"),
+                 panel.background = element_rect(fill = "white"),
+                 plot.background = element_rect(fill = "white"),
+                 panel.grid.major = element_blank(),
+                 panel.grid.minor = element_blank())
+dodge <- position_dodge(width = 1)
+
+hetPlotSnps = ggplot(data = popStats, aes(x = depthZone, y = hetSnps, fill = region)) +
+  geom_point(aes(color = region),shape = 21, position = position_jitterdodge(seed = 1, dodge.width = 1), size = 0.5, alpha = 0.7) +
+  geom_violin(size = 0.25, alpha = 0.7, position = dodge, color = "gray35") +
+  xlab("Depth") +
+  ylab("Heterozygosity") +
+  ggtitle("SNPs") +
+  scale_fill_manual(values = colPal,name = "Site") +
+  scale_color_manual(values = colPal, name="Site") +
+  scale_y_continuous(breaks=seq(0, 1, by = .05)) +
+  theme_bw() +
+  guides(fill = guide_legend(override.aes = list(shape = 22, size = 5, color = NA, alpha = NA)))+
+  hetTheme
+
+inbreedingPlot = ggplot(data = popStats, aes(x = depthZone, y = inbreed, fill = region)) +
+  geom_point(aes(color = region),shape = 21, position = position_jitterdodge(seed = 1, dodge.width = 1), size = 0.5, alpha = 0.7) +
+  geom_violin(size = 0.25, alpha = 0.7, position = dodge, color = "gray35") +
+  xlab("Depth") +
+  ylab("Inbreeding coefficient") +
+  ggtitle("Inbreeding") +
+  scale_fill_manual(values = colPal, name = "Site") +  
+  scale_color_manual(values = colPal, name = "Site") +
+  scale_y_continuous(breaks=seq(0, 1, by = .05)) +
+  guides(fill = guide_legend(override.aes = list(shape = 22, size = 5, color = NA, alpha = NA)))+
+  theme_bw() +
+  hetTheme
+
+relatePlot = ggplot(data = mcavRelate, aes(x = depthZone, y = relate, fill = region)) +
+  geom_point(aes(color = region),shape = 21, position = position_jitterdodge(seed = 1, dodge.width = 1), size = 0.5, alpha = 0.7) +
+  geom_violin(size = 0.25, alpha = 0.7, position = dodge, color = "gray35") +
+  xlab("Depth") +
+  ylab("Relatedness") +
+  ggtitle("Relatedness") +
+  scale_fill_manual(values = colPal, name = "Site") +  
+  scale_color_manual(values = colPal, name="Site") +
+  scale_y_continuous(breaks=seq(0, 1, by = .1)) +
+  guides(fill = guide_legend(override.aes = list(shape = 22, size = 5, color = NA, alpha = NA)))+
+  theme_bw() +
+  hetTheme
+
+hetPlots = ( hetPlotSnps | inbreedingPlot | relatePlot) +
+  plot_annotation(tag_levels = 'A') +
+  plot_layout(guides = "collect")& 
+  theme(plot.tag = element_text(size = 16),
+        legend.position = "right")
+hetPlots
+ggsave("../figures/popStatPlots.tiff", plot = hetPlots, height = 5, width = 15, units = "in", dpi = 300)
+```
