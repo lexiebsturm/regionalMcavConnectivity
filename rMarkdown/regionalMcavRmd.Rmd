@@ -35,7 +35,7 @@ If you have any issues or questions about the code please feel free to send an e
 For the following analyses we will require the use of multiple different R packages, we can use the package *pacman* to quickly load them.
 ```{r, loading required packages}
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load("adegenet", "dendextend", "gdata", "ggdendro", "hierfstat", "Imap", "kableExtra", "paletteer", "patchwork", "officer", "poppr", "RColorBrewer", "reshape2", "StAMPP", "tidyverse", "vcfR", "vegan", "WGCNA", "ggnewscale", "rnaturalearth", "sf", "ggspatial", "cowplot", "dplyr", "grDevices", "sdmpredictors", "leaflet", "adespatial","codep", "adegraphics", "ape", "car", "psych", "raster", "rgdal", "Hmisc","pairwiseAdonis", "pcadapt", "ggmap", "TeachingDemos", "LaplacesDemon", "ggrepel")
+pacman::p_load("adegenet", "dendextend", "gdata", "ggdendro", "hierfstat", "Imap", "kableExtra", "paletteer", "patchwork", "officer", "poppr", "RColorBrewer", "reshape2", "StAMPP", "tidyverse", "vcfR", "vegan", "WGCNA", "ggnewscale", "rnaturalearth", "sf", "ggspatial", "cowplot", "dplyr", "grDevices", "sdmpredictors", "leaflet", "adespatial","codep", "adegraphics", "ape", "car", "psych", "raster", "rgdal", "Hmisc","pairwiseAdonis", "pcadapt", "ggmap", "TeachingDemos", "LaplacesDemon", "ggrepel", "rstatix", "ggpubr")
 
 pacman::p_load_gh("eliocamp/ggnewscale", "ropensci/rnaturalearthhires","moldach/vapoRwave", "coolbutuseless/emphatic")
 
@@ -48,14 +48,14 @@ Figures, Tables, and Analyses
 #Table 1:Sample locations and number of samples
 meta=read.csv("../data/regionalInds2PopsNoClones.csv")
 sampleTableRegion= meta %>%
-  group_by(region, depthZone) %>%
-  summarise(n = n(), depthMin= min(depthM), depthMax=max(depthM), meanDepth=mean(depthM))
+  dplyr::group_by(region, depthZone) %>%
+  dplyr::summarise(n = n(), depthMin= min(depthM), depthMax=max(depthM), meanDepth=mean(depthM))
 
 sampleTableRegion=data.frame(sampleTableRegion)
 
 sampleTableSite= meta %>%
-  group_by(region, site, depthZone, lat, lon) %>%
-  summarise(n = n()) 
+  dplyr::group_by(region, site, depthZone, lat, lon) %>%
+  dplyr::summarise(n = n()) 
 
 sampleTableSite=data.frame(sampleTableSite)
 ```
@@ -76,19 +76,22 @@ The following chunk uses any 2bRAD sequences that align exclusively to the algal
   
   zoox = zoox %>% filter(zoox$V1 != "*")
   
-  zooxLst = split(zoox$V2, as.integer(gl(length(zoox$V2), 20, length(zoox$V2))))
+zooxLst = split(zoox$V2, as.integer(gl(length(zoox$V2), 20, length(zoox$V2))))
   
-  zooxMaps = NULL
-  for(i in zooxLst){
-    zooxMaps = rbind(zooxMaps, data.frame(t(i)))
+zooxMaps = NULL
+
+for(i in zooxLst){
+  zooxMaps = rbind(zooxMaps, data.frame(t(i)))
+}
+
+colnames(zooxMaps) = c("Sample",zoox$V1[c(2:20)])
+
+#convert characters to numeric
+str(zooxMaps)
+
+for(i in c(2:20)){
+  zooxMaps[,i] = as.numeric(zooxMaps[,i])
   }
-  colnames(zooxMaps) = c("sample",zoox$V1[c(2:20)])
-  
-  for(i in c(2:20)){
-    zooxMaps[,i] = as.numeric(levels(zooxMaps[,i]))[zooxMaps[,i]]
-  }
-  
-  str(zooxMaps)
   
   zooxMaps$Symbiodinium = rowSums(zooxMaps[2:6])
   zooxMaps$Breviolum = rowSums(zooxMaps[7:10])
@@ -99,8 +102,15 @@ The following chunk uses any 2bRAD sequences that align exclusively to the algal
   
   zooxMapsSums=zooxMaps
   zooxMapsSums$totalAlignments=rowSums(zooxMapsSums[2:5])
-  mean(zooxMapsSums$Cladocopium)/mean(zooxMapsSums$totalAlignments) #Cladocopium dominant
+  mean(zooxMapsSums$Cladocopium)/mean(zooxMapsSums$totalAlignments)*100 #Cladocopium dominant
+  mean(zooxMapsSums$Symbiodinium)/mean(zooxMapsSums$totalAlignments)*100
+  mean(zooxMapsSums$Breviolum)/mean(zooxMapsSums$totalAlignments)*100
+  mean(zooxMapsSums$Durusdinium)/mean(zooxMapsSums$totalAlignments)*100
+  sd(zooxMapsSums$Cladocopium)
+  sd(zooxMapsSums$totalAlignments)
   
+  zooxMapsSums$cProp=(zooxMapsSums$Cladocopium)/(zooxMapsSums$totalAlignments)
+  zooxMapsSums[order(zooxMapsSums$cProp), ]
   
 ```
 
@@ -112,6 +122,7 @@ The following sections analyze the population genetics of the *M. cavernosa* cor
 
 ##Analysis of Molecular Variance (AMOVA)
 ```{r, amova}
+#I have to zip this file for GitHub upload so remember to unzip it for use
 regionalVcf = read.vcfR("../data/regionalMcavNoClones.bcf")
 regionalGenlightPopDepth = vcfR2genlight(regionalVcf, n.cores = 2) # Converts the vcf file into a file format that poppr uses the "genlight" format
 #locNames(regionalGenlightPopDepth) = paste(regionalVcf@fix[,1],regionalVcf@fix[,2],sep="_")
@@ -122,19 +133,56 @@ setPop(regionalGenlightPopDepth) = ~regionDepth
 ploidy(regionalGenlightPopDepth) <- 2
 amova <- poppr.amova(regionalGenlightPopDepth, ~regionDepth) #Runs AMOVA
 amova
+# $call
+# ade4::amova(samples = xtab, distances = xdist, structures = xstruct)
+# 
+# $results
+#                                      Df    Sum Sq   Mean Sq
+# Between regionDepth                  13  26775.37 2059.6437
+# Between samples Within regionDepth  738 429249.79  581.6393
+# Within samples                      752 398436.00  529.8351
+# Total                              1503 854461.15  568.5038
+# 
+# $componentsofcovariance
+#                                                    Sigma          %
+# Variations  Between regionDepth                 14.02633   2.461781
+# Variations  Between samples Within regionDepth  25.90208   4.546111
+# Variations  Within samples                     529.83511  92.992108
+# Total variations                               569.76352 100.000000
+# 
+# $statphi
+#                                Phi
+# Phi-samples-total       0.07007892
+# Phi-samples-regionDepth 0.04660851
+# Phi-regionDepth-total   0.02461781
 
 #Takes forever! Run with caution  
-set.seed(1999)
+#set.seed(1999)
 #amovasignif <- randtest(amova, nrepet = 99) #Calculates significance levels of the AMOVA with 99 permutations
 #amovasignif
 #plot(amovasignif)
-#Test       Obs    Std.Obs   Alter Pvalue
-# Variations between regionDepth  12.04648  76.358764 greater   0.01
+# Number of tests:   3 
+# 
+# Adjustment method for multiple comparisons:   none 
+# Permutation number:   99 
+#                             Test       Obs    Std.Obs   Alter Pvalue
+# 1      Variations within samples 529.83511 -13.173885    less   0.01
+# 2     Variations between samples  25.90208   8.026062 greater   0.01
+# 3 Variations between regionDepth  14.02633  88.131833 greater   0.01
+
 ```
 
 There was significant genetic variation among our populations, let's examine pairwise Fsts!
 ##Figure 1: Pairwise Fst heat map
 ```{r, fstHeatMap}
+#I have to zip this file for GitHub upload so remember to unzip it for use
+regionalVcf = read.vcfR("../data/regionalMcavNoClones.bcf")
+regionalGenlightPopDepth = vcfR2genlight(regionalVcf, n.cores = 2) # Converts the vcf file into a file format that poppr uses the "genlight" format
+#locNames(regionalGenlightPopDepth) = paste(regionalVcf@fix[,1],regionalVcf@fix[,2],sep="_")
+popData = read.csv("../data/regionalInds2PopsNoClones.csv") # Reads in population data for each sample
+strata(regionalGenlightPopDepth) = data.frame(popData)
+setPop(regionalGenlightPopDepth) = ~regionDepth
+ploidy(regionalGenlightPopDepth) <- 2
 set.seed(694)
 regional.fst <- stamppFst(regionalGenlightPopDepth, nboots = 99, percent = 95, nclusters = 4) #99 permutations
 regional.fst$Fsts
@@ -183,9 +231,9 @@ snpHeatmapA = ggplot(data = snpFst, aes(Pop, Pop2, fill = Fst))+
   geom_rect(xmin=1.5, xmax=2.5, ymin=1.5, ymax=2.5, color="#FFA58BFF", fill=NA, size=2.5)+
   geom_rect(xmin=3.5, xmax=4.5, ymin=3.5, ymax=4.5, color="#FFDE8BFF" , fill=NA, size=2.5)+
   geom_rect(xmin=6.5, xmax=7.5, ymin=6.5, ymax=7.5, color="#94D0FFFF" , fill=NA,size=2.5)+
-  geom_rect(xmin=8.5, xmax=9.5, ymin=8.5, ymax=9.5, color="#C774E8FF" , fill=NA,size=2.5)+
-  geom_rect(xmin=10.5, xmax=11.5, ymin=10.5, ymax=11.5, color="#966BFFFF" , fill=NA,size=2.5)+
-  geom_rect(xmin=12.5, xmax=13.5, ymin=12.5, ymax=13.5, color="slateblue4" , fill=NA,size=2.5)+
+  geom_rect(xmin=8.5, xmax=9.5, ymin=8.5, ymax=9.5, color="#966BFFFF" , fill=NA,size=2.5)+
+  geom_rect(xmin=10.5, xmax=11.5, ymin=10.5, ymax=11.5, color="slateblue4" , fill=NA,size=2.5)+
+  geom_rect(xmin=12.5, xmax=13.5, ymin=12.5, ymax=13.5, color="#FF6AD5FF" , fill=NA,size=2.5)+
   #geom_rect(xmin=0, xmax=2, ymin=0, ymax=2, color="#FFA58BFF", fill="#FFA58BFF", size=2.5)+
   #X axis colors
   # geom_rect(xmin = 0.5, xmax = 2.5, fill = "#FFA58BFF", ymin = -3.5, ymax = 0.5) +
@@ -209,18 +257,18 @@ geom_rect(xmin = 0.5, xmax = 2.5, fill = "#FFA58BFF", ymin = 0.25, ymax = 0.5) +
   geom_rect(xmin = 2.5, xmax = 4.5, fill = "#FFDE8BFF", ymin = 0.25, ymax = 0.5) +
   geom_rect(xmin = 4.5, xmax = 5.5, fill = "#20DE8BFF", ymin = 0.25, ymax = 0.5) +
   geom_rect(xmin = 5.5, xmax = 7.5, fill = "#94D0FFFF", ymin = 0.25, ymax = 0.5) +
-  geom_rect(xmin = 7.5, xmax = 9.5, fill = "#C774E8FF", ymin = 0.25, ymax = 0.5) +
-  geom_rect(xmin = 9.5, xmax = 11.5, fill = "#966BFFFF", ymin = 0.25, ymax = 0.5) +
-  geom_rect(xmin = 11.5, xmax = 13.5, fill = "slateblue4", ymin = 0.25, ymax = 0.5) +
+  geom_rect(xmin = 7.5, xmax = 9.5, fill = "#966BFFFF", ymin = 0.25, ymax = 0.5) +
+  geom_rect(xmin = 9.5, xmax = 11.5, fill = "slateblue4", ymin = 0.25, ymax = 0.5) +
+  geom_rect(xmin = 11.5, xmax = 13.5, fill = "#FF6AD5FF", ymin = 0.25, ymax = 0.5) +
   #Y axis colors
-  geom_rect(xmin = 13.5, xmax = 13.6, fill = "slateblue4", ymin = 12.4, ymax = 13.61) +
-  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#966BFFFF", ymin = 10.5, ymax = 12.39) +
-  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#C774E8FF", ymin = 8.5, ymax = 10.5) +
+  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#FF6AD5FF", ymin = 12.4, ymax = 13.61) +
+  geom_rect(xmin = 13.5, xmax = 13.6, fill = "slateblue4", ymin = 10.5, ymax = 12.39) +
+  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#966BFFFF", ymin = 8.5, ymax = 10.5) +
   geom_rect(xmin = 13.5, xmax = 13.6, fill = "#94D0FFFF", ymin = 6.5, ymax = 8.5) +
   geom_rect(xmin = 13.5, xmax = 13.6, fill = "#20DE8BFF", ymin = 5.5, ymax = 6.5) +
   geom_rect(xmin = 13.5, xmax = 13.6, fill = "#FFDE8BFF", ymin = 3.5, ymax = 5.5) +
   geom_rect(xmin = 13.5, xmax = 13.6, fill = "#FFA58BFF", ymin = 1.5, ymax = 3.5) +
-  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#FF6AD5FF", ymin = 0.5, ymax = 1.5) +
+  geom_rect(xmin = 13.5, xmax = 13.6, fill = "#FC6279", ymin = 0.5, ymax = 1.5) +
 
   
   coord_cartesian(xlim = c(1, 13), ylim = c(1, 13), clip = "off")+
@@ -244,7 +292,7 @@ snpHeatmap = snpHeatmapA + theme(
 
 snpHeatmap
   
-ggsave("../figures/fig1.tiff", plot = snpHeatmap, width = 34, height = 15, units = "cm", dpi = 300)
+ggsave("../figures/fig1.eps", plot = snpHeatmap, width = 34, height = 15, units = "cm", dpi = 300)
 ```
 
 ##Table 2; Figure 2 Distance-based redundancy analysis (dbRDA)
@@ -265,7 +313,10 @@ summary(dbmem)
 datasets = list_datasets(terrestrial = FALSE, marine = TRUE)
   
 # Extract present-day data sets of interest
-present = list_layers(datasets) %>% dplyr::select(dataset_code, layer_code, name, units, description, contains("cellsize"), version) %>% filter(version == 2.2) %>% filter(layer_code %in% c("BO22_calcite", "BO22_cloudmean", "BO22_damean", "BO22_parmean", "BO22_ph", "BO22_carbonphytomean_ss", "BO22_chlomean_ss", "BO22_curvelmean_ss", "BO22_dissoxmean_ss", "BO22_ironmean_ss", "BO22_nitratemean_ss", "BO22_phosphatemean_ss", "BO22_ppmean_ss", "BO22_salinitymean_ss", "BO22_silicatemean_ss", "BO22_tempmean_ss"))
+present = list_layers(datasets) %>% 
+dplyr::select(dataset_code, layer_code, name, units, description, contains("cellsize"), version) %>% 
+  dplyr::filter(version == 22) %>% 
+  dplyr::filter(layer_code %in% c("BO22_calcite", "BO22_cloudmean", "BO22_damean", "BO22_parmean", "BO22_ph", "BO22_carbonphytomean_ss", "BO22_chlomean_ss", "BO22_curvelmean_ss", "BO22_dissoxmean_ss", "BO22_ironmean_ss", "BO22_nitratemean_ss", "BO22_phosphatemean_ss", "BO22_ppmean_ss", "BO22_salinitymean_ss", "BO22_silicatemean_ss", "BO22_tempmean_ss"))
 
 options(sdmpredictors_datadir = "../data/bioOracleData")  
 envVar = load_layers(present$layer_code)
@@ -310,29 +361,36 @@ Pcoa=pcoa(snpMa)
 Pcoa$values$Cum_corr_eig
 ibs=Pcoa$vectors
 
-rda=rda(ibs, envData[,c(3, 7:ncol(envData))])  
-vif(rda)
+vif = diag(solve(cor(envData[,c(3, 7:ncol(envData))])))
+vif
+
+
+#car::vif(rda)
 
 #Salinity has high vif, remove
 envData=envData%>%dplyr::select(-BO22_salinitymean_ss)
 
-rda=rda(ibs, envData[,c(3, 7:ncol(envData))])
-vif(rda)
+vif = diag(solve(cor(envData[,c(3, 7:ncol(envData))])))
+vif
 
 ```
 
 Now everything with vif > 10 is removed.
 ###Running the dbRDA
 ```{r, dbRDA}
+rda=rda(ibs, envData[,c(3, 7:ncol(envData))])  
 RsquareAdj(rda)
 anova(rda, perm=999)  
 rda0<-rda(ibs ~ 1, envData[,c(3, 7:ncol(envData))])  
 rdaG<- rda(ibs ~ ., envData[,c(3, 7:ncol(envData))])
 Sel <- ordiR2step(rda0, scope = formula(rdaG), direction="both") #Running all versions of the model to select the best one, takes awhile.
-Sel$anova #This shows you all the variables retained in the best model, in this case it retained all of our remaining non correlated variables.
+bestModel=Sel$anova #This shows you all the variables retained in the best model, in this case it retained all of our remaining non correlated variables.
+write.csv(bestModel, "../data/bestModel.csv")
+
+envData=envData%>%dplyr::select(-BO22_phosphatemean_ss, -MEM8, -MEM11)
 
 #Now build a model with only the selected variables
-
+#MODEL RETAINED EVERYTHING BUT MEM8, MEM11, and Phosphate
 rdaS<- rda(ibs , envData[,c(3, 7:ncol(envData))])
 RsquareAdj(rdaS)
 anova(rdaS, perm=999)
@@ -344,14 +402,14 @@ summary(eigenvals(rdaS, model = "constrained"))
 
 envSummary=envData %>% dplyr::select(-sample) %>% group_by(region, depthZone, lat, lon) %>% summarise_all(mean)
 write.csv(envSummary, "../data/envSummary.csv")
+
 model = envData %>% dplyr::select("depth" = depthM,
                                   "light_attenuation"=BO22_damean,
-                                  "phosphate" = BO22_phosphatemean_ss, 
                                   "calcite" = BO22_calcite,
-                                  "current_velocity" = BO22_curvelmean_ss,
-                                  MEM1, MEM2, MEM3, MEM4, MEM5, MEM6, MEM7, MEM8, MEM9, MEM10)
+                                  "current_velocity" = BO22_curvelmean_ss, MEM1, MEM2, MEM3, MEM4, MEM5, MEM6, MEM7, MEM9, MEM10)
 
-regionalDbrda = dbrda(snpMa ~ depth + light_attenuation + phosphate + calcite + current_velocity + MEM1+ MEM2+ MEM3+ MEM4+ MEM5+ MEM6+ MEM7+ MEM8+ MEM9+ MEM10, model)
+
+regionalDbrda = dbrda(snpMa ~ depth + light_attenuation + calcite + current_velocity + MEM1+ MEM2+ MEM3+ MEM4+ MEM5+ MEM6+ MEM7+ MEM9+ MEM10, model)
 
 regionalRdaVarTotal = round(regionalDbrda$CA$eig/sum(regionalDbrda$CA$eig)*100, 1)
 head(regionalRdaVarTotal)
@@ -371,7 +429,11 @@ head(regionalDbrdaData1)
 tail(regionalDbrdaData1)
 
 envLoad = as.data.frame(regionalDbrda$CCA$biplot)
-envLoad$var = c("depth", "light_attenuation", "phosphate", "calcite", "current_velocity", "MEM1", "MEM2", "MEM3", "MEM4", "MEM5", "MEM6", "MEM7", "MEM8", "MEM9", "MEM10")
+envLoad$var = c("depth", "light\nattenuation", "calcite", "current\nvelocity", "1", "2", "3", "4", "5", "6", "7", "9", "10")
+# envLoad$varType <- ifelse(envLoad$var %in% c("light\nattenuation", "calcite", "current\nvelocity"), "environmental", "spatial")
+# envLoad$varType=as.factor(envLoad$varType)
+
+
 
 regionalDbrdaData = merge(regionalDbrdaData1, aggregate(cbind(mean.x = dbRDA1, mean.y = dbRDA2)~regionDepth, regionalDbrdaData1, mean), by="regionDepth") 
 
@@ -384,7 +446,8 @@ regionalDbrdaData$region = factor(regionalDbrdaData$region, levels(regionalDbrda
 
 head(regionalDbrdaData)
 
-colPal = c(paletteer_d("vapeplot::vaporwave")[c(7,10,11,14,1,5,3)], "slateblue4")
+  colPal = c("#FC6279", "#FFA58BFF",  "#FFDE8BFF", "#20DE8BFF", "#94D0FFFF", "#966BFFFF", "slateblue4", "#FF6AD5FF")
+  
 regionalDbrdaPlotA = ggplot() +
   geom_hline(yintercept = 0, color = "gray90", size = 0.5) +
   geom_vline(xintercept = 0, color = "gray90", size = 0.5) +
@@ -392,9 +455,11 @@ regionalDbrdaPlotA = ggplot() +
              size = 2, stroke = NA, alpha = 0.5, show.legend = FALSE) +
   scale_shape_manual(values = c(24,25), name = "Depth Zone") +
   # geom_segment(data = regionalDbrdaData, aes(x = mean.x, y = mean.y, xend = dbRDA1, yend = dbRDA2, color = pop), size = 0.5, alpha = 0.5) +
-  geom_segment(data = envLoad, aes(x = 0, y = 0, xend = dbRDA1, yend = dbRDA2), color = "black", arrow = arrow(length = unit(0.25, "cm"), type = "open"), size = 0.65) +
-  #geom_segment(data = subset(envLoad, subset=envLoad$var %in% c("light_attenuation", "phosphate", "calcite", "current_velocity" )), aes(x = 0, y = 0, xend = dbRDA1, yend = dbRDA2), color = "black", arrow = arrow(length = unit(0.25, "cm"), type = "open"), size = 0.65) +
-  #geom_text_repel(data = envLoad, aes(x = dbRDA1, y = dbRDA2, label = var), color = "black", size = 3) +
+  #geom_segment(data = envLoad, aes(x = 0, y = 0, xend = dbRDA1, yend = dbRDA2, linetype = varType), color = "black", arrow = arrow(length = unit(0.25, "cm"), type = "open"), size = 0.65) +
+  #scale_linetype_manual(values = c("spatial" = "solid", "environmental" = "dashed"), name = "Variable Type") +
+ geom_segment(data = envLoad, aes(x = 0, y = 0, xend = dbRDA1, yend = dbRDA2), color = "black", arrow = arrow(length = unit(0.25, "cm"), type = "open"), size = 0.65) +
+  scale_linetype_manual(values = c("spatial" = "solid", "environmental" = "dashed"), name = "Variable Type") +
+geom_text_repel(data = envLoad, aes(x = dbRDA1, y = dbRDA2, label = var), color = "black", size = 3) +
   geom_point(data = regionalDbrdaData, aes(x = mean.x, y = mean.y, fill = region, shape = depthZone),
              size = 5, color = "black") + #population centroids indicated by triangles
   scale_fill_manual(values = colPal, name = "Site") +
@@ -405,17 +470,17 @@ regionalDbrdaPlotA = ggplot() +
   theme_bw()
 
 regionalDbrdaPlot = regionalDbrdaPlotA +
-  theme(axis.title.x = element_text(color = "white", size = 10),
+  theme(axis.title.x = element_text(color = "black", size = 10),
         axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
         axis.line.x = element_blank(),
-        axis.title.y = element_text(color = "white", size = 10),
+        axis.title.y = element_text(color = "black", size = 10),
         axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
         axis.line.y = element_blank(),
         legend.position = "right",
-        legend.title=element_text(color="white"),
-        legend.text=element_text(color="white"),
+        legend.title=element_text(color="black"),
+        legend.text=element_text(color="black"),
         legend.background=element_blank(),
         legend.key=element_blank(),
         panel.border = element_rect(color = "black", size = 1),
@@ -426,32 +491,18 @@ regionalDbrdaPlot = regionalDbrdaPlotA +
 
 
 regionalDbrdaPlot
-ggsave("../figures/dbRDANoBg.png", plot = regionalDbrdaPlot, height = 5, width = 7, units = "in", dpi = 300)
+ggsave("../figures/fig2.tiff", plot = regionalDbrdaPlot, height = 5, width = 7, units = "in", dpi = 300)
 ```
 
 ##Figure 3: NGSAdmix plots on a map
-```{r, ngsAdmix}
+```{r, ngsAdmixByCluster}
 colPalAdmix = paletteer_c("viridis::viridis", n=4)
 k4=read.csv("../data/k4ngsAdmix.csv")
 meta=read.csv("../data/regionalInds2PopsNoClones.csv")
 k4Admix=bind_cols(meta, k4)
 shapeLabs=(c("Shallow"=expression("\U25B2"), "Mesophotic"=expression("\U25BC")))
 
-# dominantClusterScatter=ggplot(k4Admix, aes(x = lon, y = lat, shape = depthZone, fill = dominantCluster)) +
-#   geom_point(size = 4) +
-#   scale_fill_manual(values = colPalAdmix1)+
-#   scale_shape_manual(values = c(24,25), name = "Depth Zone") +
-#   #labs(title = "Scatterplot of Latitude and Longitude", x = "Longitude", y = "Latitude") +
-#   theme_minimal()  
-
-# meltK4 = melt(k4Admix, id.vars=c("sample", "site", "pop", "region", "depthM", "depthZone", "dateCollected", "lat", "lon", "regionDepth"), variable.name="ancestry", value.name="fraction")
-# meltK4$depthZone = factor(meltK4$depthZone, levels = levels(meltK4$depthZone)[c(2,1)])
-#   
-# lonScatter=ggplot(meltK4, aes(x=lon, y=fraction, fill=ancestry, shape=depthZone)) +
-# geom_point() + 
-# scale_shape_manual(values = c(24,25))+
-# scale_fill_manual(values = c("cluster1"="#440154FF", "cluster2"="#31688EFF", "cluster3"="#35B779FF", "cluster4"="#FDE725FF"), name = "Cluster")
- 
+#####Arranged by cluster
 blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3, cluster2)
   sum(blzShallowK4$cluster1)
   sum(blzShallowK4$cluster2)
@@ -469,14 +520,15 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
   blzAdmix=bind_rows(blzShallowK4, blzMesoK4)
   
   meltBlzK4 = melt(blzAdmix, id.vars=c("sample", "site", "pop", "region", "depthM", "depthZone", "dateCollected", "lat", "lon", "regionDepth", "ord"), variable.name="ancestry", value.name="fraction")
-  meltBlzK4$depthZone = factor(meltBlzK4$depthZone, levels = levels(meltBlzK4$depthZone)[c(2,1)])
+meltBlzK4$depthZone = as.factor(meltBlzK4$depthZone)
+meltBlzK4$depthZone = factor(meltBlzK4$depthZone, levels =levels(meltBlzK4$depthZone)[c(2,1)])
   
-  shapeLabs=as_labeller(c(`Shallow`="\u25B2", `Mesophotic`="\u25BC"))
+shapeLabs=as_labeller(c(`Shallow`="\u25B2", `Mesophotic`="\u25BC"))
   
   blzK4Plot = ggplot(meltBlzK4, aes(x=ord, y=fraction, fill=factor(ancestry, levels=c("cluster4", "cluster1", "cluster2", "cluster3")))) +
     geom_bar(stat="identity", position="fill", width=1) +
     facet_grid(.~depthZone,labeller = shapeLabs, scales = "free", switch = "x", space = "free") +
-    scale_shape_manual(values = c(24,25))+
+    scale_shape_manual(values = c(24,25)) +
     #labs(x = "Population", y = "Ancestry") +
     #ggtitle("Belize") +
     theme(plot.title = element_blank(),
@@ -494,7 +546,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
           strip.background=element_blank(),
-          strip.text=element_text(size=15, color = "slateblue4", vjust=2),
+          strip.text=element_text(size=15, color = "#FF6AD5FF", vjust=1),
           #strip.text=element_text(size=20, angle=45),
           legend.key=element_blank(),
           legend.position = "none",
@@ -504,7 +556,9 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
     scale_fill_manual(values = c("cluster1"="#440154FF", "cluster2"="#31688EFF", "cluster3"="#35B779FF", "cluster4"="#FDE725FF"), name = "Cluster") +
     #scale_fill_manual(values = colPal3, name = "Cluster") +
     guides(fill=guide_legend(override.aes=list(colour=NULL)))
+
   blzK4Plot 
+  
  ############### 
   cubaShallowK4=filter(k4Admix, regionDepth == "CUBAShallow") %>% arrange(-cluster3, cluster1)
   sum(cubaShallowK4$cluster1)
@@ -518,7 +572,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
   sum(cubaMesoK4$cluster2)
   sum(cubaMesoK4$cluster3)
   sum(cubaMesoK4$cluster4)
-  cubaMesoK4$ord=77:78
+  cubaMesoK4$ord=78:79
   
   #cubaAdmix=bind_rows(cubaShallowK4, cubaMesoK4)
   
@@ -545,7 +599,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
           strip.background=element_blank(),
-          strip.text=element_text(size=15, color = "#94D0FFFF", vjust=2),
+          strip.text=element_text(size=15, color = "#94D0FFFF", vjust=1),
           legend.key=element_blank(),
           legend.position = "none",
           legend.title = element_blank()) +
@@ -576,7 +630,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
           strip.background=element_blank(),
-          strip.text=element_text(size=15, color = "#94D0FFFF", vjust=2),
+          strip.text=element_text(size=15, color = "#94D0FFFF", vjust=1),
           legend.key=element_blank(),
           legend.position = "none",
           legend.title = element_blank()) +
@@ -604,6 +658,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
   drtAdmix=bind_rows(drtShallowK4, drtMesoK4)
   
   meltdrtK4 = melt(drtAdmix, id.vars=c("sample", "site", "pop", "region", "depthM", "depthZone", "dateCollected", "lat", "lon", "regionDepth", "ord"), variable.name="ancestry", value.name="fraction")
+meltdrtK4$depthZone = as.factor(meltdrtK4$depthZone)
   meltdrtK4$depthZone = factor(meltdrtK4$depthZone, levels = levels(meltdrtK4$depthZone)[c(2,1)])
   
   drtK4Plot = ggplot(meltdrtK4, aes(x=ord, y=fraction, fill=factor(ancestry, levels=c("cluster3","cluster1","cluster2","cluster4")))) +
@@ -625,7 +680,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
           strip.background=element_blank(),
-          strip.text=element_text(size=15, color = "#FFDE8BFF", vjust=2),
+          strip.text=element_text(size=15, color = "#FFDE8BFF", vjust=1),
           legend.key=element_blank(),
           legend.position = "none",
           legend.title = element_blank()) +
@@ -654,6 +709,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
   fkAdmix=bind_rows(fkShallowK4, fkMesoK4)
   
   meltfkK4 = melt(fkAdmix, id.vars=c("sample", "site", "pop", "region", "depthM", "depthZone", "dateCollected", "lat", "lon", "regionDepth", "ord"), variable.name="ancestry", value.name="fraction")
+meltfkK4$depthZone = as.factor(meltfkK4$depthZone)
   meltfkK4$depthZone = factor(meltfkK4$depthZone, levels = levels(meltfkK4$depthZone)[c(2,1)])
   
   fkK4Plot = ggplot(meltfkK4, aes(x=ord, y=fraction, fill=factor(ancestry, levels=c("cluster3","cluster1","cluster2","cluster4")))) +
@@ -675,7 +731,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
           strip.background=element_blank(),
-          strip.text=element_text(size=15, color = "#FFA58BFF", vjust=2),
+          strip.text=element_text(size=15, color = "#FFA58BFF", vjust=1),
           legend.key=element_blank(),
           legend.position = "none",
           legend.title = element_blank()) +
@@ -703,6 +759,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
   sgomAdmix=bind_rows(sgomShallowK4, sgomMesoK4)
   
   meltsgomK4 = melt(sgomAdmix, id.vars=c("sample", "site", "pop", "region", "depthM", "depthZone", "dateCollected", "lat", "lon", "regionDepth", "ord"), variable.name="ancestry", value.name="fraction")
+meltsgomK4$depthZone = as.factor(meltsgomK4$depthZone)
   meltsgomK4$depthZone = factor(meltsgomK4$depthZone, levels = levels(meltsgomK4$depthZone)[c(2,1)])
   
   sgomK4Plot = ggplot(meltsgomK4, aes(x=ord, y=fraction, fill=factor(ancestry, levels=c("cluster3", "cluster4","cluster2","cluster1")))) +
@@ -724,7 +781,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
           strip.background=element_blank(),
-          strip.text=element_text(size=15, color = "#966BFFFF", vjust=2),
+          strip.text=element_text(size=15, color = "slateblue4", vjust=1),
           legend.key=element_blank(),
           legend.position = "none",
           legend.title = element_blank()) +
@@ -753,6 +810,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
   nwgomAdmix=bind_rows(nwgomShallowK4, nwgomMesoK4)
   
   meltnwgomK4 = melt(nwgomAdmix, id.vars=c("sample", "site", "pop", "region", "depthM", "depthZone", "dateCollected", "lat", "lon", "regionDepth", "ord"), variable.name="ancestry", value.name="fraction")
+  meltnwgomK4$depthZone = as.factor(meltnwgomK4$depthZone)
   meltnwgomK4$depthZone = factor(meltnwgomK4$depthZone, levels = levels(meltnwgomK4$depthZone)[c(2,1)])
   
   nwgomK4Plot = ggplot(meltnwgomK4, aes(x=ord, y=fraction, fill=factor(ancestry, levels=c("cluster3", "cluster4","cluster2","cluster1")))) +
@@ -774,7 +832,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
           strip.background=element_blank(),
-          strip.text=element_text(size=15, color = "#C774E8FF" , vjust=2),
+          strip.text=element_text(size=15, color = "#966BFFFF" , vjust=1),
           legend.key=element_blank(),
           legend.position = "none",
           legend.title = element_blank()) +
@@ -786,7 +844,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
   nwgomK4Plot 
   ###############
   ###############
-  seflShallowK4=filter(k4Admix, regionDepth == "SEFLShallow") %>% arrange(-cluster3, cluster2)
+  seflShallowK4=filter(k4Admix, regionDepth == "SEFLShallow") %>% arrange(-cluster1, cluster3)
   sum(seflShallowK4$cluster1)
   sum(seflShallowK4$cluster2)
   sum(seflShallowK4$cluster3)
@@ -814,7 +872,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
           strip.background=element_blank(),
-          strip.text=element_text(size=15, color = "#FF6AD5FF", vjust=2),
+          strip.text=element_text(size=15, color = "#FC6279", vjust=1),
           legend.key=element_blank(),
           legend.position = "none",
           legend.title = element_blank()) +
@@ -826,7 +884,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
   seflK4Plot 
   ###############
   ###############
-  prgMesoK4=filter(k4Admix, regionDepth == "PRGMesophotic") %>% arrange(-cluster1, cluster3)
+  prgMesoK4=filter(k4Admix, regionDepth == "PRGMesophotic") %>% arrange(-cluster2, cluster1)
   sum(prgMesoK4$cluster1)
   sum(prgMesoK4$cluster2)
   sum(prgMesoK4$cluster3)
@@ -854,7 +912,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
           strip.background=element_blank(),
-          strip.text=element_text(size=15, color = "#20DE8BFF", vjust=2),
+          strip.text=element_text(size=15, color = "#20DE8BFF", vjust=1),
           legend.key=element_blank(),
           legend.position = "none",
           legend.title = element_blank()) +
@@ -865,10 +923,12 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
     guides(fill=guide_legend(override.aes=list(colour=NULL)))
   prgK4Plot 
   ###############
-  colPal = c(paletteer_d("vapeplot::vaporwave")[c(7,10,11,14,1,5,3)], "slateblue4")
+  colPal = c("#FC6279", "#FFA58BFF",  "#FFDE8BFF", "#20DE8BFF", "#94D0FFFF", "#966BFFFF", "slateblue4", "#FF6AD5FF")
   sites = read.csv("../data/regionalInds2popsNoClones.csv", header = TRUE)
   #sites$depthZone=as.factor(sites$depthZone)
+  sites$depthZone = as.factor(sites$depthZone)
   sites$depthZone = factor(sites$depthZone, levels = levels(sites$depthZone)[c(2,1)])
+  sites$region = as.factor(sites$region)
   sites$region = factor(sites$region, levels = levels(sites$region)[c(7, 4, 3, 6, 2, 5, 8, 1)])
   reefs = sites %>% group_by(region) %>% dplyr::summarize(lat = mean(lat), lon = mean(lon))
   gomCountries = st_as_sf(ne_countries(country = c("United States of America", "Cuba", "Mexico", "The Bahamas", "Belize", "Guatemala", "Cayman Islands"), scale = "Large"))
@@ -907,7 +967,7 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
     draw_plot(admixMapA) +
     draw_plot(blzK4Plot, x = 0.5, y = .18, width = .232, height = .15)+
     draw_plot(cubaK4ShallowPlot, x = 0.60, y = .33, width = .152, height = .15)+
-    draw_plot(cubaK4MesoPlot, x = 0.73, y = .33, width = .03, height = .15)+
+    draw_plot(cubaK4MesoPlot, x = 0.735, y = .33, width = .03, height = .15)+
     draw_plot(drtK4Plot, x = 0.38, y = .59, width = .23, height = .15)+
     draw_plot(fkK4Plot, x = 0.72, y = .56, width=0.2, height=0.15)+
     draw_plot(sgomK4Plot, x = 0.22, y = .46, width=0.194, height=0.15)+
@@ -915,25 +975,284 @@ blzShallowK4=filter(k4Admix, regionDepth == "BLZShallow") %>% arrange(-cluster3,
     draw_plot(prgK4Plot, x = 0.60, y = .71, width=0.044, height=0.15)+
     draw_plot(seflK4Plot, x = 0.74, y = .70, width=0.132, height=0.15)
 
-  ggsave("../figures/fig3.png", plot = admixMap, width = 30, height = 20, units = "cm", dpi = 300)  
+  ggsave("../figures/fig3.tiff", plot = admixMap, width = 30, height = 20, units = "cm", dpi = 300)  
+```
   
-  k4Admix$dominantCluster <- "admixed"
+##Supplemental Figure 1: NGSAdmix K 2-5 Plots
+```{r, ngsAdmixK2-5} 
+colPalAdmix5 = c(paletteer_c("viridis::viridis", n=4), "white")
+admixK2=read.csv("../data/admix2-5/regionalMcavNoClones_k2_run1.Q", sep = " ", header=FALSE)
+admixK2=admixK2[, -3]
+colnames(admixK2) <- c("cluster1", "cluster2")
+
+admixK3=read.csv("../data/admix2-5/regionalMcavNoClones_k3_run1.Q", sep = " ", header=FALSE)
+admixK3=admixK3[, -4]
+colnames(admixK3) <- c("cluster1", "cluster2", "cluster3")
+
+# admixK4=read.csv("../data/admix2-5/regionalMcavNoClones_k4_run1.Q", sep = " ", header=FALSE)
+# admixK4=admixK4[, -5]
+# colnames(admixK4) <- c("cluster1", "cluster2", "cluster3", "cluster4")
+admixK4=read.csv("../data/k4ngsAdmix.csv")
+
+
+admixK5=read.csv("../data/admix2-5/regionalMcavNoClones_k5_run1.Q", sep = " ", header=FALSE)
+admixK5=admixK5[, -6]
+colnames(admixK5) <- c("cluster1", "cluster2", "cluster3", "cluster4", "cluster5")
+
+meta=read.csv("../data/regionalInds2PopsNoClones.csv")
+meta$regionDepth=as.factor(meta$regionDepth)
+admixK2=bind_cols(meta, admixK2) %>% filter(regionDepth != "CUBAMesophotic")
+admixK2$regionDepth <- droplevels(admixK2$regionDepth)
+admixK3=bind_cols(meta, admixK3) %>% filter(regionDepth != "CUBAMesophotic")
+admixK3$regionDepth <- droplevels(admixK3$regionDepth)
+admixK4=bind_cols(meta, admixK4) %>% filter(regionDepth != "CUBAMesophotic")
+admixK4$regionDepth <- droplevels(admixK4$regionDepth)
+admixK5=bind_cols(meta, admixK5) %>% filter(regionDepth != "CUBAMesophotic")
+admixK5$regionDepth <- droplevels(admixK5$regionDepth)
+shapeLabs=(c("Shallow"=expression("\U25B2"), "Mesophotic"=expression("\U25BC")))
+
+######Arranged by sampling site within pop
+regionDepth_order <- c("SEFLShallow", "FKShallow", "FKMesophotic", "DRTShallow", "DRTMesophotic", "PRGMesophotic", "CUBAShallow", "NWGOMShallow", "NWGOMMesophotic", "SGOMShallow", "SGOMMesophotic", "BLZShallow", "BLZMesophotic")
+site_order <- c("Central", "Ledge", "South", "JUP", "FRRP #36", "SEFL-16", "BC1", "UK", "LK", "DRTN", "DRTS", "PRG", "CJ", "GU", "IJ", "CA", "CO", "CL", "CS", "WFGB", "EFGB", "Bright", "McGrail", "ALA", "BDN", "TR", "RW", "SR", "GR")
+
+#Arranging and melting
+regionalAdmixK2 <- admixK2 %>%
+arrange(factor(regionDepth, levels = regionDepth_order), factor(site, levels = site_order))
+regionalAdmixK2$ord=1:nrow(regionalAdmixK2)
+meltRegionalAdmixK2 = melt(regionalAdmixK2, id.vars=c("sample", "site", "pop", "region", "depthM", "depthZone", "dateCollected", "lat", "lon", "regionDepth", "ord"), variable.name="ancestry", value.name="fraction")
+meltRegionalAdmixK2$depthZone = factor(meltRegionalAdmixK2$depthZone, levels = levels(meltRegionalAdmixK2$depthZone)[c(2,1)])
+#meltRegionalAdmixK2$regionDepth=as.factor(meltRegionalAdmixK2$regionDepth)
+meltRegionalAdmixK2$regionDepth = factor(meltRegionalAdmixK2$regionDepth, levels(meltRegionalAdmixK2$regionDepth)[c(11, 7, 6, 5, 4, 10, 3, 9, 8, 13, 12, 2, 1)])
+
+regionalAdmixK3 <- admixK3 %>%
+arrange(factor(regionDepth, levels = regionDepth_order), factor(site, levels = site_order))
+regionalAdmixK3$ord=1:nrow(regionalAdmixK3)
+meltRegionalAdmixK3 = melt(regionalAdmixK3, id.vars=c("sample", "site", "pop", "region", "depthM", "depthZone", "dateCollected", "lat", "lon", "regionDepth", "ord"), variable.name="ancestry", value.name="fraction")
+meltRegionalAdmixK3$depthZone = factor(meltRegionalAdmixK3$depthZone, levels = levels(meltRegionalAdmixK3$depthZone)[c(2,1)])
+meltRegionalAdmixK3$regionDepth=as.factor(meltRegionalAdmixK3$regionDepth)
+meltRegionalAdmixK3$regionDepth = factor(meltRegionalAdmixK3$regionDepth, levels(meltRegionalAdmixK3$regionDepth)[c(11, 7, 6, 5, 4, 10, 3, 9, 8, 13, 12, 2, 1)])
+
+regionalAdmixK4 <- admixK4 %>%
+arrange(factor(regionDepth, levels = regionDepth_order), factor(site, levels = site_order))
+regionalAdmixK4$ord=1:nrow(regionalAdmixK4)
+meltRegionalAdmixK4 = melt(regionalAdmixK4, id.vars=c("sample", "site", "pop", "region", "depthM", "depthZone", "dateCollected", "lat", "lon", "regionDepth", "ord"), variable.name="ancestry", value.name="fraction")
+meltRegionalAdmixK4$depthZone = factor(meltRegionalAdmixK4$depthZone, levels = levels(meltRegionalAdmixK4$depthZone)[c(2,1)])
+meltRegionalAdmixK4$regionDepth=as.factor(meltRegionalAdmixK4$regionDepth)
+meltRegionalAdmixK4$regionDepth = factor(meltRegionalAdmixK4$regionDepth, levels(meltRegionalAdmixK4$regionDepth)[c(11, 7, 6, 5, 4, 10, 3, 9, 8, 13, 12, 2, 1)])
+
+regionalAdmixK5 <- admixK5 %>%
+arrange(factor(regionDepth, levels = regionDepth_order), factor(site, levels = site_order))
+regionalAdmixK5$ord=1:nrow(regionalAdmixK5)
+meltRegionalAdmixK5 = melt(regionalAdmixK5, id.vars=c("sample", "site", "pop", "region", "depthM", "depthZone", "dateCollected", "lat", "lon", "regionDepth", "ord"), variable.name="ancestry", value.name="fraction")
+meltRegionalAdmixK5$depthZone = factor(meltRegionalAdmixK5$depthZone, levels = levels(meltRegionalAdmixK5$depthZone)[c(2,1)])
+meltRegionalAdmixK5$regionDepth=as.factor(meltRegionalAdmixK5$regionDepth)
+meltRegionalAdmixK5$regionDepth = factor(meltRegionalAdmixK5$regionDepth, levels(meltRegionalAdmixK5$regionDepth)[c(11, 7, 6, 5, 4, 10, 3, 9, 8, 13, 12, 2, 1)])
+
+# Reorder the dataframe based on regionDepth and site
+shapeLabs <- as_labeller(c(
+  "SEFLShallow" = "\u25B2",
+  "FKShallow" = "\u25B2",
+  "FKMesophotic" = "\u25BC",
+  "DRTShallow" = "\u25B2",
+  "DRTMesophotic" = "\u25BC",
+  "PRGMesophotic" = "\u25BC",
+  "CUBAShallow" = "\u25B2",
+  "CUBAMesophotic" = "\u25BC",
+  "NWGOMShallow" = "\u25B2",
+  "NWGOMMesophotic" = "\u25BC",
+  "SGOMShallow" = "\u25B2",
+  "SGOMMesophotic" = "\u25BC",
+  "BLZShallow" = "\u25B2",
+  "BLZMesophotic" = "\u25BC"))
+#trianglePal=c("#FF6AD5FF", "#FFA58BFF", "#FFA58BFF", "#FFDE8BFF", "#FFDE8BFF", "#20DE8BFF", "#94D0FFFF", "#94D0FFFF", "#C774E8FF","#C774E8FF", "#966BFFFF", "#966BFFFF", "slateblue4", "slateblue4") 
+
+regionalAdmixK2Plot = ggplot(meltRegionalAdmixK2, aes(x=ord, y=fraction, fill=ancestry)) + 
+    geom_bar(stat="identity", position="fill", width=1) +
+    facet_grid(.~regionDepth, scales = "free", switch = "x", space = "free") +
+    #scale_shape_manual(values = c(24,25))+
+    #labs(x = "Population", y = "Ancestry") +
+    ggtitle(expression(paste(italic("K"),"=2")))+
+  scale_x_discrete(expand=c(0, 0)) +
+    scale_y_continuous(expand=c(0, 0)) +
+    scale_fill_manual(values = c("cluster1"="#31688EFF", #Blue
+                                 "cluster2"="#440154FF" #Purple
+                                 ), name = "Cluster") +
+    theme(plot.title = element_text(size=12),
+          plot.background=element_blank(),
+          panel.grid=element_blank(),
+          panel.background=element_blank(),
+          panel.spacing.x=grid:::unit(0, "lines"),
+          panel.border = element_rect(fill=NA,color="black", size=2, linetype="solid"),
+          #axis.text.x=element_text(size=12, angle=90)
+          axis.text.x = element_blank(),
+          axis.title.x = element_blank(),
+          axis.ticks.x=element_blank(),
+          axis.ticks.y=element_blank(),
+          axis.text.y = element_blank(),
+          axis.title.y = element_blank(),
+          strip.background=element_blank(),
+          #strip.text=element_text(size=15, color = trianglePal, vjust=2),
+          strip.text=element_blank(),
+          legend.key=element_blank(),
+          legend.position = "none",
+          legend.title = element_blank()) +
+    guides(fill=guide_legend(override.aes=list(colour=NULL)))
+    
+regionalAdmixK2Plot
+  
+  regionalAdmixK3Plot = ggplot(meltRegionalAdmixK3, aes(x=ord, y=fraction, fill=factor(ancestry))) +
+    geom_bar(stat="identity", position="fill", width=1) +
+    #facet_grid(.~regionDepth,labeller = shapeLabs, scales = "free", switch = "x", space = "free") +
+    facet_grid(.~regionDepth, scales = "free", switch = "x", space = "free") +
+    #scale_shape_manual(values = c(24,25))+
+    #labs(x = "Population", y = "Ancestry") +
+    ggtitle(expression(paste(italic("K"),"=3")))+
+    theme(plot.title = element_text(size=12),
+          plot.background=element_blank(),
+          panel.grid=element_blank(),
+          panel.background=element_blank(),
+          panel.spacing.x=grid:::unit(0, "lines"),
+          panel.border = element_rect(fill=NA,color="black", size=2, linetype="solid"),
+          #axis.text.x=element_text(size=12, angle=90)
+          axis.text.x = element_blank(),
+          axis.title.x = element_blank(),
+          axis.ticks.x=element_blank(),
+          axis.ticks.y=element_blank(),
+          axis.text.y = element_blank(),
+          axis.title.y = element_blank(),
+          strip.background=element_blank(),
+          #strip.text=element_text(size=15, color = trianglePal, vjust=2),
+          strip.text=element_blank(),
+          legend.key=element_blank(),
+          legend.position = "none",
+          legend.title = element_blank()) +
+    scale_x_discrete(expand=c(0, 0)) +
+    scale_y_continuous(expand=c(0, 0)) +
+    scale_fill_manual(values = c("cluster1"="#440154FF", #Purple
+                                 "cluster2"="#35B779FF", #Green
+                                 "cluster3"="#31688EFF" #Blue
+                                 ), name = "Cluster") +
+    guides(fill=guide_legend(override.aes=list(colour=NULL)))
+  regionalAdmixK3Plot
+  
+  regionalAdmixK4Plot = ggplot(meltRegionalAdmixK4, aes(x=ord, y=fraction, fill=ancestry)) +
+    geom_bar(stat="identity", position="fill", width=1) +
+    #facet_grid(.~regionDepth,labeller = shapeLabs, scales = "free", switch = "x", space = "free") +
+    facet_grid(.~regionDepth, scales = "free", switch = "x", space = "free") +
+    #scale_shape_manual(values = c(24,25))+
+    #labs(x = "Population", y = "Ancestry") +
+    ggtitle(expression(paste(italic("K"),"=4")))+
+    theme(plot.title = element_text(size=12),
+          plot.background=element_blank(),
+          panel.grid=element_blank(),
+          panel.background=element_blank(),
+          panel.spacing.x=grid:::unit(0, "lines"),
+          panel.border = element_rect(fill=NA,color="black", size=2, linetype="solid"),
+          #axis.text.x=element_text(size=12, angle=90)
+          axis.text.x = element_blank(),
+          axis.title.x = element_blank(),
+          axis.ticks.x=element_blank(),
+          axis.ticks.y=element_blank(),
+          axis.text.y = element_blank(),
+          axis.title.y = element_blank(),
+          strip.background=element_blank(),
+          #strip.text=element_text(size=15, color = "black", angle = 90),
+          strip.text=element_blank(),
+          legend.key=element_blank(),
+          legend.position = "none",
+          legend.title = element_blank()) +
+    scale_x_discrete(expand=c(0, 0)) +
+    scale_y_continuous(expand=c(0, 0)) +
+    scale_fill_manual(values = c("cluster1"="#440154FF", #Purple
+                                 "cluster2"="#31688EFF", #Blue
+                                 "cluster3"="#35B779FF", #Green
+                                 "cluster4"="#FDE725FF"), #Yellow
+                                  name = "Cluster") +
+    guides(fill=guide_legend(override.aes=list(colour=NULL)))
+  regionalAdmixK4Plot
+  
+  regionalAdmixK5Plot = ggplot(meltRegionalAdmixK5, aes(x=ord, y=fraction, fill=factor(ancestry))) +
+    geom_bar(stat="identity", position="fill", width=1) +
+    #facet_grid(.~regionDepth,labeller = shapeLabs, scales = "free", switch = "x", space = "free") +
+    facet_grid(.~regionDepth, scales = "free", switch = "x", space = "free") +
+    #scale_shape_manual(values = c(24,25))+
+    #labs(x = "Population", y = "Ancestry") +
+    ggtitle(expression(paste(italic("K"),"=5")))+
+    theme(plot.title = element_text(size=12),
+          plot.background=element_blank(),
+          panel.grid=element_blank(),
+          panel.background=element_blank(),
+          panel.spacing.x=grid:::unit(0, "lines"),
+          panel.border = element_rect(fill=NA,color="black", size=2, linetype="solid"),
+          #axis.text.x=element_text(size=12, angle=90)
+          axis.text.x = element_blank(),
+          axis.title.x = element_blank(),
+          axis.ticks.x=element_blank(),
+          axis.ticks.y=element_blank(),
+          axis.text.y = element_blank(),
+          axis.title.y = element_blank(),
+          strip.background=element_blank(),
+          strip.text=element_text(size=12, angle = 90),
+          #strip.text=element_blank(),
+          legend.key=element_blank(),
+          legend.position = "none",
+          legend.title = element_blank()) +
+    scale_x_discrete(expand=c(0, 0)) +
+    scale_y_continuous(expand=c(0, 0)) +
+    scale_fill_manual(values = c("cluster1"="#FDE725FF", #Yellow
+                                 "cluster2"="#440154FF", #Purple
+                                 "cluster3"="#35B779FF", #Green
+                                 "cluster4"= "#31688EFF", #Blue
+                                "cluster5"="white"), name = "Cluster") +
+    guides(fill=guide_legend(override.aes=list(colour=NULL)))
+  regionalAdmixK5Plot
+  
+  combinedAdmixedPlots=regionalAdmixK2Plot / regionalAdmixK3Plot / regionalAdmixK4Plot/ regionalAdmixK5Plot
+  
+  ggsave("../figures/suppFig1.png", plot = combinedAdmixedPlots, width = 20, height = 16, units = "cm", dpi = 300)
+  
+```
+##Figure 4: Violin Plots exploring spatial relationships of the four genetic clusters
+```{r, violinPlots}    
+k4=read.csv("../data/k4ngsAdmix.csv")
+meta=read.csv("../data/regionalInds2PopsNoClones.csv")
+k4Admix=bind_cols(meta, k4)
+k4Admix$dominantCluster <- "admixed"
 # identify rows where any of the values in cluster1, cluster2, cluster3, or cluster4 are greater than 0.5
 cluster_rows <- apply(k4Admix[, c("cluster1", "cluster2", "cluster3", "cluster4")], 1, function(x) any(x > 0.5))
 # set the "cluster" column to the name of the cluster if any value is greater than 0.5
 k4Admix$dominantCluster[cluster_rows] <- apply(k4Admix[cluster_rows, c("cluster1", "cluster2", "cluster3", "cluster4")], 1, function(x) names(x)[which.max(x)])
-
+str(k4Admix)
+colnames(k4Admix)
+k4Admix$dominantCluster=as.factor(k4Admix$dominantCluster)
 clusterCount <- table(k4Admix$dominantCluster)
 clusterCount
 colPalAdmix1 = c("gray", paletteer_c("viridis::viridis", n=4))
 
-clusterByDepth=ggplot(k4Admix, aes(x = dominantCluster, y = depthM, fill = dominantCluster)) + 
+leveneTest(lm(depthM ~ dominantCluster, data = k4Admix))
+clusterDepthAov = welch_anova_test(depthM ~ dominantCluster, data = k4Admix)
+dF1 = clusterDepthAov$statistic[[1]]
+clusterDepthPH = games_howell_test(depthM ~ dominantCluster, data = k4Admix, conf.level = 0.95) %>% as.data.frame()
+
+k4Admix <- k4Admix %>%
+  mutate(label1 = case_when(
+    dominantCluster == "admixed" ~ "A",
+    dominantCluster == "cluster1" ~ "AB",
+    dominantCluster == "cluster2" ~ "AC",
+    dominantCluster == "cluster3" ~ "D",
+    dominantCluster == "cluster4" ~ "AE",
+    TRUE ~ NA_character_  # Handle other cases (if any)
+  ))
+
+clusterByDepth= ggplot(data=k4Admix, aes(x = dominantCluster, y = depthM, fill = dominantCluster)) + 
   geom_violin() +
+   geom_text(data = k4Admix, aes(x = dominantCluster, y = min(depthM) - 4, label = label1), size = 5, fontface = "bold") +
   scale_fill_manual(values = colPalAdmix1)+
   scale_x_discrete(labels=c("Admixed", "Purple", "Blue", "Green", "Yellow"))+
   geom_point(position = position_jitter(height = 0.1), alpha = 0.5) +
    scale_y_reverse()+
   annotate("rect", xmin = -Inf, xmax = Inf, ymin = 30, ymax = Inf, fill = "gray80", alpha = 0.3)+
+ annotate(geom = "text", x = 1.3, y =80, label = bquote(italic("F")~" = "~.(dF1)*"; "~italic("p")~" < 0.001"), size = 5, fontface = "bold") +
   labs(x = "", y = "Depth (m)") +
   theme_minimal()+
   theme(legend.position = "none",
@@ -943,13 +1262,29 @@ clusterByDepth=ggplot(k4Admix, aes(x = dominantCluster, y = depthM, fill = domin
 
 clusterByDepth
 
+leveneTest(lm(lat ~ dominantCluster, data = k4Admix))
+clusterLatAov = welch_anova_test(lat ~ dominantCluster, data = k4Admix)
+dF2 = clusterLatAov$statistic[[1]]
+clusterLatPH = games_howell_test(lat ~ dominantCluster, data = k4Admix, conf.level = 0.95) %>% as.data.frame()
+
+k4Admix <- k4Admix %>%
+  mutate(label2 = case_when(
+    dominantCluster == "admixed" ~ "A",
+    dominantCluster == "cluster1" ~ "AB",
+    dominantCluster == "cluster2" ~ "AC",
+    dominantCluster == "cluster3" ~ "AD",
+    dominantCluster == "cluster4" ~ "AC",
+    TRUE ~ NA_character_  # Handle other cases (if any)
+  ))
+
 clusterByLat=ggplot(k4Admix, aes(x = dominantCluster, y = lat, fill = dominantCluster)) + 
   geom_violin() +
+  geom_text(data = k4Admix, aes(x = dominantCluster, y = max(lat) + 2, label = label2), size = 5, fontface = "bold") +
   scale_fill_manual(values = colPalAdmix1)+
   geom_point(position = position_jitter(height = 0.1), alpha = 0.5) +
   #scale_x_discrete(labels=c("Admixed", "Purple", "Blue", "Green", "Yellow"))+
   scale_y_continuous(labels = ~ paste0(.x, "\u00B0"))+
-  #annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 23.5, fill = "gray80", alpha = 0.3)+
+  annotate(geom = "text", x = 1.3, y =15, label = bquote(italic("F")~" = "~.(dF2)*"; "~italic("p")~" < 0.001"), size = 5, fontface = "bold") +
   labs(x = "", y = "Latitude") +
   theme_minimal()+
   theme(legend.position = "none",
@@ -959,13 +1294,29 @@ clusterByLat=ggplot(k4Admix, aes(x = dominantCluster, y = lat, fill = dominantCl
 
 clusterByLat
 
-clusterByLon=ggplot(k4Admix, aes(x = lon, y = dominantCluster, fill = dominantCluster)) + 
+leveneTest(lm(lat ~ dominantCluster, data = k4Admix))
+clusterLonAov = welch_anova_test(lon ~ dominantCluster, data = k4Admix)
+dF3 = clusterLonAov$statistic[[1]]
+clusterLonPH = games_howell_test(lon ~ dominantCluster, data = k4Admix, conf.level = 0.95) %>% as.data.frame()
+
+k4Admix <- k4Admix %>%
+  mutate(label3 = case_when(
+    dominantCluster == "admixed" ~ "A",
+    dominantCluster == "cluster1" ~ "AB",
+    dominantCluster == "cluster2" ~ "C",
+    dominantCluster == "cluster3" ~ "D",
+    dominantCluster == "cluster4" ~ "C",
+    TRUE ~ NA_character_  # Handle other cases (if any)
+  ))
+
+clusterByLon=ggplot(k4Admix, aes(x = lon, y = factor(dominantCluster, levels = c("cluster4", "cluster3","cluster2","cluster1","admixed")), fill = dominantCluster)) + 
   geom_violin() +
+  geom_text(data = k4Admix, aes(x = max(lon) + 2, y = dominantCluster, label = label3), size = 5, fontface = "bold") +
   scale_fill_manual(values = colPalAdmix1, labels = c("Admixed", "Purple", "Blue", "Green", "Yellow"))+
   geom_point(position = position_jitter(height = 0.1), alpha = 0.5, show.legend = FALSE) +
-  scale_y_discrete(labels=c("Admixed", "Purple", "Blue", "Green", "Yellow"))+
+  scale_y_discrete(labels = c("Yellow", "Green", "Blue", "Purple", "Admixed")) +
   scale_x_continuous(labels = ~ paste0(.x, "\u00B0"))+
-  #annotate("rect", xmin = -85, xmax = Inf, ymin = -Inf, ymax = Inf, fill = "gray80", alpha = 0.3)+
+  annotate(geom = "text", x = -91, y =0.6, label = bquote(italic("F")~" = "~.(dF3)*"; "~italic("p")~" < 0.001"), size = 5, fontface = "bold") +
    #scale_y_reverse()+
    labs(x = "Longitude", y = "", fill = "Dominant Cluster") +
   theme_minimal()+
@@ -980,11 +1331,11 @@ clusterByLon
 combinedViolinPlots=clusterByDepth + clusterByLat + clusterByLon
 combinedViolinPlots= combinedViolinPlots + plot_annotation(tag_levels = 'A')
 
-ggsave("../figures/fig4.tiff", plot = combinedViolinPlots, width = 60, height = 20, units = "cm", dpi = 300)
+ggsave("../figures/fig4.png", plot = combinedViolinPlots, width = 60, height = 20, units = "cm", dpi = 300)
 
 ```
 
-##Figure 6: Recent migration rate with BayessAss
+##Figure 5: Recent migration rate with BayessAss
 ```{r, bayesAss}
 fileList = substr(list.files("../data/ba3TraceFiles/", "BA3trace.*.txt$"),1,20)
   
@@ -1011,10 +1362,11 @@ fileList = substr(list.files("../data/ba3TraceFiles/", "BA3trace.*.txt$"),1,20)
   #Using the trace with the lowest deviance (BA3trace12.txt, in this case)
   
   bayesAss = read.delim("../data/ba3TraceFiles/BA3trace12.txt") %>% filter(State > 9000000) %>% dplyr::select(-State, -LogProb, -X)
+
+  baMean = bayesAss %>% dplyr::summarise(across(everything(), list(mean))) %>% t() %>% dplyr::as_tibble() %>% dplyr::rename(., mean=V1) %>% dplyr::mutate(pops = colnames(bayesAss))
+
   
-  baMean = bayesAss %>% summarise(across(everything(), list(mean))) %>% t() %>% as_tibble() %>% rename(., mean=V1) %>% mutate(pops = colnames(bayesAss))
-  
-  baSumm = bayesAss %>% summarise(across(everything(), list(median))) %>% t() %>% as.data.frame() %>% rename(., median=V1) %>% mutate(pops = baMean$pops, mean = round(baMean$mean, 3)) %>% relocate(median, .after = mean)
+  baSumm = bayesAss %>% dplyr::summarise(across(everything(), list(median))) %>% t() %>% as.data.frame() %>% dplyr::rename(., median=V1) %>% dplyr::mutate(pops = baMean$pops, mean = round(baMean$mean, 3)) %>% dplyr::relocate(median, .after = mean)
   
   baSumm$median = round(baSumm$median, 3)
   
@@ -1129,7 +1481,7 @@ fileList = substr(list.files("../data/ba3TraceFiles/", "BA3trace.*.txt$"),1,20)
   baSumm$hpdLow = sprintf('%.3f', baSumm$hpdLow)
   baSumm$hpdHigh = sprintf('%.3f', baSumm$hpdHigh)
   
-  colPal = c(paletteer_d("vapeplot::vaporwave")[c(7,10,11,14,1,5,3)], "slateblue4")
+  colPal = c("#FC6279", "#FFA58BFF",  "#FFDE8BFF", "#20DE8BFF", "#94D0FFFF", "#966BFFFF", "slateblue4", "#FF6AD5FF")
   
   migrateA = ggplot(data = baSumm, aes(pop.i, pop.j))+
     geom_tile(data = subset(baSumm, subset = baSumm$mean2>0.67), aes(fill = as.numeric(as.character(mean2))), color = "white") +
@@ -1139,7 +1491,7 @@ fileList = substr(list.files("../data/ba3TraceFiles/", "BA3trace.*.txt$"),1,20)
     geom_segment(data = baSumm, aes(x = pop.i, xend = pop.i, y = 0.45, yend = -0.35, color = pop.i), size = 35) +
     scale_color_manual(values = colPal[c(1:3,5:8, 2:8)], guide = NULL) +
     scale_fill_gradient(low = "grey70", high = "grey5", limit = c(0.67, 0.87), space = "Lab", name = expression(paste(italic("m"[r]))),  guide = "colourbar", breaks = c(0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95)) +
-    guides(fill = guide_colorbar(ticks.colour = "black")) +
+   # guides(fill = guide_colorbar(ticks.colour = "black")) +
     new_scale("fill") +
     geom_tile(data = subset(baSumm, subset = baSumm$mean<0.67), aes(fill = as.numeric(as.character(mean))), color = "white") +
     #scale_fill_gradientn(colours = paletteer_c("viridis::viridis", n = 10)[3:10], limit = c(0,0.24), space = "Lab", name = expression(paste(italic("m"[i]))), na.value = "transparent",  guide = "colourbar", values = c(0, 0.05, 0.1, 0.15, 0.2,0.5,0.75,1)) +
@@ -1155,16 +1507,16 @@ fileList = substr(list.files("../data/ba3TraceFiles/", "BA3trace.*.txt$"),1,20)
   geom_rect(xmin=1.5, xmax=2.5, ymin=6.5, ymax=7.5, color="#FFA58BFF", fill=NA, size=2.5)+
   geom_rect(xmin=2.5, xmax=3.5, ymin=5.5, ymax=6.5, color="#FFDE8BFF" , fill=NA, size=2.5)+
   geom_rect(xmin=3.5, xmax=4.5, ymin=3.5, ymax=4.5, color="#94D0FFFF" , fill=NA,size=2.5)+
-  geom_rect(xmin=4.5, xmax=5.5, ymin=2.5, ymax=3.5, color="#C774E8FF" , fill=NA,size=2.5)+
-  geom_rect(xmin=5.5, xmax=6.5, ymin=1.5, ymax=2.5, color="#966BFFFF" , fill=NA,size=2.5)+
-  geom_rect(xmin=6.5, xmax=7.5, ymin=0.5, ymax=1.5, color="slateblue4" , fill=NA,size=2.5)+
+  geom_rect(xmin=4.5, xmax=5.5, ymin=2.5, ymax=3.5, color="#966BFFFF" , fill=NA,size=2.5)+
+  geom_rect(xmin=5.5, xmax=6.5, ymin=1.5, ymax=2.5, color= "slateblue4", fill=NA,size=2.5)+
+  geom_rect(xmin=6.5, xmax=7.5, ymin=0.5, ymax=1.5, color= "#FF6AD5FF", fill=NA,size=2.5)+
     
   geom_rect(xmin=7.5, xmax=8.5, ymin=12.5, ymax=13.5, color="#FFA58BFF", fill=NA, size=2.5, linetype = "dotted")+
   geom_rect(xmin=8.5, xmax=9.5, ymin=12.5, ymax=11.5, color="#FFDE8BFF" , fill=NA, size=2.5, linetype = "dotted")+
   geom_rect(xmin=10.5, xmax=11.5, ymin=10.5, ymax=11.5, color="#94D0FFFF" , fill=NA,size=2.5, linetype = "dotted")+
-  geom_rect(xmin=11.5, xmax=12.5, ymin=10.5, ymax=9.5, color="#C774E8FF" , fill=NA,size=2.5, linetype = "dotted")+
-  geom_rect(xmin=12.5, xmax=13.5, ymin=8.5, ymax=9.5, color="#966BFFFF" , fill=NA,size=2.5, linetype = "dotted")+
-  geom_rect(xmin=13.5, xmax=14.5, ymin=7.5, ymax=8.5, color="slateblue4" , fill=NA,size=2.5, linetype = "dotted")+  
+  geom_rect(xmin=11.5, xmax=12.5, ymin=10.5, ymax=9.5, color="#966BFFFF" , fill=NA,size=2.5, linetype = "dotted")+
+  geom_rect(xmin=12.5, xmax=13.5, ymin=8.5, ymax=9.5, color= "slateblue4", fill=NA,size=2.5, linetype = "dotted")+
+  geom_rect(xmin=13.5, xmax=14.5, ymin=7.5, ymax=8.5, color="#FF6AD5FF" , fill=NA,size=2.5, linetype = "dotted")+  
     
     theme_minimal()
   
@@ -1202,18 +1554,20 @@ meta=read.csv("../data/regionalInds2PopsNoClones.csv") # Reads in population dat
   zoox = zoox %>% filter(zoox$V1 != "*")
   
   zooxLst = split(zoox$V2, as.integer(gl(length(zoox$V2), 20, length(zoox$V2))))
-  
+
   zooxMaps = NULL
-  for(i in zooxLst){
-    zooxMaps = rbind(zooxMaps, data.frame(t(i)))
-  }
+
+for(i in zooxLst){
+  zooxMaps = rbind(zooxMaps, data.frame(t(i)))
+}
   colnames(zooxMaps) = c("sample",zoox$V1[c(2:20)])
   
-  for(i in c(2:20)){
-    zooxMaps[,i] = as.numeric(levels(zooxMaps[,i]))[zooxMaps[,i]]
-  }
   
-  str(zooxMaps)
+for(i in c(2:20)){
+  zooxMaps[,i] = as.numeric(zooxMaps[,i])
+  }
+
+str(zooxMaps)
   
   zooxMaps$Symbiodinium = rowSums(zooxMaps[2:6])
   zooxMaps$Breviolum = rowSums(zooxMaps[7:10])
@@ -1307,7 +1661,7 @@ C<-cbind(arrows, pvals)
 Cred<-subset(C,pvals<0.01)
 Cred <- cbind(Cred, Species = rownames(Cred))
   
-data.scores = merge(data.scores, aggregate(cbind(mean.x = NMDS1, mean.y = NMDS2)~regionDepth, data.scores, mean), by="regionDepth") 
+data.scores = merge(data.scores, aggregate(cbind(mean.x = sites.NMDS1, mean.y = sites.NMDS2)~regionDepth, data.scores, mean), by="regionDepth") 
   
   #%>% merge(., aggregate(cbind(mean.x.K = dbRDA1, mean.y.K = dbRDA2)~K, regionalDbrdaData1, mean), by="K")
   
@@ -1318,11 +1672,11 @@ data.scores$region = factor(data.scores$region, levels = levels(data.scores$regi
 
 head(data.scores)
 
-colPal = c(paletteer_d("vapeplot::vaporwave")[c(7,10,11,14,1,5,3)], "slateblue4")
+  colPal = c("#FC6279", "#FFA58BFF",  "#FFDE8BFF", "#20DE8BFF", "#94D0FFFF", "#966BFFFF", "slateblue4", "#FF6AD5FF")
 zooxNMDSA = ggplot() +
   geom_hline(yintercept = 0, color = "gray90", size = 0.5) +
   geom_vline(xintercept = 0, color = "gray90", size = 0.5) +
-  geom_point(data = data.scores, aes(x = NMDS1, y = NMDS2, fill = region, shape = depthZone), size = 2, stroke = NA, 
+  geom_point(data = data.scores, aes(x = sites.NMDS1, y = sites.NMDS2, fill = region, shape = depthZone), size = 2, stroke = NA, 
  alpha = 0.5, show.legend = FALSE) +
   geom_segment(data = Cred,aes(x = 0, xend = NMDS1, y = 0, yend = NMDS2), arrow = arrow(length = unit(0.25, "cm")), colour = "black") +
   scale_shape_manual(values = c(24,25), name = "Depth Zone") +
@@ -1397,19 +1751,31 @@ hetSnps=dplyr::select(hetSnps, -V1)
 colnames(hetSnps)[1] <- "hetSnps"
 popStats=bind_cols(meta, hetSnps)
 
-mcavBreed0 = read.delim("../data/newres") #Reading in inbreeding data
-mcavBreed2 = mcavBreed0 %>% group_by(a) %>% dplyr::select("inbreed" = Fa)
-mcavBreed3 = mcavBreed0 %>% group_by(b) %>% dplyr::select("inbreed" = Fb)
-mcavBreed = bind_rows(mcavBreed2, mcavBreed3) %>% group_by(a) %>% dplyr::summarize("inbreed" = mean(inbreed))%>% dplyr::select(-a)
-#popStats=popStats%>% left_join(mcavBreed, by = "a")
-popStats=bind_cols(popStats, mcavBreed)
+# mcavBreed0 = read.delim("../data/newres") #Reading in inbreeding data
+# mcavBreed2 = mcavBreed0 %>% group_by(a) %>% dplyr::select("inbreed" = Fa)
+# mcavBreed3 = mcavBreed0 %>% group_by(b) %>% dplyr::select("inbreed" = Fb)
+# mcavBreed = bind_rows(mcavBreed2, mcavBreed3) %>% group_by(a) %>% dplyr::summarize("inbreed" = mean(inbreed))%>% dplyr::select(-a)
+# #popStats=popStats%>% left_join(mcavBreed, by = "a")
+# popStats=bind_cols(popStats, mcavBreed)
+popStats$depthZone = as.factor(popStats$depthZone)
 popStats$depthZone = factor(popStats$depthZone, levels(popStats$depthZone)[c(2,1)])
+popStats$region = as.factor(popStats$region)
 popStats$region = factor(popStats$region, levels = levels(popStats$region)[c(7, 4, 3, 6, 2, 5, 8, 1)])
 
 #Does heterozygosity vary significantly across region or depth zone?
-hetSnpAnova <- aov(hetSnps ~ region * depthZone, data = popStats)
-summary(hetSnpAnova)
-hetTukey=TukeyHSD(hetSnpAnova, which = "region")
+#hetSnpAnova <- aov(hetSnps ~ region * depthZone, data = popStats)
+popStats <- popStats %>%
+  filter(regionDepth != "CUBAMesophotic")
+leveneTest(lm(hetSnps ~ region * depthZone, data = popStats))
+hetSnpAov = welch_anova_test(hetSnps ~ regionDepth, data = popStats)
+hF = hetSnpAov$statistic[[1]]
+hetPH = games_howell_test(hetSnps ~ regionDepth, data = popStats, conf.level = 0.95) %>% as.data.frame()
+
+filtered_hetPH <- hetPH %>%
+  filter(!(grepl("Mesophotic", group1) & grepl("Shallow", group2))) %>%
+  filter(!(grepl("Shallow", group1) & grepl("Mesophotic", group2))) %>%
+  filter(p.adj.signif != "ns") %>%
+arrange(factor(grepl("Shallow", group1), levels = c(TRUE, FALSE)))
 
 #Does inbreeding vary significantly across region or depth zone?
 inbreedAnova <- aov(inbreed ~ region * depthZone, data = popStats)
@@ -1435,7 +1801,7 @@ relateTukey=TukeyHSD(mcavRelateAnova, which = "region")
 
 ##Heterozygosity, inbreeding, and pairwise relatedness populations
 ```{r, Fig2}
-colPal = c(paletteer_d("vapeplot::vaporwave")[c(7,10,11,14,1,5,3)], "slateblue4")
+  colPal = c("#FC6279", "#FFA58BFF",  "#FFDE8BFF", "#20DE8BFF", "#94D0FFFF", "#966BFFFF", "slateblue4", "#FF6AD5FF")
 hetTheme = theme(axis.title.x = element_blank(),
                  axis.text.x = element_text(color = "black", size = 12),
                  axis.ticks.x = element_line(color = "black"),
@@ -1456,13 +1822,15 @@ hetPlotSnps = ggplot(data = popStats, aes(x = depthZone, y = hetSnps, fill = reg
   geom_violin(size = 0.25, alpha = 0.7, position = dodge, color = "gray35") +
   xlab("Depth") +
   ylab("Heterozygosity") +
-  ggtitle("SNPs") +
+  #ggtitle("SNPs") +
   scale_fill_manual(values = colPal,name = "Site") +
   scale_color_manual(values = colPal, name="Site") +
   scale_y_continuous(breaks=seq(0, 1, by = .05)) +
   theme_bw() +
   guides(fill = guide_legend(override.aes = list(shape = 22, size = 5, color = NA, alpha = NA)))+
   hetTheme
+
+ggsave("../figures/hetPlotSnps.tiff", plot = hetPlotSnps, height = 5, width = 8, units = "in", dpi = 300)
 
 inbreedingPlot = ggplot(data = popStats, aes(x = depthZone, y = inbreed, fill = region)) +
   geom_point(aes(color = region),shape = 21, position = position_jitterdodge(seed = 1, dodge.width = 1), size = 0.5, alpha = 0.7) +
